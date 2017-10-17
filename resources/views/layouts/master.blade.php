@@ -17,8 +17,8 @@
 
     {{--<meta charset="utf-8">--}}
 
-    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
-    <link type="text/css" rel="stylesheet" href="/css/bootstrap94be.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    {{--<link type="text/css" rel="stylesheet" href="/css/bootstrap94be.css">--}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" />
 
@@ -669,7 +669,7 @@
 <script src="/js/DemoTableDynamic.js"></script>
 <script src="/js/DemoFormComponents.js"></script>
 {{--<script src="/js/DemoDashboard.js"></script>--}}
-<script src="/js/jquery-ui.min.js"></script>
+<script src="/js/modules/materialadmin/libs/jquery-ui/jquery-ui.min.js"></script>
 
 {{----}}
 

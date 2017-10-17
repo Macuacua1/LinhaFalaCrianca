@@ -19,7 +19,7 @@ class EnderecoController extends Controller
     public function provfunct(){
 
         $prov=Provincia::all();//get data from table
-        $tipos= Tipo_Motivo::where('tipomotivonome','naocaso')->first();
+        $tipos= Tipo_Motivo::where('tipomotivonome','Nao caso')->first();
         $motivos=Motivo::where('tipo_motivo_id',$tipos->id)->get();
         $tipomotivos=Tipo_Motivo::where('tipomotivonome','<>','naocaso')->get();
         $roles=Role::all();

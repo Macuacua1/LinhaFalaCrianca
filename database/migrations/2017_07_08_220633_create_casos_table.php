@@ -17,7 +17,7 @@ class CreateCasosTable extends Migration
             $table->increments('id');
             $table->string('estado_caso');
             $table->boolean('chave')->default(1);
-            $table->string('estado_parceiro');
+//            $table->string('estado_parceiro');
             $table->integer('motivo_id')->unsigned()->nullable();
             $table->foreign('motivo_id')->references('id')->on('motivos')
                 ->onUpdate('cascade')

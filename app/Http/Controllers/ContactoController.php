@@ -125,7 +125,7 @@ class ContactoController extends Controller
     }
     public function addcontacto(Request $request){
 //        dd($request->all());
-        $contacto=Contacto::create(['tipo_contacto'=>$request->tipo_contacto,'anonimo'=>'Nao','estado_contacto'=>'Registado',
+        $contacto=Contacto::create(['tipo_contacto'=>$request->tipo_contacto,'estado_contacto'=>'Registado',
             'desc_antecedentes'=>$request->desc_antecedentes,'resumo_contacto'=>$request->resumo_contacto,
             'impressao_atendente'=>$request->impressao_atendente,'motivo_id'=>$request->motivo_id,'user_id'=>Auth::user()->id]);
         if(Session::has('utentes')) {
@@ -150,7 +150,7 @@ class ContactoController extends Controller
                 $pessoa->situacao_educacional=$utentes[$value]['situacao_educacional'];
                 $pessoa->vive_com=$utentes[$value]['vive_com'];
                 $pessoa->relacao_vitima=$utentes[$value]['relacao_vitima'];
-               $pessoa->descricao_extendida=$utentes[$value]['descricao_extendida'];
+//               $pessoa->descricao_extendida=$utentes[$value]['descricao_extendida'];
 
                 $pessoa->save();
                 $contacto->utente()->attach($pessoa->id);

@@ -17,7 +17,7 @@ class CreateContactosTable extends Migration
             $table->increments('id');
             $table->string('tipo_contacto');
             $table->string('estado_contacto')->nullable();
-            $table->string('anonimo');
+            $table->boolean('anonimo')->default(0);
             $table->string('desc_antecedentes')->nullable();
             $table->string('resumo_contacto');
             $table->string('impressao_atendente');

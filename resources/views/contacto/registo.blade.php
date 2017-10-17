@@ -203,7 +203,7 @@
                                                 <option value="Jornal">Jornal</option>
                                                 <option value="Outro">Outro</option>
                                             </select>
-                                            <label for="conhecer_linha">De onde conheceu a linha</label>
+                                            {{--<label for="conhecer_linha">De onde conheceu a linha</label>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -220,148 +220,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{--<div class="tab-pane" id="envolvido">--}}
 
-                            {{--<div class="container">--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select id="tipo_utente" name="tipo_utente" class="form-control">--}}
-                                                {{--<option value="" disabled selected>Tipo de Utente</option>--}}
-                                                {{--<option value="Contactante">Contactante</option>--}}
-                                                {{--<option value="Contactante+Vitima">Contactante+Vitima</option>--}}
-                                                {{--<option value="Contactante+Perpetrador">Contactante+Perpetrador</option>--}}
-                                            {{--</select>--}}
-                                            {{--<label for="tipo_utente">Tipo de Utente</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-2 col-sm-2"></div>--}}
-                                    {{--<div class="col-md-3 col-sm-3" style="margin-top: 25px!important;">--}}
-                                        {{--<div>--}}
-                                            {{--<label class="radio-inline radio-styled">--}}
-                                                {{--<input type="radio" name="genero"><span>Masculino</span>--}}
-                                            {{--</label>--}}
-                                            {{--<label class="radio-inline radio-styled">--}}
-                                                {{--<input type="radio" name="genero"><span>Femenino</span>--}}
-                                            {{--</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div id="anonimo" class="col-md-3 col-sm-3" style="margin-top: 22px!important;">--}}
-                                        {{--<label class="checkbox-inline checkbox-styled">--}}
-                                            {{--<input type="checkbox" value="Sim" name="anonimo"><span>Permanecer anonimo(a)</span>--}}
-                                        {{--</label>--}}
-
-                                    {{--</div><!--end .col -->--}}
-                                {{--</div>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-6 col-sm-6">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<input type="text" name="nome" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Nome e Sobrenome">--}}
-                                            {{--<label for="help2">Nome(s)</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-6 col-sm-6">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<input type="text" name="apelido" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Apelido">--}}
-                                            {{--<label for="help2">Apelido</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-
-                                {{--</div>--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select id="provincia-id" name="provincia_id" class="form-control provincia">--}}
-                                                {{--<option value="" disabled selected>--Provincia--</option>--}}
-                                                {{--@foreach($prov as $pro)--}}
-                                                    {{--<option value="{{$pro->id}}">{{$pro->provincianome}}</option>--}}
-                                                {{--@endforeach--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select id="distrito"  class="form-control distritonome" name="distrito_id">--}}
-                                                {{--<option value="0" disabled="true" selected="true">--Distrito--</option>--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select id="localidade" class="form-control localidadenome" name="localidade_id">--}}
-                                                {{--<option value="0" disabled="true" selected="true">--Localidade--</option>--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-12 col-sm-12">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<input type="text" name="desc_local" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Pequena descricao do local">--}}
-                                            {{--<label for="help2">Descricao do local</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div><!--end .row -->--}}
-                                {{--<div class="row">--}}
-                                    {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<input type="number"  name="idade" class="form-control" id="spinner">--}}
-                                            {{--<label>Idade</label>--}}
-                                            {{--<p class="help-block">Must be over 16</p>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--<div id="cell1" class="form-group">--}}
-                                            {{--<input type="text" name="cell1" class="form-control" data-inputmask="'mask': '(999) 999-9999'">--}}
-                                            {{--<label>Cell principal</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div id="cell2" class="col-md-4 col-sm-4">--}}
-                                        {{--<div class="form-group">--}}
-                                            {{--<input type="text" name="cell2" class="form-control" data-inputmask="'mask': '(999) 999-9999'">--}}
-                                            {{--<label>Cell alternativo</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-
-                                {{--</div>--}}
-                                {{--<div id="vivecom" class="row">--}}
-                                    {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select id="situacao_educacional" name="situacao_educacional" class="form-control">--}}
-                                                {{--<option value="0" disabled selected>Situacao Educacional</option>--}}
-                                                {{--<option value="Formal">Formal</option>--}}
-                                                {{--<option value="Primario">Primario</option>--}}
-                                                {{--<option value="Secundario">Secundario</option>--}}
-                                                {{--<option value="Outra">Outra</option>--}}
-                                            {{--</select>--}}
-                                            {{--<label for="situacao_educacional">Situacao Educacional</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select id="vive_com" name="vive_com" class="form-control">--}}
-                                                {{--<option value="0" disabled selected>Vive Com</option>--}}
-                                                {{--<option value="Pai">Pai</option>--}}
-                                                {{--<option value="Tia">Tia</option>--}}
-                                                {{--<option value="Sozinho">Sozinho(a)</option>--}}
-                                                {{--<option value="Outro">Outro</option>--}}
-                                            {{--</select>--}}
-                                            {{--<label for="vive_com">Vive Com?</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select id="vive_com" name="vive_com" class="form-control">--}}
-                                                {{--<option value="0" disabled selected>Relacao com a Vitima</option>--}}
-                                                {{--<option value="Pai">Pai</option>--}}
-                                                {{--<option value="Tia">Tia</option>--}}
-                                                {{--<option value="Sozinho">Sobrinho(a)</option>--}}
-                                                {{--<option value="Outro">Outro</option>--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-
-                            {{--</div>--}}
-                        {{--</div>--}}
                         <div class="tab-pane" id="contactoo">
 
                             <div class="container">

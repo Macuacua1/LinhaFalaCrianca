@@ -28,11 +28,11 @@ class CreateUtentesTable extends Migration
             $table->string('conhecer_linha')->nullable();
             $table->string('descricao_local')->nullable();
 //            $table->string('bi')->nullable();
-            $table->string('descricao_utente')->nullable();
+//            $table->string('descricao_utente')->nullable();
             $table->string('situacao_educacional')->nullable();
             $table->string('vive_com')->nullable();
             $table->string('relacao_vitima')->nullable();
-            $table->string('descricao_extendida')->nullable();
+//            $table->string('descricao_extendida')->nullable();
             $table->integer('provincia_id')->unsigned()->nullable();
             $table->foreign('provincia_id')->references('id')->on('provincias')
                 ->onUpdate('cascade')
