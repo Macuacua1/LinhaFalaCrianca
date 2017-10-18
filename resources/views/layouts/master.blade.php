@@ -19,37 +19,49 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     {{--<link type="text/css" rel="stylesheet" href="/css/bootstrap94be.css">--}}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" />
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" />--}}
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />--}}
+    <link rel="stylesheet" href="/css/datepicker3f394.css" />
+    {{--<link rel="stylesheet" href="/css/bootstrap-datepicker.min.css" />--}}
+
+
+    {{--<script src="/js/bootstrap-datepicker.js"></script>--}}
+    {{--<script src="/js/bootstrap-datepicker.min.js"></script>--}}
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-datepicker.js"></script>
+    {{--<script src="/js/bootstrap-datepicker.min.js"></script>--}}
+    {{--<script src="/js/custom.js"></script>--}}
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>--}}
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
-    <link href="/fonts/CWB0XYA8bzo0kSThX0UTuA.woff2">
-    <link href="/fonts/d-6IYplOFocCacKzxwXSOFtXRa8TVwTICgirnJhmVJw.woff2">
-    <link href="/fonts/glyphicons-halflings-regular.woff2">
-    <link href="/fonts/Material-Design-Iconic-Font.woff">
-    <link href="/fonts/RxZJdnzeo3R5zSexge8UUVtXRa8TVwTICgirnJhmVJw.woff2">
-    <link href="/fonts/vPcynSL0qHq_6dX7lKVByfesZW2xOQ-xsNqO47m55DA.woff2">
+    {{--<link href="/fonts/CWB0XYA8bzo0kSThX0UTuA.woff2">--}}
+    {{--<link href="/fonts/d-6IYplOFocCacKzxwXSOFtXRa8TVwTICgirnJhmVJw.woff2">--}}
+    {{--<link href="/fonts/glyphicons-halflings-regular.woff2">--}}
+    {{--<link href="/fonts/Material-Design-Iconic-Font.woff">--}}
+    {{--<link href="/fonts/RxZJdnzeo3R5zSexge8UUVtXRa8TVwTICgirnJhmVJw.woff2">--}}
+    {{--<link href="/fonts/vPcynSL0qHq_6dX7lKVByfesZW2xOQ-xsNqO47m55DA.woff2">--}}
 
 
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' type="text/css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/css/materialadminb0e2.css">
-    <link type="text/css" rel="stylesheet" href="/css/rickshawd56b.css">
-    <link type="text/css" rel="stylesheet" href="/css/morris.core5e0a.css">
+    {{--<link type="text/css" rel="stylesheet" href="/css/rickshawd56b.css">--}}
+    {{--<link type="text/css" rel="stylesheet" href="/css/morris.core5e0a.css">--}}
 
-    <link type="text/css" rel="stylesheet" href="/css/jquery-ui-theme5e0a.css">
+    {{--<link type="text/css" rel="stylesheet" href="/css/jquery-ui-theme5e0a.css">--}}
 
-    <link type="text/css" rel="stylesheet" href="/css/typeaheadfa6c.css">
+    {{--<link type="text/css" rel="stylesheet" href="/css/typeaheadfa6c.css">--}}
 
     <!-- END STYLESHEETS -->
 
@@ -341,7 +353,7 @@
                     <!-- BEGIN EMAIL -->
                     <li class="gui-folder">
                         <a>
-                            <div class="gui-icon"><i class="md md-email"></i></div>
+                            <div class="gui-icon"><i class="fa fa-user-circle"></i></div>{{--<i class="md md-email"></i>--}}
                             <span class="title">Utilizador</span>
                         </a>
                         <!--start submenu -->
@@ -360,9 +372,9 @@
                         </a>
                         <!--start submenu -->
                         <ul>
-                            <li><a href="" ><span class="title">Registar</span></a></li>
+                            <li><a href="{{url('contacto.create')}}" ><span class="title">Registar</span></a></li>
 
-                            <li><a  href=""  ><span class="title">Listar</span></a></li>
+                            <li><a  href="{{url('contacto')}}"  ><span class="title">Listar</span></a></li>
                         </ul><!--end /submenu -->
                     </li><!--end /menu-li -->
                     <!-- END UI -->
@@ -373,9 +385,9 @@
                         </a>
                         <!--start submenu -->
                         <ul>
-                            <li><a href="" ><span class="title">Registar</span></a></li>
+                            <li><a href="{{url('caso.create')}}" ><span class="title">Registar</span></a></li>
 
-                            <li><a  href=""  ><span class="title">Listar</span></a></li>
+                            <li><a  href="{{url('caso')}}"  ><span class="title">Listar</span></a></li>
                         </ul><!--end /submenu -->
                     </li><!--end /menu-li -->
                     <!-- END UI -->
@@ -647,29 +659,28 @@
 
 
 <!-- BEGIN JAVASCRIPT -->
-
 <script src="/js/custom.js"></script>
-<script src="/js/jquery-migrate-1.2.1.min.js"></script>
-<script src="/js/spin.min.js"></script>
-<script src="/js/jquery.autosize.min.js"></script>
-<script src="/js/moment.min.js"></script>
 
-<script src="/js/bootstrap-datepicker.js"></script>
-<script src="/js/typeahead.bundle.min.js"></script>
+{{--<script src="/js/jquery-migrate-1.2.1.min.js"></script>--}}
+{{--<script src="/js/spin.min.js"></script>--}}
+{{--<script src="/js/jquery.autosize.min.js"></script>--}}
+{{--<script src="/js/moment.min.js"></script>--}}
+
+{{--<script src="/js/bootstrap-datepicker.js"></script>--}}
+{{--<script src="/js/typeahead.bundle.min.js"></script>--}}
 <script src="/js/ec2c8835c9f9fbb7b8cd36464b491e73.js"></script>
-<script src="/js/jquery.knob.min.js"></script>
-<script src="/js/jquery.sparkline.min.js"></script>
-<script src="/js/bootstrap-datepicker.js"></script>
-<script src="/js/jquery.nanoscroller.min.js"></script>
+{{--<script src="/js/jquery.knob.min.js"></script>--}}
+{{--<script src="/js/jquery.sparkline.min.js"></script>--}}
+{{--<script src="/js/jquery.nanoscroller.min.js"></script>--}}
 <script src="/js/43ef607ee92d94826432d1d6f09372e1.js"></script>
-<script src="/js/rickshaw.min.js"></script>
+{{--<script src="/js/rickshaw.min.js"></script>--}}
 <script src="/js/63d0445130d69b2868a8d28c93309746.js"></script>
-<script src="/js/Demo.js"></script>
-<script src="/js/DemoFormWizard.js"></script>
+{{--<script src="/js/Demo.js"></script>--}}
+{{--<script src="/js/DemoFormWizard.js"></script>--}}
 <script src="/js/DemoTableDynamic.js"></script>
 <script src="/js/DemoFormComponents.js"></script>
 {{--<script src="/js/DemoDashboard.js"></script>--}}
-<script src="/js/modules/materialadmin/libs/jquery-ui/jquery-ui.min.js"></script>
+{{--<script src="/js/modules/materialadmin/libs/jquery-ui/jquery-ui.min.js"></script>--}}
 
 {{----}}
 

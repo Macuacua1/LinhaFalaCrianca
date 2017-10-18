@@ -17,14 +17,14 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <div class="input-group" id="">
+                                <div class="input-daterange input-group" id="demo-date-range">
                                     <div class="input-group-content">
-                                        <input type="text" class="form-control" name="start" id="start"/>
+                                        <input type="text" class="form-control" id="start" name="start" />
                                         <label>De</label>
                                     </div>
-                                    <span class="input-group-addon">a</span>
+                                    <span class="input-group-addon">to</span>
                                     <div class="input-group-content">
-                                        <input type="text" class="form-control" name="end" id="end" />
+                                        <input type="text" class="form-control" id="end" name="end" />
                                         <label>Para</label>
                                         <div class="form-control-line"></div>
                                     </div>
@@ -39,6 +39,7 @@
                                     <option value="Aberto ou Pendente">Aberto ou Pendente</option>
                                     <option value="No Sistema">No Sistema</option>
                                     <option value="Reencaminhado">Reencaminhado</option>
+                                    <option value="">Sem Estado</option>
                                 </select>
                             </div>
                             </div>
@@ -110,6 +111,90 @@
                             </tr>
                         @endforeach
                         </tbody>
+                        {{--<form class="form">--}}
+                            {{--<div class="row">--}}
+                                {{--<div class="col-md-4 col-sm-4">--}}
+                                    {{--<div class="form-group">--}}
+                                    {{--<div class="input-group" id="">--}}
+                                    {{--<div class="input-group-content">--}}
+                                    {{--<input type="text" class="form-control" name="start" id="start"/>--}}
+                                    {{--<label>De</label>--}}
+                                    {{--</div>--}}
+                                    {{--<span class="input-group-addon">a</span>--}}
+                                    {{--<div class="input-group-content">--}}
+                                    {{--<input type="text" class="form-control" name="end" id="end" />--}}
+                                    {{--<label>Para</label>--}}
+                                    {{--<div class="form-control-line"></div>--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<div class="input-daterange input-group" id="demo-date-range">--}}
+                                            {{--<div class="input-group-content">--}}
+                                                {{--<input type="text" class="form-control" id="start" name="start" />--}}
+                                                {{--<label>De</label>--}}
+                                            {{--</div>--}}
+                                            {{--<span class="input-group-addon">to</span>--}}
+                                            {{--<div class="input-group-content">--}}
+                                                {{--<input type="text" class="form-control" id="end" name="end" />--}}
+                                                {{--<label>Para</label>--}}
+                                                {{--<div class="form-control-line"></div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-2 col-sm-2">--}}
+                                    {{--<div class="form-group floating-label">--}}
+                                        {{--<select name="estado" id="estado" class="form-control">--}}
+                                            {{--<option value="" disabled selected>--Estado:--</option>--}}
+                                            {{--<option value="Assistido">Assistido</option>--}}
+                                            {{--<option value="Aberto ou Pendente">Aberto ou Pendente</option>--}}
+                                            {{--<option value="No Sistema">No Sistema</option>--}}
+                                            {{--<option value="Reencaminhado">Reencaminhado</option>--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-2 col-sm-2">--}}
+                                    {{--<div class="form-group floating-label">--}}
+                                        {{--<select name="responsavel_id" id="responsavel_id" class="form-control">--}}
+                                            {{--<option value="" disabled selected>--Instituicao:--</option>--}}
+                                            {{--@foreach($resps as $resp)--}}
+                                                {{--<option value="{{$resp->id}}">{{$resp->respnome}}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-2 col-sm-2">--}}
+                                    {{--<div class="form-group floating-label">--}}
+                                        {{--<select name="user_id" id="user_id" class="form-control">--}}
+                                            {{--<option value="" disabled selected>--Utilizador:--</option>--}}
+                                            {{--@foreach($users as $user)--}}
+                                                {{--<option value="{{$user->id}}">{{$user->nome}}</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</form>--}}
+                        {{--<div class="card">--}}
+                            {{--<div class="card-body">--}}
+                                {{--<form class="form">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<div class="input-daterange input-group" id="demo-date-range">--}}
+                                            {{--<div class="input-group-content">--}}
+                                                {{--<input type="text" class="form-control" name="start" />--}}
+                                                {{--<label>Date range</label>--}}
+                                            {{--</div>--}}
+                                            {{--<span class="input-group-addon">to</span>--}}
+                                            {{--<div class="input-group-content">--}}
+                                                {{--<input type="text" class="form-control" name="end" />--}}
+                                                {{--<div class="form-control-line"></div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</form>--}}
+                            {{--</div><!--end .card-body -->--}}
+                        {{--</div><!--end .card -->--}}
 
                         {{--<a href="{{url('/')}}"><button class="btn btn-warning" type="submit">--}}
                                 {{--<span class="glyphicon glyphicon-plus"></span> Novo--}}
@@ -152,6 +237,7 @@
                                                     <option value="Assistido">Assistido</option>
                                                     <option value="Aberto ou Pendente">Aberto ou Pendente</option>
                                                     <option value="No Sistema">No Sistema</option>
+                                                    <option value="Registado">Registado</option>
                                                     <option value="Reencaminhado">Reencaminhado</option>
                                             </select>
                                         </div>

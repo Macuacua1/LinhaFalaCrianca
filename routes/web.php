@@ -36,7 +36,8 @@ Route::post('/addcaso','CasoController@addcaso');
 Route::post('/editcaso','CasoController@editcaso');
 Route::post('/registarcontacto','ContactoController@addcontacto');
 Route::post('/addUtente','ContactoController@addUtente');
-Route::get('/pesquisarcaso','CasoController@pesquisarcaso');
+Route::post('/pesquisarcaso','CasoController@pesquisarcaso');
+//Route::post('/pesquisarcaso','CasoController@pesquisarcaso');
 
 Route::get('/findDistrito','EnderecoController@findDistrito');
 Route::get('/findLocalidade','EnderecoController@findLocalidade');

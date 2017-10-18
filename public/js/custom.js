@@ -15,37 +15,29 @@ $(document).ready( function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    $("#start").datepicker({
-        dateFormat: 'yy-mm-dd',
-        onSelect: function() {
-            //- get date from another datepicker without language dependencies
-            var minDate = $('#start').datepicker('getDate');
-            $("#end").datepicker("change", { minDate: minDate });
-            var inicio=$('#start').val();
-            var fim= $('#end').val();
-            var estado=$('#estado').val();
-            var responsavel_id=$('#responsavel_id').val();
-            var user_id=$('#user_id').val();
-            pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-          
-        }
+    $("#start").on('change',function(){
+        var minDate = $('#start').datepicker('getDate');
+        $("#end").datepicker("change", { minDate: minDate });
+        var inicio=$('#start').val();
+        var fim= $('#end').val();
+        var estado=$('#estado').val();
+        var responsavel_id=$('#responsavel_id').val();
+        var user_id=$('#user_id').val();
+        pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
     });
 
-    $("#end").datepicker({
-        dateFormat: 'yy-mm-dd',
-        onSelect: function() {
-            //- get date from another datepicker without language dependencies
-            var maxDate = $('#end').datepicker('getDate');
-            // $("#start").datepicker("change", { maxDate: maxDate });
-            var inicio=$('#start').val();
-            var fim= $('#end').val();
-            var estado=$('#estado').val();
-            var responsavel_id=$('#responsavel_id').val();
-            var user_id=$('#user_id').val();
-            pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-
-        }
+    $("#end").on('change',function () {
+        var maxDate = $('#end').datepicker('getDate');
+        // $("#start").datepicker("change", { maxDate: maxDate });
+        var inicio=$('#start').val();
+        var fim= $('#end').val();
+        var estado=$('#estado').val();
+        var responsavel_id=$('#responsavel_id').val();
+        var user_id=$('#user_id').val();
+        // alert(fim);
+        pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
     });
+
     $('#estado').on('change',function(){
         var inicio=$('#start').val();
         var fim= $('#end').val();
@@ -77,7 +69,7 @@ $(document).ready( function () {
     function pesquisarCaso(criteria1,criteria2,criteria3,criteria4,criteria5) {
 
         $.ajax({
-            type: 'get',
+            type: 'post',
             url: '/pesquisarcaso',
             data: {inicio:criteria1,fim:criteria2,estado:criteria3,responsavel_id:criteria4,user_id:criteria5},
             success: function(data) {
@@ -85,18 +77,18 @@ $(document).ready( function () {
                     $('tbody').empty();
                     $('tbody').html(data);
                     // $('#datatable').html(data);
-                    toastr.success("Adicionado Com Sucesso!");
+                    toastr.success("Encontrado Com Sucesso!");
 
                 }else {
-                    toastr.error("Erro ao Adicionar Utente!");
+                    toastr.error("Erro ao Pesquisar!");
 
                 }
             }
         });
-        
+
     }
 
-    $('#select2').select2();
+    // $('#select2').select2();
     $('#myTable').DataTable();
 });
 

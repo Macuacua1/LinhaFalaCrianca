@@ -105,13 +105,19 @@ return view('caso.reg_caso',compact('resps'));
     }
     public  function addcaso(Request $request){
         $contacto=Contacto::find($request->contacto_id);
-        if ($contacto->caso_id){
-            dd('Tem Caso Id');
-        }else{
-            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Registado','chave'=>1]);
-            $caso= Caso::create(request()->all());
-            $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
-            Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
+        if (!$contacto->caso_id){
+            if (isset($request->contacto_id) and isset($request->mensagem)){
+                $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Registado']);
+                $caso= Caso::create(request()->all());
+                $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
+                Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
+            }
+            if (isset($request->contacto_id)){
+                $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Registado']);
+                $caso= Caso::create(request()->all());
+//                $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
+                Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
+            }
         }
 
 
@@ -119,13 +125,13 @@ return view('caso.reg_caso',compact('resps'));
     }
     public function editcaso(Request $request){
 //       dd($request->all());
-        if (isset($request->estado_caso)) {
+        if ($request->estado_caso) {
             Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso]);
         }
-        if (isset($request->motivo_id)  ) {
+        if ($request->motivo_id){
             Caso::where('id', $request->caso_id)->update(['motivo_id' => $request->motivo_id]);
         }
-        if (isset($request->responsavel_id)) {
+        if ($request->responsavel_id) {
             Caso::where('id', $request->caso_id)->update(['responsavel_id' => $request->responsavel_id]);
         }
         if (isset($request->estado_caso)and isset($request->motivo_id)) {
@@ -176,171 +182,133 @@ return view('caso.reg_caso',compact('resps'));
     }
     public function pesquisarcaso(Request $request){
         if ($request->ajax()){
+
             $output="";
-//            dd($request->all());
+
             if(isset($request->inicio) and isset($request->fim)){
-                $casos=DB::table('casos')->whereBetween('casos.created_at', [$request->inicio, $request->fim])
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->estado)){
-                $casos=DB::table('casos')->where('casos.estado_caso', $request->estado)
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->responsavel_id)){
-                $casos=DB::table('casos')->where('casos.responsavel_id', $request->responsavel_id)
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->user_id)){
-                $casos=DB::table('casos')->where('casos.user_id', $request->user_id)
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) ){
-                $casos=DB::table('casos')->whereBetween('casos.created_at', [$request->inicio, $request->fim])
-                    ->where('casos.estado_caso', $request->estado)
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->responsavel_id) ){
-                $casos=DB::table('casos')->whereBetween('casos.created_at', [$request->inicio, $request->fim])
-                    ->where('casos.responsavel_id', $request->responsavel_id)
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->user_id) ){
-                $casos=DB::table('casos')->whereBetween('casos.created_at', [$request->inicio, $request->fim])
-                    ->where('casos.user_id', $request->user_id)
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->estado) and isset($request->responsavel_id) ){
-                $casos=DB::table('casos')->where(['casos.responsavel_id', $request->responsavel_id],['casos.estado_caso', $request->estado])
-//                    ->orWhere()
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->estado)  and isset($request->user_id) ){
-                $casos=DB::table('casos')->where(['casos.estado_caso',$request->estado],['casos.user_id', $request->user_id])
-//                    ->orWhere()
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->responsavel_id) and isset($request->user_id) ){
-                $casos=DB::table('casos')->where(['casos.responsavel_id',$request->responsavel_id],['casos.user_id', $request->user_id])
-//                    ->orWhere()
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->responsavel_id) ){
-                $casos=DB::table('casos')->whereBetween('casos.created_at', [$request->inicio, $request->fim])
-                    ->where(['casos.estado_caso', $request->estado],['casos.responsavel_id', $request->responsavel_id])
-//                    ->orWhere()
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->user_id) ){
-                $casos=DB::table('casos')->whereBetween('casos.created_at', [$request->inicio, $request->fim])
-                    ->where(['casos.estado_caso', $request->estado],['casos.user_id', $request->user_id])
-//                    ->orWhere()
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->responsavel_id) and isset($request->user_id) ){
-                $casos=DB::table('casos')->whereBetween('casos.created_at', [$request->inicio, $request->fim])
-                    ->where(['casos.responsavel_id', $request->responsavel_id],['casos.user_id', $request->user_id])
-//                    ->orWhere()
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->estado) and isset($request->responsavel_id) and isset($request->user_id) ){
-                $casos=DB::table('casos')->where(['casos.responsavel_id',$request->responsavel_id],['casos.estado_caso', $request->estado],['casos.user_id', $request->user_id])
-//                    ->orWhere()
-//                    ->orWhere()
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->responsavel_id) and isset($request->user_id) ){
-                $casos=DB::table('casos')->whereBetween('casos.created_at', [$request->inicio, $request->fim])
-                    ->where(['casos.estado_caso', $request->estado],['casos.user_id', $request->user_id],['casos.responsavel_id', $request->responsavel_id])
-//                    ->orWhere()
-//                    ->orWhere()
-                    ->join('responsavels', 'casos.responsavel_id', '=', 'responsavels.id')
-                    ->join('users', 'casos.user_id', '=', 'users.id')
-                    ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
-                    ->select('casos.*', 'responsavels.respnome as respnome','users.nome as insertby','motivos.motivonome as motivonome')
-                    ->get();
+                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
+                    ->with('user','responsavel','motivo')->get();
+
             }
 
+
+            if(isset($request->estado)){
+                $casos=Caso::where('estado_caso',$request->estado)
+                    ->with('user','responsavel','motivo')->get();
+//                foreach ($casos as $caso) {
+////                    echo $caso->user->nome;
+//                    dd($caso->user->nome);
+//                }
+
+
+            }
+            if(isset($request->responsavel_id)){
+                $casos=Caso::where('responsavel_id',$request->responsavel_id)
+                    ->with('user','responsavel','motivo')->get();
+            }
+            if(isset($request->user_id)){
+                $casos=Caso::where('user_id',$request->user_id)->get();
+
+            }
+            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) ){
+                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
+                    ->where('estado_caso',$request->estado)
+                    ->with('user','responsavel','motivo')->get();
+            }
+            if(isset($request->inicio) and isset($request->fim) and isset($request->responsavel_id) ){
+                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
+                    ->where('responsavel_id',$request->responsavel_id)
+                    ->with('user','responsavel','motivo')->get();
+
+            }
+            if(isset($request->inicio) and isset($request->fim) and isset($request->user_id) ){
+                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
+                    ->where('user_id',$request->user_id)
+                    ->with('user','responsavel','motivo')->get();
+            }
+            if(isset($request->estado) and isset($request->responsavel_id) ){
+                $casos=Caso::where('responsavel_id',$request->responsavel_id)
+                    ->where('estado_caso',$request->estado)
+                    ->with('user','responsavel','motivo')->get();
+            }
+            if(isset($request->estado)  and isset($request->user_id) ){
+                $casos=Caso::where('estado_caso',$request->estado)
+                    ->where('user_id',$request->user_id)
+                    ->with('user','responsavel','motivo')->get();
+            }
+            if(isset($request->responsavel_id) and isset($request->user_id) ){
+                $casos=Caso::where('responsavel_id',$request->responsavel_id)
+                    ->where('user_id',$request->user_id)
+                    ->with('user','responsavel','motivo')->get();
+                     }
+            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->responsavel_id) ){
+                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
+                    ->where('estado_caso',$request->estado)
+                    ->where('responsavel_id',$request->responsavel_id)
+                    ->with('user','responsavel','motivo')->get();
+                 }
+            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->user_id) ){
+                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
+                    ->where('estado_caso',$request->estado)
+                    ->where('user_id',$request->user_id)
+                    ->with('user','responsavel','motivo')->get();
+            }
+            if(isset($request->inicio) and isset($request->fim) and isset($request->responsavel_id) and isset($request->user_id) ){
+                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
+                    ->where('responsavel_id',$request->responsavel_id)
+                    ->where('user_id',$request->user_id)
+                    ->with('user','responsavel','motivo')->get();
+            }
+            if(isset($request->estado) and isset($request->responsavel_id) and isset($request->user_id) ){
+                $casos=Caso::where('responsavel_id',$request->responsavel_id)
+                    ->where('estado_caso',$request->estado)
+                    ->where('user_id',$request->user_id)
+                    ->with('user','responsavel','motivo')->get();
+            }
+            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->responsavel_id) and isset($request->user_id) ){
+                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
+                    ->where('estado_caso',$request->estado)
+                    ->where('user_id',$request->user_id)
+                    ->where('responsavel_id',$request->responsavel_id)
+                    ->with('user','responsavel','motivo')->get();
+            }
+
+//            return Response($casos);
 
      if ($casos){
                 foreach ($casos as $caso){
+//                    dd($caso->user->nome);
                     $output.='<tr>'.
                         '<td>CA-'.$caso->id.'</td>'.
-                        '<td>'.$caso->insertby.'</td>'.
+                        '<td>'.$caso->user->nome.'</td>'.
                         '<td>'.date('d-M-Y',strtotime($caso->created_at)).'</td>'.
                         '<td>'.date('d-M-Y',strtotime($caso->updated_at)).'</td>'.
-                        '<td>'.$caso->respnome.'</td>'.
-                        '<td>'.$caso->estado_caso.'</td>'.
-                        '@if('.$caso->motivo_id.')'.
-                        '<td>'.$caso->motivonome.'</td>'.
-                        '@else'.
-                            '<td>Sem Motivo</td>'.
-                      '@endif'.
-                        '<td>'.
+                        '<td>'.$caso->responsavel->respnome.'</td>'.
+                        '<td>'.$caso->estado_caso.'</td>';
+
+//                        '<td>'.$caso->motivo_id ? $caso->motivo->motivonome.'</td>'.
+                        if ($caso->motivo_id){
+                            $output.='<td>'. $caso->motivo->motivonome.'</td>';
+                        }else{
+                            $output.= '<td>Sem Motivo</td>';
+                        }
+
+
+                       $output.='<td>'.
                         '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info" data-id="'.$caso->id.'">'.
                         '<span class="glyphicon glyphicon-eye-open"></span></button></a>'.
-                        '<button class="edit-caso btn btn-success" data-id="'.$caso->id.'" data-title="'.$caso->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important">'.
+                        '<button class="edit-caso btn btn-success" data-id="'.$caso->id.'" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important">'.
                         '<span class="glyphicon glyphicon-edit"></span></button>'.
                         '</td>'
                         .                   '</tr>';
-                }
-                return Response($output);
-            }
+
+                }}
+//           }else{
+//
+//         $output.='<tr>'.
+//                 '</tr>';
+//            }
+            return Response($output);
         }
     }
 }

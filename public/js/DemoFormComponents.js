@@ -198,8 +198,13 @@
 
 		$('#demo-date').datepicker({autoclose: true, todayHighlight: true});
 		$('#demo-date-month').datepicker({autoclose: true, todayHighlight: true, minViewMode: 1});
-		$('#demo-date-format').datepicker({autoclose: true, todayHighlight: true, format: "yyyy/mm/dd"});
-		$('#demo-date-range').datepicker({todayHighlight: true});
+		$('#demo-date-format').datepicker({autoclose: true, todayHighlight: true, format: "yyyy-mm-dd"});
+		$('#demo-date-range').datepicker({
+			autoclose: true,
+			todayHighlight: true,
+			format: "yyyy-mm-dd",
+		});
+
 		$('#demo-date-inline').datepicker({todayHighlight: true});
 	};
 
