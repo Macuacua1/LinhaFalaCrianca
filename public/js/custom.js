@@ -67,7 +67,6 @@ $(document).ready( function () {
 
     });
     function pesquisarCaso(criteria1,criteria2,criteria3,criteria4,criteria5) {
-
         $.ajax({
             type: 'post',
             url: '/pesquisarcaso',
