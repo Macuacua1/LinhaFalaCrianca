@@ -80,25 +80,20 @@ $(document).ready( function () {
                 if (data) {
                     $('tbody').empty();
                     $('tbody').html(data);
-                    // $('#datatable').html(data);
-                    // toastr.success("Encontrado Com Sucesso!");
 
                 }else {
                     $('tbody').empty();
-                    // toastr.error("Erro ao Pesquisar!");
+
 
                 }
             }
         });
 
     }
-
-    // $('#select2').select2();
     $('#myTable').DataTable();
 });
 
 $('#tipo_utente').on('change',function() {
-    // alert('Mudanca de estado');
     var tipo_utent= $(this).val();
    if (tipo_utent=='Contactante'){
        $("#anonimo").show();
