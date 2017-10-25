@@ -15,11 +15,7 @@ $(document).ready( function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    // $('#demo-date-range').datepicker({
-    //     autoclose: true,
-    //     todayHighlight: true,
-    //     format: "yyyy-mm-dd",
-    // });
+   
     $("#start").on('change',function(){
         var minDate = $('#start').datepicker('getDate');
         $("#end").datepicker("change", { minDate: minDate });
