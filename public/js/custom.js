@@ -15,6 +15,11 @@ $(document).ready( function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    // $('#demo-date-range').datepicker({
+    //     autoclose: true,
+    //     todayHighlight: true,
+    //     format: "yyyy-mm-dd",
+    // });
     $("#start").on('change',function(){
         var minDate = $('#start').datepicker('getDate');
         $("#end").datepicker("change", { minDate: minDate });
@@ -76,10 +81,11 @@ $(document).ready( function () {
                     $('tbody').empty();
                     $('tbody').html(data);
                     // $('#datatable').html(data);
-                    toastr.success("Encontrado Com Sucesso!");
+                    // toastr.success("Encontrado Com Sucesso!");
 
                 }else {
-                    toastr.error("Erro ao Pesquisar!");
+                    $('tbody').empty();
+                    // toastr.error("Erro ao Pesquisar!");
 
                 }
             }
@@ -280,7 +286,33 @@ $(document).on('click', '.edit-caso', function() {
     $('#footer_action_button').addClass('glyphicon-check');
     $('.actionBtn').addClass('btn-success');
     $('.actionBtn').addClass('edit_caso');
+    $('#mensagem').show();
+    $('#status').show();
+    $('#responsavel').show();
+    $('#motiv').hide();
+    $('#cat_motivo').hide();
     $('.modal-title').text('Actualizar Caso');
+   $('#caso_id').val($(this).data('id'));
+    $('.form-horizontal').show();
+   $('#myModal').modal({
+        dismissible:false,
+        in_duration:3000,
+        out_duration:3000,
+       backdrop: 'static',
+       keyboard: false
+        // opacity:.9
+    });
+});$(document).on('click', '.encerrar-caso', function() {
+    $('#footer_action_button').text("Encerrar");
+    $('#footer_action_button').addClass('glyphicon-check');
+    $('.actionBtn').addClass('btn-success');
+    $('.actionBtn').addClass('edit_caso');
+    $('#motiv').show();
+    $('#cat_motivo').show();
+    $('#mensagem').hide();
+    $('#status').hide();
+    $('#responsavel').hide();
+    $('.modal-title').text('Encerrar Caso');
    $('#caso_id').val($(this).data('id'));
     $('.form-horizontal').show();
    $('#myModal').modal({

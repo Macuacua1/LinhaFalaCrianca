@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Contacto;
+use App\Motivo;
+use App\Provincia;
 use App\Responsavel;
+use App\Role;
+use App\Tipo_Motivo;
 use App\Utente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,8 +39,13 @@ class ContactoController extends Controller
      */
     public function create()
     {
-//        return view('admin/contacto/registar');
-        return view('contacto/reg_contacto');
+        $prov=Provincia::all();//get data from table
+        $tipos= Tipo_Motivo::where('tipomotivonome','Nao caso')->first();
+        $motivos=Motivo::where('tipo_motivo_id',$tipos->id)->get();
+        $tipomotivos=Tipo_Motivo::where('tipomotivonome','<>','naocaso')->get();
+        $roles=Role::all();
+        return view('contacto/registo',compact('prov','tipomotivos','motivos','roles'));//sent data to view
+
     }
 
     /**

@@ -113,7 +113,7 @@ return view('caso.reg_caso',compact('resps'));
                 Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
             }
             if (isset($request->contacto_id)){
-                $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Registado']);
+                $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso']);
                 $caso= Caso::create(request()->all());
 //                $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
                 Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);

@@ -107,6 +107,9 @@
                                     <button class="edit-caso btn btn-success" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
+                                    <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-title="" data-description="">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -216,7 +219,7 @@
                             </div>
                             <div class="modal-body">
                                 <form class="form-horizontal" role="form" method="post" id="form_edit_caso">
-                                    <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12 col-sm-12" id="responsavel">
                                         <div class="form-group floating-label">
                                             <select name="responsavel_id" id="responsavel_id" class="form-control">
                                                 <option value="" disabled selected>--Reencaminhar para:--</option>
@@ -230,7 +233,7 @@
                                     <div class="col-md-12 col-sm-12">
                                         <input type="hidden" class="form-control" id="caso_id" name="caso_id">
                                     </div>
-                                    <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12 col-sm-12" id="status">
                                         <div class="form-group floating-label">
                                             <select name="estado_caso" id="estado_caso" class="form-control">
                                                 <option value="" disabled selected>--Novo Estado:--</option>
@@ -242,13 +245,13 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 col-sm-12">
+                                    <div class="col-md-12 col-sm-12" id="mensagem">
                                         <div class="form-group floating-label">
                                             <textarea name="mensagem" id="textarea1" class="form-control" rows="3"></textarea>
                                             <label for="help2">Mensagem:</label>
                                         </div>
                                     </div>
-                                        <div class="col-md-6 col-sm-6">
+                                        <div class="col-md-6 col-sm-6" id="cat_motivo">
                                             <div class="form-group floating-label">
                                                 <select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo">
                                                     <option value="" disabled selected>--Categoria do Motivo--</option>
@@ -258,7 +261,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6">
+                                        <div class="col-md-6 col-sm-6" id="motiv">
                                             <div class="form-group floating-label">
                                                 <select id="motivo"  class="form-control motivonome" name="motivo_id">
                                                     <option value="0" disabled="true" selected="true">--Motivo--</option>

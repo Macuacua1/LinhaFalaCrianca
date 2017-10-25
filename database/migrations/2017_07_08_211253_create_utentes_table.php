@@ -20,7 +20,7 @@ class CreateUtentesTable extends Migration
             $table->string('apelido')->nullable();
             $table->string('idade')->nullable();
             $table->string('genero')->nullable();
-//            $table->string('email')->nullable();
+            $table->boolean('anonimo')->default(0);
             $table->string('idioma')->nullable();
             $table->string('cell1')->nullable();
             $table->string('cell2')->nullable();

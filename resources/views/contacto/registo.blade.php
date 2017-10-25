@@ -1,5 +1,6 @@
 @extends('layouts.master')
 @section('content')
+    @if( Auth::user()->hasRole('admin') or Auth::user()->hasRole('user'))
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -291,4 +292,5 @@
         </div><!--end .col -->
     </div><!--end .row -->
     <!-- END VALIDATION FORM WIZARD -->
+    @endif
 @endsection

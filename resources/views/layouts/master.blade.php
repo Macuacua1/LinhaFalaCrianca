@@ -304,7 +304,7 @@
                     </a>
                     <!--start submenu -->
                     <ul>
-                        <li><a href="{{url('contacto.create')}}" ><span class="title">Registar</span></a></li>
+                        <li><a href="{{route('contacto.create')}}" ><span class="title">Registar</span></a></li>
 
                         <li><a  href="{{url('contacto')}}"  ><span class="title">Listar</span></a></li>
                     </ul><!--end /submenu -->
@@ -670,16 +670,16 @@
 {{--<script src="/js/typeahead.bundle.min.js"></script>--}}
 <script src="/js/ec2c8835c9f9fbb7b8cd36464b491e73.js"></script>
 {{--<script src="/js/jquery.knob.min.js"></script>--}}
-{{--<script src="/js/jquery.sparkline.min.js"></script>--}}
+<script src="/js/jquery.sparkline.min.js"></script> {{--fecharrrrrrrrrrrrrrr--}}
 {{--<script src="/js/jquery.nanoscroller.min.js"></script>--}}
 <script src="/js/43ef607ee92d94826432d1d6f09372e1.js"></script>
-{{--<script src="/js/rickshaw.min.js"></script>--}}
+<script src="/js/rickshaw.min.js"></script> {{--fecharrrrrrrrrrrrrrr--}}
 <script src="/js/63d0445130d69b2868a8d28c93309746.js"></script>
 {{--<script src="/js/Demo.js"></script>--}}
 {{--<script src="/js/DemoFormWizard.js"></script>--}}
 <script src="/js/DemoTableDynamic.js"></script>
 <script src="/js/DemoFormComponents.js"></script>
-{{--<script src="/js/DemoDashboard.js"></script>--}}
+<script src="/js/DemoDashboard.js"></script>{{--fecharrrrrrrrrrrrrrr--}}
 {{--<script src="/js/modules/materialadmin/libs/jquery-ui/jquery-ui.min.js"></script>--}}
 
 {{----}}

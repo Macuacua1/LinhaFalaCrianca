@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.profile');
     }
 
     /**
@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+      return view('user.profile');
     }
 
     /**

@@ -19,10 +19,13 @@
 //});
 Auth::routes();
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
-Route::get('/home','EnderecoController@provfunct');
-Route::get('/','EnderecoController@provfunct');
+Route::get('/home','HomeController@provfunct');
+Route::get('/','HomeController@provfunct');
 Route::get('/reg', function () {
     return view('contacto/reg_contacto');
+});
+Route::get('/perfil', function () {
+    return view('user/profile');
 });
 //Route::post('/criar-conta','UserController@criarConta');
 //Route::get('perfil','UserController@getPerfil');
