@@ -15,7 +15,7 @@ $(document).ready( function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-   
+
     $("#start").on('change',function(){
         var minDate = $('#start').datepicker('getDate');
         $("#end").datepicker("change", { minDate: minDate });

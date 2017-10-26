@@ -58,8 +58,20 @@
                             <div class="card no-margin">
                                 <div class="card-body">
                                     <div class="form-group floating-label">
-                                        <textarea name="status" id="status" class="form-control autosize" rows="1"></textarea>
-                                        <label for="status">What's on your mind?</label>
+                                        <input type="text" name="nome" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Nome">
+                                        <label for="help2">Nome</label>
+                                    </div>
+                                    <div class="form-group floating-label">
+                                        <input type="email" name="email" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Email">
+                                        <label for="help2">Email</label>
+                                    </div>
+                                    <div class="form-group floating-label">
+                                        <input type="password" name="nome" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Senha">
+                                        <label for="help2">Password</label>
+                                    </div>
+                                    <div class="form-group floating-label">
+                                        <input id="password-confirm" type="password" name="password_confirmation" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Confirmar senha">
+                                        <label for="password-confirm">Confirmar Password</label>
                                     </div>
                                 </div><!--end .card-body -->
                                 <div class="card-actionbar">
@@ -69,65 +81,15 @@
                                             <a class="btn btn-icon-toggle ink-reaction btn-default"><i class="md md-location-on"></i></a>
                                             <a class="btn btn-icon-toggle ink-reaction btn-default"><i class="md md-attach-file"></i></a>
                                         </div>
-                                        <a href="javascript:void(0);" class="btn btn-flat btn-accent ink-reaction">Post</a>
+                                        <button class="btn btn-success" type="submit" id="" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados do Utilizador">
+                                            <span class="glyphicon glyphicon-floppy-save"></span> Registar
+                                        </button>
                                     </div><!--end .card-actionbar-row -->
                                 </div><!--end .card-actionbar -->
                             </div><!--end .card -->
                         </form>
                         <!-- BEGIN ENTER MESSAGE -->
 
-                        <!-- BEGIN MESSAGE ACTIVITY -->
-                        <div class="tab-pane" id="activity">
-                            <ul class="timeline collapse-lg timeline-hairline">
-                                <li class="timeline-inverted">
-                                    <div class="timeline-circ circ-xl style-primary"><i class="md md-event"></i></div>
-                                    <div class="timeline-entry">
-                                        <div class="card style-default-light">
-                                            <div class="card-body small-padding">
-                                                <span class="text-medium">Received a <a class="text-primary" href="http://www.codecovers.eu/materialadmin/mail/inbox">message</a> from <span class="text-primary">Ann Lauren</span></span><br/>
-                                                <span class="opacity-50">
-												Saturday, Oktober 18, 2014
-											</span>
-                                            </div>
-                                        </div>
-                                    </div><!--end .timeline-entry -->
-                                </li>
-                                <li>
-                                    <div class="timeline-circ circ-xl style-primary-dark"><i class="md md-access-time"></i></div>
-                                    <div class="timeline-entry">
-                                        <div class="card style-default-light">
-                                            <div class="card-body small-padding">
-                                                <p>
-                                                    <span class="text-medium">User login at <span class="text-primary">8:15 pm</span></span><br/>
-                                                    <span class="opacity-50">
-													Saturday, August 2, 2014
-												</span>
-                                                </p>
-                                                Check out my new location.
-                                            </div>
-                                        </div>
-                                    </div><!--end .timeline-entry -->
-                                </li>
-                                <li>
-                                    <div class="timeline-circ circ-xl style-primary"><i class="md md-location-on"></i></div>
-                                    <div class="timeline-entry">
-                                        <div class="card style-default-light">
-                                            <div class="card-body small-padding">
-                                                <img class="img-circle img-responsive pull-left width-1" src="/img/modules/materialadmin/avatar2666b.jpg?1422538624" alt="" />
-                                                <span class="text-medium">Meeting in the <span class="text-primary">conference room</span></span><br/>
-                                                <span class="opacity-50">
-												Saturday, Juli 29, 2014
-											</span>
-                                            </div>
-                                            <div class="card-body">
-                                                <p><em>Walked all the way home...</em></p>
-                                                <img class="img-responsive" src="/img/modules/materialadmin/img14fbf5.jpg?1422538632" alt="" />
-                                            </div>
-                                        </div>
-                                    </div><!--end .timeline-entry -->
-                                </li>
-                            </ul>
-                        </div><!--end #activity -->
                     </div><!--end .col -->
                     <!-- END MESSAGE ACTIVITY -->
 
@@ -145,20 +107,11 @@
                                     <li class="tile">
                                         <a class="tile-content ink-reaction">
                                             <div class="tile-icon">
-                                                <i class="md md-location-on"></i>
+                                                <i class="fa fa-user-circle"></i>
                                             </div>
                                             <div class="tile-text">
-                                                621 Johnson Ave, Suite 600
-                                                <small>Street</small>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="tile">
-                                        <a class="tile-content ink-reaction">
-                                            <div class="tile-icon"></div>
-                                            <div class="tile-text">
-                                                San Francisco, CA 54321
-                                                <small>City</small>
+                                                {{Auth::user()->nome}}
+                                                <small>Nome</small>
                                             </div>
                                         </a>
                                     </li>
@@ -166,11 +119,11 @@
                                     <li class="tile">
                                         <a class="tile-content ink-reaction">
                                             <div class="tile-icon">
-                                                <i class="fa fa-phone"></i>
+                                                <i class="fa fa-envelope"></i>
                                             </div>
                                             <div class="tile-text">
-                                                (123) 456-7890
-                                                <small>Mobile</small>
+                                                {{Auth::user()->email}}
+                                                <small>Email</small>
                                             </div>
                                         </a>
                                     </li>
@@ -178,8 +131,25 @@
                                         <a class="tile-content ink-reaction">
                                             <div class="tile-icon"></div>
                                             <div class="tile-text">
-                                                (323) 555-6789
-                                                <small>Work</small>
+                                                @if( Auth::user()->hasrole('admin'))
+                                                    Administrator
+                                                @elseif( Auth::user()->hasrole('user'))
+                                                   Conselheiro
+                                                @else
+                                                   Sem Perfil
+
+                                                @endif
+
+                                                <small>Perfil</small>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="tile">
+                                        <a class="tile-content ink-reaction">
+                                            <div class="tile-icon"></div>
+                                            <div class="tile-text">
+                                                {{Auth::user()->escritorio ? Auth::user()->escritorio:'Sem Escritorio'}}
+                                                <small>Escritorio</small>
                                             </div>
                                         </a>
                                     </li>
