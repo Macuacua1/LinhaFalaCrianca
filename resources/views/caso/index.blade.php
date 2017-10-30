@@ -324,33 +324,34 @@
                 var dados= " ";
                 $.ajax({
                     type: 'post',
-                    url: '/pesquisarcaso',
+                    url: '/pesquisacaso',
                     data: {inicio:criteria1,fim:criteria2,estado:criteria3,responsavel_id:criteria4,user_id:criteria5},
                     success: function(data) {
                         if (data) {
+//                            console.log(data);
 //                            for(var i=0;i<data.length;i++) {
 //                                dados += '<tr>' +
 //                                        '<td>'+data[i].id+'</td>' +
-//                                        '<td>'+data[i].id+'</td>' +
+//                                        '<td>'+data[i].user.nome+'</td>' +
 //                                        '<td>'+data[i].created_at+'</td>' +
 //                                        '<td>'+data[i].updated_at+'</td>' +
-//                                        '<td>'+data[i].id+'</td>' +
+//                                        '<td>'+data[i].responsavel.respnome+'</td>' +
 //                                        '<td>'+data[i].estado_caso+'</td>' +
 //                                        '<td>'+data[i].id+'</td>' +
-//                                        '<td>'+
-////                                        '<a href="'+route('caso.show',data[i].id)+'">' +
-////                                        '<button class="btn btn-info" data-id="'+data[i].id+'">'+
-////                        '<span class="glyphicon glyphicon-eye-open"></span></button></a>'+
-////                        '<button class="edit-caso btn btn-success" data-id="'+data[i].id+'" data-title="" data-description="" style="margin-left:3px!important">'+
-////                        '<span class="glyphicon glyphicon-edit"></span></button>' +
-//                                        '</td>'+
+////                                        '<td>'+
+//////                                        '<a href="'+route('caso.show',data[i].id)+'">' +
+//////                                        '<button class="btn btn-info" data-id="'+data[i].id+'">'+
+//////                        '<span class="glyphicon glyphicon-eye-open"></span></button></a>'+
+//////                        '<button class="edit-caso btn btn-success" data-id="'+data[i].id+'" data-title="" data-description="" style="margin-left:3px!important">'+
+//////                        '<span class="glyphicon glyphicon-edit"></span></button>' +
+////                                        '</td>'+
 //                                        '</tr>';
 //                            }
                             $('tbody').html(data);
 
                         }else {
-                            // $('tbody').empty();
-                            alert('Nao Existem dados');
+                             $('tbody').empty();
+//                            alert('Nao Existem dados');
 
                         }
                     }

@@ -196,6 +196,13 @@ return view('caso.reg_caso',compact('resps'));
             if(isset($request->inicio) and isset($request->fim)){
                 $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
                     ->with('user','responsavel','motivo')->get();
+//                $casos=DB::table('casos')
+//                    ->whereBetween('casos.created_at',[$request->inicio,$request->fim])
+//                    ->join('users','users.id', '=', 'casos.user_id')
+//                    ->join('responsavels','responsavels.id','=','casos.responsavel_id')
+//                    ->join('motivos','motivos.id','=','casos.motivo_id')
+//                    ->select('casos.*','users.nome as nome','responsavels.respnome as respnome','motivos.motivonome as motivo')
+//                    ->get();
 
             }
 
@@ -281,50 +288,50 @@ return view('caso.reg_caso',compact('resps'));
                     ->with('user','responsavel','motivo')->get();
             }
 
-//            return Response($casos);
+            return Response($casos);
 //dd($casos);
-     if ($casos){
-                foreach ($casos as $caso){
-                    $output.='<tr>'.
-                        '<td>'.$caso->id.'</td>'.
-                        '<td>shsh</td>'.
-                        '<td>ddd</td>'.
-                        '<td>dd</td>'.
-                        '<td>dd</td>'.
-                        '<td>dd</td>'.
-                        '<td>dd</td>'.
-                        '<td>ddd</td>'
-                             .'</tr>';
-//                    dd($caso->user->nome);
+//     if ($casos){
+//                foreach ($casos as $caso){
 //                    $output.='<tr>'.
-//                        '<td>CA-'.$caso->id.'</td>'.
-//                        '<td>'.$caso->user->nome.'</td>'.
-//                        '<td>'.date('d-M-Y',strtotime($caso->created_at)).'</td>'.
-//                        '<td>'.date('d-M-Y',strtotime($caso->updated_at)).'</td>'.
-//                        '<td>'.$caso->responsavel->respnome.'</td>'.
-//                        '<td>'.$caso->estado_caso.'</td>';
+//                        '<td>'.$caso->id.'</td>'.
+//                        '<td>shsh</td>'.
+//                        '<td>ddd</td>'.
+//                        '<td>dd</td>'.
+//                        '<td>dd</td>'.
+//                        '<td>dd</td>'.
+//                        '<td>dd</td>'.
+//                        '<td>ddd</td>'
+//                             .'</tr>';
+////                    dd($caso->user->nome);
+////                    $output.='<tr>'.
+////                        '<td>CA-'.$caso->id.'</td>'.
+////                        '<td>'.$caso->user->nome.'</td>'.
+////                        '<td>'.date('d-M-Y',strtotime($caso->created_at)).'</td>'.
+////                        '<td>'.date('d-M-Y',strtotime($caso->updated_at)).'</td>'.
+////                        '<td>'.$caso->responsavel->respnome.'</td>'.
+////                        '<td>'.$caso->estado_caso.'</td>';
+////
+//////                        '<td>'.$caso->motivo_id ? $caso->motivo->motivonome.'</td>'.
+////                        if ($caso->motivo_id){
+////                            $output.='<td>'. $caso->motivo->motivonome.'</td>';
+////                        }else{
+////                            $output.= '<td>Sem Motivo</td>';
+////                        }
+////
+////
+////                       $output.='<td>'.
+////                        '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info" data-id="'.$caso->id.'">'.
+////                        '<span class="glyphicon glyphicon-eye-open"></span></button></a>'.
+////                        '<button class="edit-caso btn btn-success" data-id="'.$caso->id.'" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important">'.
+////                        '<span class="glyphicon glyphicon-edit"></span></button>'.
+////                        '</td>'.
+////                    '</tr>';
 //
-////                        '<td>'.$caso->motivo_id ? $caso->motivo->motivonome.'</td>'.
-//                        if ($caso->motivo_id){
-//                            $output.='<td>'. $caso->motivo->motivonome.'</td>';
-//                        }else{
-//                            $output.= '<td>Sem Motivo</td>';
-//                        }
-//
-//
-//                       $output.='<td>'.
-//                        '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info" data-id="'.$caso->id.'">'.
-//                        '<span class="glyphicon glyphicon-eye-open"></span></button></a>'.
-//                        '<button class="edit-caso btn btn-success" data-id="'.$caso->id.'" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important">'.
-//                        '<span class="glyphicon glyphicon-edit"></span></button>'.
-//                        '</td>'.
-//                    '</tr>';
+//                }
+////               echo json_encode($casos);
+//         return Response($output);
 
-                }
-//               echo json_encode($casos);
-         return Response($output);
-
-     }
+//     }
 //           }else{
 //
 //         $output.='<tr>'.

@@ -36,17 +36,19 @@ Route::resource('user','UserController');
 Route::post('/registarcontacto','ContactoController@addcontacto');
 Route::get('/criarcaso/{id}','CasoController@criarcaso');
 Route::get('/criarcaso','CasoController@create');
-Route::post('/addcaso','CasoController@addcaso');
+Route::post('/addcaso','ChartCasoController@addcaso');
 Route::post('/editcaso','CasoController@editcaso');
 Route::post('/registarcontacto','ContactoController@addcontacto');
 Route::post('/addUtente','ContactoController@addUtente');
 Route::post('/pesquisarcaso','CasoController@pesquisarcaso');
-//Route::post('/pesquisarcaso','CasoController@pesquisarcaso');
+Route::post('/pesquisacaso','ChartCasoController@pesquisacaso');
 
 Route::get('/findDistrito','EnderecoController@findDistrito');
 Route::get('/findLocalidade','EnderecoController@findLocalidade');
 Route::get('/findmotivo','EnderecoController@findmotivo');
 Route::post('/block_user','UserController@block_user');
+
+
 
 //Graficos
 Route::get('/report_contacto','ChartContactoController@report_contacto');
