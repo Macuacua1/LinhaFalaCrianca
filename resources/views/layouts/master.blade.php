@@ -17,7 +17,7 @@
 
     {{--<meta charset="utf-8">--}}
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
     {{--<link type="text/css" rel="stylesheet" href="/css/bootstrap94be.css">--}}
     {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" />--}}
@@ -29,10 +29,17 @@
     {{--<script src="/js/bootstrap-datepicker.js"></script>--}}
     {{--<script src="/js/bootstrap-datepicker.min.js"></script>--}}
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    {!! Charts::assets() !!}
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>--}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js" charset="utf-8"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    {{--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>--}}
     <script src="/js/bootstrap-datepicker.js"></script>
     {{--<script src="/js/bootstrap-datepicker.min.js"></script>--}}
     {{--<script src="/js/custom.js"></script>--}}
@@ -247,7 +254,7 @@
                 <!-- BEGIN EMAIL -->
                 <li class="gui-folder">
                     <a>
-                        <div class="gui-icon"><i class="fa fa-user-circle"></i></div>{{--<i class="md md-email"></i>--}}
+                        <div class="gui-icon"><i class="fa fa-user"></i></div>{{--<i class="md md-email"></i>--}}
                         <span class="title">Utilizador</span>
                     </a>
                     <!--start submenu -->
@@ -264,7 +271,7 @@
                 <!-- BEGIN UI -->
                 <li class="gui-folder">
                     <a>
-                        <div class="gui-icon"><i class="fa fa-puzzle-piece fa-fw"></i></div>
+                        <div class="gui-icon"><i class="fa fa-phone"></i></div>
                         <span class="title">Contacto</span>
                     </a>
                     <!--start submenu -->
@@ -277,7 +284,7 @@
                 <!-- END UI -->
                 <li class="gui-folder">
                     <a>
-                        <div class="gui-icon"><i class="fa fa-puzzle-piece fa-fw"></i></div>
+                        <div class="gui-icon"><i class="fa fa-legal"></i></div>
                         <span class="title">Caso</span>
                     </a>
                     <!--start submenu -->
@@ -292,14 +299,14 @@
                 <!-- BEGIN TABLES -->
                 <li class="gui-folder">
                     <a>
-                        <div class="gui-icon"><i class="fa fa-table"></i></div>
+                        <div class="gui-icon"><i class="fa fa-bar-chart"></i></div>
                         <span class="title">Estatistica</span>
                     </a>
                     <!--start submenu -->
                     <ul>
-                        <li><a  href=""  ><span class="title">Contacto</span></a></li>
+                        <li><a  href="{{url('/report_contacto')}}" ><span class="title">Contacto</span></a></li>
 
-                        <li><a  href=""  ><span class="title">Caso</span></a></li>
+                        <li><a  href="{{url('/reportacaso')}}"  ><span class="title">Caso</span></a></li>
 
 
                     </ul><!--end /submenu -->
@@ -399,7 +406,7 @@
 
 {{----}}
 
-
+@yield('scripts')
 <!-- END JAVASCRIPT -->
 
 

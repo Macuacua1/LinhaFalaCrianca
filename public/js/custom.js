@@ -15,77 +15,78 @@ $(document).ready( function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-    $("#start").on('change',function(){
-        var minDate = $('#start').datepicker('getDate');
-        $("#end").datepicker("change", { minDate: minDate });
-        var inicio=$('#start').val();
-        var fim= $('#end').val();
-        var estado=$('#estado').val();
-        var responsavel_id=$('#responsavel_id').val();
-        var user_id=$('#user_id').val();
-        pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-    });
-
-    $("#end").on('change',function () {
-        var maxDate = $('#end').datepicker('getDate');
-        // $("#start").datepicker("change", { maxDate: maxDate });
-        var inicio=$('#start').val();
-        var fim= $('#end').val();
-        var estado=$('#estado').val();
-        var responsavel_id=$('#responsavel_id').val();
-        var user_id=$('#user_id').val();
-        // alert(fim);
-        pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-    });
-
-    $('#estado').on('change',function(){
-        var inicio=$('#start').val();
-        var fim= $('#end').val();
-        var estado=$('#estado').val();
-        var responsavel_id=$('#responsavel_id').val();
-        var user_id=$('#user_id').val();
-        pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-
-    });
-    $('#responsavel_id').on('change',function(){
-        var inicio=$('#start').val();
-        var fim= $('#end').val();
-        var estado=$('#estado').val();
-        var responsavel_id=$('#responsavel_id').val();
-        var user_id=$('#user_id').val();
-        pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-
-    });
-    $('#user_id').on('change',function(){
-        var inicio=$('#start').val();
-        var fim= $('#end').val();
-        var estado=$('#estado').val();
-        var responsavel_id=$('#responsavel_id').val();
-        var user_id=$('#user_id').val();
-        console.log(user_id);
-        pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-
-    });
-    function pesquisarCaso(criteria1,criteria2,criteria3,criteria4,criteria5) {
-        $.ajax({
-            type: 'post',
-            url: '/pesquisarcaso',
-            data: {inicio:criteria1,fim:criteria2,estado:criteria3,responsavel_id:criteria4,user_id:criteria5},
-            success: function(data) {
-                if (data) {
-                    $('tbody').empty();
-                    $('tbody').html(data);
-
-                }else {
-                    $('tbody').empty();
-
-
-                }
-            }
-        });
-
-    }
+    //
+    // $("#start").on('change',function(){
+    //     var minDate = $('#start').datepicker('getDate');
+    //     $("#end").datepicker("change", { minDate: minDate });
+    //     var inicio=$('#start').val();
+    //     var fim= $('#end').val();
+    //     var estado=$('#estado').val();
+    //     var responsavel_id=$('#responsavel_id').val();
+    //     var user_id=$('#user_id').val();
+    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
+    // });
+    //
+    // $("#end").on('change',function () {
+    //     var maxDate = $('#end').datepicker('getDate');
+    //     // $("#start").datepicker("change", { maxDate: maxDate });
+    //     var inicio=$('#start').val();
+    //     var fim= $('#end').val();
+    //     var estado=$('#estado').val();
+    //     var responsavel_id=$('#responsavel_id').val();
+    //     var user_id=$('#user_id').val();
+    //     // alert(fim);
+    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
+    // });
+    //
+    // $('#estado').on('change',function(){
+    //     var inicio=$('#start').val();
+    //     var fim= $('#end').val();
+    //     var estado=$('#estado').val();
+    //     var responsavel_id=$('#responsavel_id').val();
+    //     var user_id=$('#user_id').val();
+    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
+    //
+    // });
+    // $('#responsavel_id').on('change',function(){
+    //     var inicio=$('#start').val();
+    //     var fim= $('#end').val();
+    //     var estado=$('#estado').val();
+    //     var responsavel_id=$('#responsavel_id').val();
+    //     var user_id=$('#user_id').val();
+    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
+    //
+    // });
+    // $('#user_id').on('change',function(){
+    //     var inicio=$('#start').val();
+    //     var fim= $('#end').val();
+    //     var estado=$('#estado').val();
+    //     var responsavel_id=$('#responsavel_id').val();
+    //     var user_id=$('#user_id').val();
+    //     console.log(user_id);
+    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
+    //
+    // });
+    // function pesquisarCaso(criteria1,criteria2,criteria3,criteria4,criteria5) {
+    //     $.ajax({
+    //         type: 'post',
+    //         url: '/pesquisarcaso',
+    //         data: {inicio:criteria1,fim:criteria2,estado:criteria3,responsavel_id:criteria4,user_id:criteria5},
+    //         success: function(data) {
+    //             if (data) {
+    //                 alert('Existem dados');
+    //                 // $('tbody').empty();
+    //                 $('tbody').html(data);
+    //
+    //             }else {
+    //                 // $('tbody').empty();
+    //                 alert('Nao Existem dados');
+    //
+    //             }
+    //         }
+    //     });
+    //
+    // }
     $('#myTable').DataTable();
 });
 
@@ -293,7 +294,8 @@ $(document).on('click', '.edit-caso', function() {
        keyboard: false
         // opacity:.9
     });
-});$(document).on('click', '.encerrar-caso', function() {
+});
+$(document).on('click', '.encerrar-caso', function() {
     $('#footer_action_button').text("Encerrar");
     $('#footer_action_button').addClass('glyphicon-check');
     $('.actionBtn').addClass('btn-success');

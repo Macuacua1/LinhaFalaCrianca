@@ -30,22 +30,12 @@
                             <tr>
                                 <td>{{$user->nome}}</td>
                                 <td>{{$user->email}}</td>
-                                @if(count($user->role)>0)
-                                    @foreach($user->role as $role)
-                                        <td>{{$role->designacao}}</td>
-                                    @endforeach
-                                @else
-                                    <td>Sem Perfil</td>
-                                @endif
-                                @if($user->estado ==0)
-                                    <td>Inactivo</td>
-                                @else
-                                    <td>Activo</td>
-                                @endif
+                                <td>{{$user->role_id ? $user->role->designacao :'Sem Perfil'}}</td>
+                                <td>{{$user->estado ==1 ? 'Activo':'Inactivo'}}</td>
                                 <td>
-                                    {{--<button class="edit-user btn btn-success" data-id="{{$user->id}}" data-title="" data-description="">--}}
-                                        {{--<span class="glyphicon glyphicon-edit"></span>--}}
-                                    {{--</button>--}}
+                                    <button class="edit-user btn btn-success" data-id="{{$user->id}}" data-nome="{{$user->nome}}" data-email="{{$user->email}}" data-rolenome="{{$user->role_id ? $user->role->designacao :'Sem Perfil'}}" data-role="{{$user->role_id ? $user->role_id:''}}">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
 
                                     <a href="{{route('user.edit',$user->id)}}"> <button class="edit-user btn btn-success"><span class="glyphicon glyphicon-edit"></span></button></a></td>
                             </tr>
@@ -62,56 +52,47 @@
                                 <h4 class="modal-title"></h4>
                             </div>
                             <div class="modal-body">
-                                <form class="form-horizontal" role="form" method="post" id="form_edit_caso">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="form-group floating-label">
-                                            <select name="responsavel_id" id="responsavel_id" class="form-control">
-                                                <option value="" disabled selected>--Reencaminhar para:--</option>
-                                                {{--@foreach($resps as $resp)--}}
-                                                    {{--<option value="{{$resp->id}}">{{$resp->respnome}}</option>--}}
-                                                {{--@endforeach--}}
-                                            </select>
-                                            {{--<label for="help2">Reencaminhar para:</label>--}}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-12">
-                                        <input type="hidden" class="form-control" id="caso_id" name="caso_id">
-                                    </div>
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="form-group floating-label">
-                                            <select name="estado_caso" id="estado_caso" class="form-control">
-                                                <option value="" disabled selected>--Novo Estado:--</option>
-                                                <option value="Assistido">Assistido</option>
-                                                <option value="Aberto ou Pendente">Aberto ou Pendente</option>
-                                                <option value="No Sistema">No Sistema</option>
-                                                <option value="Reencaminhado">Reencaminhado</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="form-group floating-label">
-                                            <textarea name="mensagem" id="textarea1" class="form-control" rows="3"></textarea>
-                                            <label for="help2">Mensagem:</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="form-group floating-label">
-                                            <select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo">
-                                                <option value="" disabled selected>--Categoria do Motivo--</option>
-                                                {{--@foreach($tipomotivos as $tipomotivo)--}}
-                                                    {{--<option value="{{$tipomotivo->id}}">{{$tipomotivo->tipomotivonome}}</option>--}}
-                                                {{--@endforeach--}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
-                                        <div class="form-group floating-label">
-                                            {{--<select id="motivo"  class="form-control motivonome" name="motivo_id">--}}
-                                                {{--<option value="0" disabled="true" selected="true">--Motivo--</option>--}}
-                                            {{--</select>--}}
-                                        </div>
-                                    </div>
+                                <form class="form-horizontal" role="form" method="post" id="form_edit_user">
 
+                                    <input type="hidden" name="user_id" class="form-control" id="user_id">
+                                    <div class="row" style="margin: 10px!important;">
+                                    <div class="col-md-12 col-sm-12">
+                                            <div class="form-group floating-label" style="margin: 0px 8px;margin-bottom: 5px">
+                                                <input type="text" name="nome" class="form-control" id="nome" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="" disabled>
+                                                {{--<label for="nome">Nome</label>--}}
+                                            </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="form-group floating-label" style="margin: 0px 8px;margin-bottom: 5px">
+                                            <input type="email" name="email" class="form-control" id="email" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="" disabled>
+                                            {{--<label for="email">Email</label>--}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12" style="margin-bottom: 5px">
+                                        <select name="role_id" id="role_id" class="form-control">
+                                            <option value="" disabled selected>--Seleccione o Perfil--</option>
+                                            @foreach ($roles as $role)
+                                            <option value="{{$role->id}}">{{$role->designacao}}</option>
+                                                @endforeach
+                                        </select>
+                                        {{--<label for="role_id">Perfil</label>--}}
+                                    </div>
+                                    <div class="col-md-12 col-sm-12" style="margin-bottom: 5px">
+                                        <select name="escritorio" id="escritorio" class="form-control">
+                                            <option value="" disabled selected>--Seleccione o Escritorio--</option>
+                                            <option value="Linha Central">Linha Central</option>
+                                            <option value="Marracuene">Marracuene</option>
+                                        </select>
+                                        {{--<label for="escritorio">Escritorio</label>--}}
+                                    </div>
+                                    <div class="col-md-12 col-sm-12" style="margin-bottom: 5px">
+                                        <select name="estado" id="estado_user" class="form-control">
+                                            <option value="1">Activo</option>
+                                            <option value="0">Inactivo</option>
+                                        </select>
+                                        {{--<label for="escritorio">Estado</label>--}}
+                                    </div>
+                                    </div>
                                 </form>
 
                                 <div class="modal-footer">
@@ -129,4 +110,45 @@
             </div><!--end .card-body -->
         </div><!--end .card -->
     </div><!--end .col -->
+@stop
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready( function () {
+            $('.edit-user').on('click',function () {
+                $('#footer_action_button').text(" Actualizar");
+                $('#footer_action_button').addClass('glyphicon-check');
+                $('.actionBtn').addClass('btn-success');
+                $('.actionBtn').addClass('editar_user');
+                $('.modal-title').text('Editar dados do utilizador');
+                $('#nome').val($(this).data('nome'));
+                $('#email').val($(this).data('email'));
+//                $('#role_id').html("");
+//                $('#role_id').append('<option value="'+$(this).data('role')+'">'+$(this).data('rolenome')+'</option>');
+//                $('#role_id').html("");
+                $('#user_id').val($(this).data('id'));
+                $('.form-horizontal').show();
+                $('#modalUser').modal('show');
+            });
+        });
+
+        $('.modal-footer').on('click', '.editar_user', function() {
+            var dados = $('#form_edit_user').serialize();
+//             alert(dados);
+            $.ajax({
+                type:'post',
+                url:'/block_user',
+                data:dados,
+                success:function(data){
+                    $('#form_edit_user')[0].reset();
+
+                    toastr.success("Actualizado Com Sucesso!");
+                },
+                error:function(){
+                    toastr.error("Erro na Actualizacao!");
+                }
+            });
+        });
+    </script>
+
+
 @stop

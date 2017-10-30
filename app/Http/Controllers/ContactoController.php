@@ -12,6 +12,7 @@ use App\Utente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use Charts;
 
 class ContactoController extends Controller
 {
@@ -40,9 +41,9 @@ class ContactoController extends Controller
     public function create()
     {
         $prov=Provincia::all();//get data from table
-        $tipos= Tipo_Motivo::where('tipomotivonome','Nao caso')->first();
+        $tipos= Tipo_Motivo::where('tipomotivonome','Atendimento')->first();
         $motivos=Motivo::where('tipo_motivo_id',$tipos->id)->get();
-        $tipomotivos=Tipo_Motivo::where('tipomotivonome','<>','naocaso')->get();
+        $tipomotivos=Tipo_Motivo::where('tipomotivonome','<>','Atendimento')->get();
         $roles=Role::all();
         return view('contacto/registo',compact('prov','tipomotivos','motivos','roles'));//sent data to view
 
@@ -168,5 +169,13 @@ class ContactoController extends Controller
         }
         return back()
             ->with('success','Gravado com Sucesso.');
+    }
+
+
+
+    public function report_contacto(){
+
+        return view('contacto.report_contacto',compact('chart_provincia'));
+
     }
 }

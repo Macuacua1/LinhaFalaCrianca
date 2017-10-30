@@ -70,7 +70,7 @@
                                 <form class="form-horizontal" role="form" method="post" id="form_add_caso">
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group floating-label">
-                                            <select name="responsavel_id" id="responsavel_id" class="form-control">
+                                            <select name="responsavel_id" id="responsavel" class="form-control">
                                                 <option value="" disabled selected>--Reencaminhar para:--</option>
                                                 @foreach($resps as $resp)
                                                     <option value="{{$resp->id}}">{{$resp->respnome}}</option>

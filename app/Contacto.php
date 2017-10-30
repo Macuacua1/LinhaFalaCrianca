@@ -16,7 +16,7 @@ class Contacto extends Model
         return $this->belongsTo(Caso::class);
     }
     public function utente(){
-        return $this->belongsToMany(Utente::class,'contacto_utente');
+        return $this->belongsToMany(Utente::class,'contacto_utente')->with('provincia','distrito','localidade');
     }
     public function user(){
         return $this->belongsTo(User::class);

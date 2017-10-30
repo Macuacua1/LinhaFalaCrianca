@@ -21,6 +21,7 @@ Auth::routes();
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout']);
 Route::get('/home','HomeController@provfunct');
 Route::get('/','HomeController@provfunct');
+Route::get('/chart','HomeController@index');
 Route::get('/reg', function () {
     return view('contacto/reg_contacto');
 });
@@ -45,3 +46,8 @@ Route::post('/pesquisarcaso','CasoController@pesquisarcaso');
 Route::get('/findDistrito','EnderecoController@findDistrito');
 Route::get('/findLocalidade','EnderecoController@findLocalidade');
 Route::get('/findmotivo','EnderecoController@findmotivo');
+Route::post('/block_user','UserController@block_user');
+
+//Graficos
+Route::get('/report_contacto','ChartContactoController@report_contacto');
+Route::get('/reportacaso','ChartCasoController@reportcaso');

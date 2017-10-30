@@ -21,7 +21,9 @@ class UserController extends Controller
     public function index()
     {
         $users=User::all();
-        return view('user.index',compact('users'));
+//        dd($users);
+        $roles=Role::all();
+        return view('user.index',compact('users','roles'));
     }
 
     /**
@@ -134,6 +136,30 @@ class UserController extends Controller
         $user = Auth::user();
 
         return view('users.perfil', compact('user'));
+    }
+    public function block_user(Request $request){
+//        dd($request->all());
+        if (isset($request->role_id)) {
+            User::where('id', $request->user_id)->update(['role_id' => $request->role_id]);
+        }
+        if (isset($request->escritorio)){
+            User::where('id', $request->user_id)->update(['escritorio' => $request->escritorio]);
+        }
+        if (isset($request->estado)) {
+            User::where('id', $request->user_id)->update(['estado' => $request->estado]);
+        }
+        if (isset($request->role_id)and isset($request->escritorio)) {
+            User::where('id', $request->user_id)->update(['role_id' => $request->role_id,'escritorio' => $request->escritorio]);
+        }
+        if (isset($request->role_id)and isset($request->estado)) {
+            User::where('id', $request->user_id)->update(['role_id' => $request->role_id,'estado' => $request->estado]);
+        }
+        if (isset($request->$request->escritorio)and isset($request->estado) ) {
+            User::where('id', $request->user_id)->update(['escritorio' => $request->escritorio,'estado' => $request->estado]);
+        }
+        if (isset($request->role_id)and isset($request->$request->escritorio)and isset($request->estado) ) {
+            User::where('id', $request->user_id)->update(['role_id' => $request->role_id,'escritorio' => $request->escritorio,'estado' => $request->estado]);
+        }
     }
 
 }

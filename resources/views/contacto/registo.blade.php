@@ -11,8 +11,8 @@
         </div>
     </div><!--end .col -->
     <div class="row">
-        <div class="col-lg-12">
-            <!-- BEGIN LAYOUT LEFT ALIGNED -->
+        {{--<div class="col-lg-12">--}}
+            {{--<!-- BEGIN LAYOUT LEFT ALIGNED -->--}}
             <div class="col-md-12 col-sm-12">
                 <div class="card">
                     <div class="card-head">
@@ -25,7 +25,7 @@
                     <div class="card-body tab-content" id="conteudo">
                         <div class="tab-pane active" id="first0">
 
-                            <div class="container">
+                            {{--<div class="container">--}}
                                 <div class="row" id="test_append">
                                     <input type="hidden" class="form-control" name="soma" id="soma" value="0">
                                 </div>
@@ -219,12 +219,12 @@
                                         {{--<button type="button" id="add_utente" class="btn ink-reaction btn-floating-action btn-sm btn-primary" style="margin-right:0!important;padding-right:0!important;"><i class="fa fa-star"></i></button>--}}
                                     </div>
                                 </div>
-                            </div>
+                            {{--</div>--}}
                         </div>
 
                         <div class="tab-pane" id="contactoo">
 
-                            <div class="container">
+                            {{--<div class="container">--}}
                                 <form class="form" id="form_add_contacto">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
@@ -285,12 +285,12 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        {{--</div>--}}
                     </div><!--end .card-body -->
                 </div><!--end .card -->
             </div><!--end .col -->
         </div><!--end .col -->
-    </div><!--end .row -->
+    {{--</div><!--end .row -->--}}
     <!-- END VALIDATION FORM WIZARD -->
     @endif
 @endsection

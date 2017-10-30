@@ -26,11 +26,11 @@
 	// =========================================================================
 
 	p.initialize = function () {
-		this._initSparklines();
-		this._initFlotVisitors();
-		this._initRickshaw();
+		// this._initSparklines();
+		// this._initFlotVisitors();
+		// this._initRickshaw();
 		this._initKnob();
-		this._initFlotRegistration();
+		// this._initFlotRegistration();
 	};
 
 	// =========================================================================
@@ -191,7 +191,7 @@
 		for (var i = 0; i < 75; i++) {
 			this.rickshawRandomData.addData(this.rickshawSeries);
 		}
-		
+
 		// Update knob charts
 		this._updateKnob();
 

@@ -170,7 +170,7 @@ class MotivoSeeder extends Seeder
         $motivo= new \App\Motivo(['motivonome'=>'Saude Fisica','tipo_motivo_id'=>12]);
         $motivo->save();
 
-        $categoria_motivo = new \App\Tipo_Motivo(['tipomotivonome'=>'Nao caso']);
+        $categoria_motivo = new \App\Tipo_Motivo(['tipomotivonome'=>'Atendimento']);
         $categoria_motivo->save();
         $motivo= new \App\Motivo(['motivonome'=>'Informacoes Sobre a Linha de Ajuda','tipo_motivo_id'=>13]);
         $motivo->save();

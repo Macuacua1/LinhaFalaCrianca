@@ -18,14 +18,16 @@ class UserTableSeeder extends Seeder
         $employee->avatar = 'default';
         $employee->email = 'mariocarlitosmacuacua@gmail.com';
         $employee->password = bcrypt('Macuacua1');
+        $employee->role_id = $role_admin->id;
         $employee->save();
-        $employee->role()->attach($role_admin);
+//        $employee->role()->save($role_admin);
         $employee = new \App\User();
         $employee->nome = 'Maria';
         $employee->avatar = 'default';
         $employee->email = 'maria@gmail.com';
         $employee->password = bcrypt('123456');
+        $employee->role_id =$role_user->id;
         $employee->save();
-        $employee->role()->attach($role_user);
+//        $employee->role()->save($role_user);
     }
 }

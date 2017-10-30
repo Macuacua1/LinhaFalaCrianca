@@ -9,6 +9,7 @@ class Role extends Model
     protected $fillable = ['rolenome','designacao'];
 
     public function user(){
-        return $this->belongsToMany(User::class,'role_user');
+        return $this->hasMany(User::class);
+//        return $this->belongsToMany(User::class,'role_user');
     }
 }
