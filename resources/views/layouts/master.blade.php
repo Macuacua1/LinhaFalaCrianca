@@ -18,7 +18,7 @@
     {{--<meta charset="utf-8">--}}
 
     {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
-    {{--<link type="text/css" rel="stylesheet" href="/css/bootstrap94be.css">--}}
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap94be.css">
     {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" />--}}
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />--}}
@@ -37,7 +37,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
     {{--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>--}}
     <script src="/js/bootstrap-datepicker.js"></script>
@@ -52,23 +52,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
-    {{--<link href="/fonts/CWB0XYA8bzo0kSThX0UTuA.woff2">--}}
-    {{--<link href="/fonts/d-6IYplOFocCacKzxwXSOFtXRa8TVwTICgirnJhmVJw.woff2">--}}
-    {{--<link href="/fonts/glyphicons-halflings-regular.woff2">--}}
-    {{--<link href="/fonts/Material-Design-Iconic-Font.woff">--}}
-    {{--<link href="/fonts/RxZJdnzeo3R5zSexge8UUVtXRa8TVwTICgirnJhmVJw.woff2">--}}
-    {{--<link href="/fonts/vPcynSL0qHq_6dX7lKVByfesZW2xOQ-xsNqO47m55DA.woff2">--}}
-
-
-
     <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' type="text/css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/css/materialadminb0e2.css">
-    {{--<link type="text/css" rel="stylesheet" href="/css/rickshawd56b.css">--}}
-    {{--<link type="text/css" rel="stylesheet" href="/css/morris.core5e0a.css">--}}
 
-    {{--<link type="text/css" rel="stylesheet" href="/css/jquery-ui-theme5e0a.css">--}}
-
-    {{--<link type="text/css" rel="stylesheet" href="/css/typeaheadfa6c.css">--}}
+    {{--<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">--}}
+    <link href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css" rel="stylesheet">
 
     <!-- END STYLESHEETS -->
 
@@ -81,6 +69,20 @@
     <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
     <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.flash.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+
+
+
+
+
+
+
 
 </head>
 

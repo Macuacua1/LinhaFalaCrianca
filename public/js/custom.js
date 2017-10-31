@@ -15,78 +15,7 @@ $(document).ready( function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    //
-    // $("#start").on('change',function(){
-    //     var minDate = $('#start').datepicker('getDate');
-    //     $("#end").datepicker("change", { minDate: minDate });
-    //     var inicio=$('#start').val();
-    //     var fim= $('#end').val();
-    //     var estado=$('#estado').val();
-    //     var responsavel_id=$('#responsavel_id').val();
-    //     var user_id=$('#user_id').val();
-    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-    // });
-    //
-    // $("#end").on('change',function () {
-    //     var maxDate = $('#end').datepicker('getDate');
-    //     // $("#start").datepicker("change", { maxDate: maxDate });
-    //     var inicio=$('#start').val();
-    //     var fim= $('#end').val();
-    //     var estado=$('#estado').val();
-    //     var responsavel_id=$('#responsavel_id').val();
-    //     var user_id=$('#user_id').val();
-    //     // alert(fim);
-    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-    // });
-    //
-    // $('#estado').on('change',function(){
-    //     var inicio=$('#start').val();
-    //     var fim= $('#end').val();
-    //     var estado=$('#estado').val();
-    //     var responsavel_id=$('#responsavel_id').val();
-    //     var user_id=$('#user_id').val();
-    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-    //
-    // });
-    // $('#responsavel_id').on('change',function(){
-    //     var inicio=$('#start').val();
-    //     var fim= $('#end').val();
-    //     var estado=$('#estado').val();
-    //     var responsavel_id=$('#responsavel_id').val();
-    //     var user_id=$('#user_id').val();
-    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-    //
-    // });
-    // $('#user_id').on('change',function(){
-    //     var inicio=$('#start').val();
-    //     var fim= $('#end').val();
-    //     var estado=$('#estado').val();
-    //     var responsavel_id=$('#responsavel_id').val();
-    //     var user_id=$('#user_id').val();
-    //     console.log(user_id);
-    //     pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);
-    //
-    // });
-    // function pesquisarCaso(criteria1,criteria2,criteria3,criteria4,criteria5) {
-    //     $.ajax({
-    //         type: 'post',
-    //         url: '/pesquisarcaso',
-    //         data: {inicio:criteria1,fim:criteria2,estado:criteria3,responsavel_id:criteria4,user_id:criteria5},
-    //         success: function(data) {
-    //             if (data) {
-    //                 alert('Existem dados');
-    //                 // $('tbody').empty();
-    //                 $('tbody').html(data);
-    //
-    //             }else {
-    //                 // $('tbody').empty();
-    //                 alert('Nao Existem dados');
-    //
-    //             }
-    //         }
-    //     });
-    //
-    // }
+
     $('#myTable').DataTable();
 });
 
@@ -158,22 +87,7 @@ $('#tipo_utente').on('change',function() {
     }
 
 });
-//
-// $('#add_utente').on('click',function (e) {
-//     event.preventDefault();
-//     var valor_get_total=$('#soma').val();
-//     var valor_get_novo_total=Number(valor_get_total)+Number(1);
-//     var menos= Number(valor_get_novo_total)-Number(1);
-//     // alert(menos);
-//     $('#soma').val(valor_get_novo_total);
-//     // alert(valor_get_novo_total);
-//   $('#utente'+(valor_get_novo_total)+'').show();
-//     $('#utente'+(menos)+'').removeClass('active');
-//     $('#utente'+(valor_get_novo_total)+'').addClass('active');
-//     $('.utent'+(valor_get_novo_total)+'').show();
-//     $('.utent'+(menos)+'').hide();
-//     // alert(valor_get_novo_total);
-// });
+
 
 $('#add_utente').on('click',function (e) {
     event.preventDefault();
@@ -181,18 +95,12 @@ $('#add_utente').on('click',function (e) {
     var dados = $('#form_add_utente').serialize();
     var valor_get_total=$('#soma').val();
     var valor_get_novo_total=Number(valor_get_total)+Number(1);
-    // alert(valor_get_novo_total);
+
     $('#soma').val(valor_get_novo_total);
 
-    // if(valor_get_novo_total==1){
+
         $('#tipo_contacto').val($('#tipo_contact').val());
 
-    // }
-    // $('#form_add_utente')[0].reset();
-
-    // alert(dados);
-
-           // alert($('#tipo_contacto').val());
     $.ajax({
         type: 'post',
         url: '/addUtente',
@@ -350,23 +258,6 @@ $('.modal-footer').on('click', '#edit_caso', function() {
         }
     });
 });
-// $(document).on('click', '.edit-user', function() {
-//     $('#footer_action_button').text("Actualizar");
-//     $('#footer_action_button').addClass('glyphicon-check');
-//     $('.actionBtn').addClass('btn-success');
-//     $('.actionBtn').addClass('edit_user');
-//     $('.modal-title').text('Actualizar Utilizador');
-//     // $('#caso_id').val($(this).data('id'));
-//     $('.form-horizontal').show();
-//     $('#modalUser').modal({
-//         dismissible:false,
-//         in_duration:3000,
-//         out_duration:3000,
-//         backdrop: 'static',
-//         keyboard: false
-//         // opacity:.9
-//     });
-// });
 
 
 $(document).on('change','.provincia',function(){
@@ -435,20 +326,4 @@ $(document).on('change','.distritonome',function(){
         }
     });
 });
-// $('#add_caso').on('click',function (e) {
-//     event.preventDefault();
-//     var dados = $('#form_add_caso').serialize();
-//     // alert(dados);
-//     $.ajax({
-//         type:'post',
-//         url:'/addcaso',
-//         data:dados,
-//         success:function(data){
-//             $('#form_add_caso')[0].reset();
-//         },
-//         error:function(){
-//
-//         }
-//     });
-//
-// });
+

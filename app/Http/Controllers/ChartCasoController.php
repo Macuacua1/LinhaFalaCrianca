@@ -6,10 +6,31 @@ use App\Caso;
 use App\Contacto;
 use Illuminate\Http\Request;
 use Charts;
+use Illuminate\Support\Facades\DB;
 
 class ChartCasoController extends Controller
 {
     public function reportcaso(){
+//        $plant = Caso::with(['motivo' => function($q){
+//            $q->groupBy('motivonome');
+//        }])
+//            ->whereHas('motivo')
+////                ->count()
+//->get();
+        $motivos= DB::table('casos')
+            ->join('motivos','casos.motivo_id','=','motivos.id')
+            ->select(DB::Raw('count(*) as total,motivos.motivonome as motivo'))
+            ->where('motivo_id','<>',null)
+            ->groupBy('motivo')
+            ->get();
+
+        $instituicaos= DB::table('casos')
+            ->join('responsavels','casos.responsavel_id','=','responsavels.id')
+            ->select(DB::Raw('count(*) as total,responsavels.respnome as responsavel'))
+            ->where('responsavel_id','<>',null)
+            ->groupBy('responsavel')
+            ->get();
+
         $chart_estado=Charts::database(Caso::all(),'donut', 'highcharts')
             ->title('Casos por Estado')
             ->responsive(true)
@@ -22,7 +43,7 @@ class ChartCasoController extends Controller
             ->title('Casos por Estado')
             ->responsive(true)
             ->groupBy('motivo_id');
-        return view('caso.report_caso',compact('chart_estado','chart_instituicao','chart_motivo'));
+        return view('caso.report_caso',compact('chart_estado','chart_instituicao','chart_motivo','motivos','instituicaos'));
     }
 
     public function pesquisacaso(Request $request){
@@ -177,5 +198,25 @@ class ChartCasoController extends Controller
 
 
 
+    }
+    public function chart()
+    {
+        $chart = Charts::multi('bar', 'material')
+            // Setup the chart settings
+            ->title("My Cool Chart")
+            // A dimension of 0 means it will take 100% of the space
+            ->dimensions(0, 400) // Width x Height
+            // This defines a preset of colors already done:)
+            ->template("material")
+            // You could always set them manually
+            // ->colors(['#2196F3', '#F44336', '#FFC107'])
+            // Setup the diferent datasets (this is a multi chart)
+            ->dataset('Element 1', [5,20,100])
+            ->dataset('Element 2', [15,30,80])
+            ->dataset('Element 3', [25,10,40])
+            // Setup what the values mean
+            ->labels(['One', 'Two', 'Three']);
+
+        return view('test', ['chart' => $chart]);
     }
 }

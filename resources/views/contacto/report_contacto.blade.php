@@ -5,7 +5,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-head style-primary" style="margin-top: -5px!important;padding-top: -5px!important;">
-                        <header>Estatisticas dos Casos</header>
+                        <header>Estatisticas dos Contactos</header>
                     </div>
                 </div><!--end .card -->
             </div>
@@ -112,7 +112,7 @@
                     ]);
 
                     var options = {
-                        title: 'My Daily Activities',
+                        title: 'Estatísticas pelo Tipo de Contacto',
                         is3D: true
                     };
 
@@ -131,7 +131,7 @@
                     ]);
 
                     var options = {
-                        title: 'My Daily Activities',
+                        title: 'Estatísticas por Motivo do Contacto',
                         is3D: true
                     };
 

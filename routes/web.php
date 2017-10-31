@@ -37,11 +37,13 @@ Route::post('/registarcontacto','ContactoController@addcontacto');
 Route::get('/criarcaso/{id}','CasoController@criarcaso');
 Route::get('/criarcaso','CasoController@create');
 Route::post('/addcaso','ChartCasoController@addcaso');
+Route::get('/chartteste','ChartCasoController@chart');
 Route::post('/editcaso','CasoController@editcaso');
 Route::post('/registarcontacto','ContactoController@addcontacto');
 Route::post('/addUtente','ContactoController@addUtente');
 Route::post('/pesquisarcaso','CasoController@pesquisarcaso');
 Route::post('/pesquisacaso','ChartCasoController@pesquisacaso');
+Route::post('/pesquisacontacto','ChartContactoController@pesquisacontacto');
 
 Route::get('/findDistrito','EnderecoController@findDistrito');
 Route::get('/findLocalidade','EnderecoController@findLocalidade');

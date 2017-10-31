@@ -8,6 +8,7 @@ use App\Provincia;
 use App\Responsavel;
 use App\Role;
 use App\Tipo_Motivo;
+use App\User;
 use App\Utente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,8 +30,11 @@ class ContactoController extends Controller
     {
 
         $resps=Responsavel::all();
-        $contactos=Contacto::all();
-        return view('contacto/index',compact('contactos','resps'));
+        $provs=Provincia::all();
+        $users=User::all();
+        $tipomotivos=Tipo_Motivo::all();
+        $contactos=Contacto::orderBy('created_at','desc')->get();
+        return view('contacto/index',compact('contactos','resps','provs','users','tipomotivos'));
     }
 
     /**

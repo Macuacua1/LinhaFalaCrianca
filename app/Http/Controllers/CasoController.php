@@ -23,9 +23,8 @@ class CasoController extends Controller
     {
         $resps=Responsavel::all();
         $users=User::all();
-        $casos=Caso::orderBy('created_at','desc')->paginate(5);
-//        paginate(5);
         $tipomotivos=Tipo_Motivo::all();
+        $casos=Caso::orderBy('created_at','desc')->paginate(5);
         return view('caso/index',compact('casos','tipomotivos','resps','users'));
     }
 
