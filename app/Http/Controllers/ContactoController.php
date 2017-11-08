@@ -11,6 +11,7 @@ use App\Tipo_Motivo;
 use App\User;
 use App\Utente;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Charts;
@@ -73,8 +74,10 @@ class ContactoController extends Controller
     public function show($id)
     {
         $contactos=Contacto::find($id);
+        $prov=Provincia::all();
+        $tipomotivos= Tipo_Motivo::all();
 //       return view('admin.contacto.show',compact('contacto'));
-        return view('contacto.detalhes',compact('contactos'));
+        return view('contacto.detalhes',compact('contactos','tipomotivos','prov'));
     }
 
     /**
@@ -181,5 +184,32 @@ class ContactoController extends Controller
 
         return view('contacto.report_contacto',compact('chart_provincia'));
 
+    }
+    public function editcontacto(Request $request){
+      $contacto=  Contacto::where('id', $request->contacto_id)->update(['tipo_contacto' => $request->tipo_contacto,
+            'motivo_id' => $request->motivo_id,'resumo_contacto' => $request->resumo_contacto,
+            'impressao_atendente' => $request->impressao_atendente]);
+        return Response($contacto);
+    }
+    public function editutente(Request $request){
+//        return $request->all();
+        if ($request->utente_id !=0){
+            foreach ($request->utente_id as $key=>$value){
+                $utente=  Utente::where('id', $value)->update(['tipo_utente' => $request->tipo_utente[$key],
+            'nome'=> $request->nome[$key],'apelido'=> $request->apelido[$key],'idade'=> $request->idade[$key],'genero'=> $request->genero[$key],
+            'idioma'=> $request->idioma[$key],'conhecer_linha'=> $request->conhecer_linha[$key],'descricao_local'=> $request->descricao_local[$key],
+            'cell1'=> $request->cell1[$key],'cell2'=> $request->cell2[$key],'situacao_educacional'=> $request->situacao_educacional[$key]
+            ,'vive_com'=> $request->vive_com[$key],'relacao_vitima'=> $request->relacao_vitima[$key],'provincia_id'=> $request->provincia_id[$key],
+            'distrito_id'=> $request->distrito_id[$key],'localidade_id'=> $request->localidade_id[$key]]);
+        return Response($utente);
+            }
+        }
+//        $utente=  Utente::where('id', $request->utente_id)->update(['tipo_utente' => $request->tipo_utente,
+//            'nome'=> $request->nome,'apelido'=> $request->apelido,'idade'=> $request->idade,'genero'=> $request->genero,
+//            'idioma'=> $request->idioma,'conhecer_linha'=> $request->conhecer_linha,'descricao_local'=> $request->descricao_local,
+//            'cell1'=> $request->cell1,'cell2'=> $request->cell2,'situacao_educacional'=> $request->situacao_educacional
+//            ,'vive_com'=> $request->vive_com,'relacao_vitima'=> $request->relacao_vitima,'provincia_id'=> $request->provincia_id,
+//            'distrito_id'=> $request->distrito_id,'localidade_id'=> $request->localidade_id]);
+//        return Response($utente);
     }
 }

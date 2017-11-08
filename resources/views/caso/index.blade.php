@@ -55,9 +55,9 @@
                             <div class="form-group floating-label">
                                 <select name="estado" id="estado" class="form-control">
                                     <option value="" disabled selected>--Estado:--</option>
-                                    <option value="Assistido">Assistido</option>
                                     <option value="Em Progresso">Em Progresso</option>
                                     <option value="Assistido Temporariamente">Assistido Temporariamente</option>
+                                    <option value="Assistido">Assistido</option>
                                     <option value="Impossivel Proceder">Impossivel Proceder</option>
                                     <option value="Fechado">Fechado</option>
                                     <option value="">Sem Estado</option>
@@ -115,7 +115,23 @@
                                 <td>{{date('d-M-Y',strtotime($caso->created_at))}}</td>
                                 <td>{{date('d-M-Y',strtotime($caso->updated_at))}}</td>
                                 <td>{{$caso->responsavel->respnome}}</td>
-                                <td>{{$caso->estado_caso}}</td>
+                                <td>
+                                    @if($caso->estado_caso =='Fechado')
+                                    <span style="color: #4caf50">{{$caso->estado_caso}}</span>
+                                        @endif
+                                        @if($caso->estado_caso =='Impossivel Proceder')
+                                            <span style="color: red">{{$caso->estado_caso}}</span>
+                                        @endif
+                                        @if($caso->estado_caso =='Assistido')
+                                            <span style="color: #0aa89e">{{$caso->estado_caso}}</span>
+                                        @endif
+                                        @if($caso->estado_caso =='Assistido Temporariamente')
+                                            <span style="color: #0c84e4">{{$caso->estado_caso}}</span>
+                                        @endif
+                                        @if($caso->estado_caso =='Em Progresso')
+                                            <span style="color: #0aa298">{{$caso->estado_caso}}</span>
+                                        @endif
+                                </td>
                                 @if($caso->motivo_id)
                                 <td>{{$caso->motivo->motivonome}}</td>
                                 @else
@@ -125,12 +141,25 @@
                                     <a href="{{route('caso.show',$caso->id)}}"><button class="btn btn-info" data-id="{{$caso->id}}" data-title="" data-description="">
                                             <span class="glyphicon glyphicon-eye-open"></span>
                                         </button></a>
-                                    <button class="edit-caso btn btn-success" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </button>
-                                    <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-title="" data-description="">
-                                        <span class="glyphicon glyphicon-lock"></span>
-                                    </button>
+                                    @if($caso->motivo_id)
+                                        <button class="edit-caso btn btn-success" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}" disabled>
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+                                    @else
+                                        <button class="edit-caso btn btn-success" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+                                    @endif
+                                @if($caso->motivo_id)
+                                        <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-title="" data-description="" disabled>
+                                            <span class="glyphicon glyphicon-lock"></span>
+                                        </button>
+                                @else
+                                        <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-title="" data-description="">
+                                            <span class="glyphicon glyphicon-lock"></span>
+                                        </button>
+                                @endif
+
                                 </td>
                             </tr>
                         @endforeach
@@ -169,9 +198,10 @@
                                     <div class="col-md-12 col-sm-12" id="status">
                                         <div class="form-group floating-label">
                                             <select name="estado_caso" id="estado_caso" class="form-control">
-                                                <option value="Assistido">Assistido</option>
+                                                <option value="" disabled selected>--Novo Estado--</option>
                                                 <option value="Em Progresso">Em Progresso</option>
                                                 <option value="Assistido Temporariamente">Assistido Temporariamente</option>
+                                                <option value="Assistido">Assistido</option>
                                                 <option value="Impossivel Proceder">Impossivel Proceder</option>
                                                 <option value="Fechado">Fechado</option>
                                             </select>
@@ -204,7 +234,7 @@
                                 </form>
 
                                 <div class="modal-footer">
-                                    <button type="button" class="btn actionBtn" data-dismiss="modal" id="edit_caso">
+                                    <button type="button" class="btn actionBtn" data-dismiss="modal">
                                         <span id="footer_action_button" class='glyphicon'> </span>
                                     </button>
                                     <button type="button" class="btn btn-warning" data-dismiss="modal">
@@ -220,47 +250,7 @@
     </div><!--end .col -->
 @endsection
 @section('scripts')
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>--}}
 
-    {{--<script type="text/javascript">--}}
-        {{--$(function () {--}}
-            {{--$('#datetimepicker6').datetimepicker({--}}
-                {{--format:"YYYY-MM-DD",--}}
-{{--//                autoclose: true--}}
-{{--//                todayHighlight: true--}}
-            {{--});--}}
-            {{--$('#datetimepicker7').datetimepicker({--}}
-                {{--format:"YYYY-MM-DD",--}}
-{{--//                autoclose: true,--}}
-{{--//                todayHighlight: true,--}}
-                {{--useCurrent: false //Important! See issue #1075--}}
-            {{--});--}}
-            {{--$("#datetimepicker6").on("dp.change", function (e) {--}}
-                {{--$('#datetimepicker7').data("DateTimePicker").minDate(e.date);--}}
-                {{--var inicio=$("#datetimepicker6").find("input").val();--}}
-                {{--var fim= $("#datetimepicker7").find("input").val();--}}
-                {{--var estado=$('#estado').val();--}}
-                {{--var responsavel_id=$('#responsavel_id').val();--}}
-                {{--var user_id=$('#user_id').val();--}}
-                {{--$(this).data('DateTimePicker').hide();--}}
-                {{--pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);--}}
-            {{--});--}}
-            {{--$("#datetimepicker7").on("dp.change", function (e) {--}}
-                {{--$('#datetimepicker6').data("DateTimePicker").maxDate(e.date);--}}
-{{--//                var final=$("#datetimepicker7").find("input").val();--}}
-                {{--var inicio=$("#datetimepicker6").find("input").val();--}}
-                {{--var fim= $("#datetimepicker7").find("input").val();--}}
-                {{--var estado=$('#estado').val();--}}
-                {{--var responsavel_id=$('#responsavel_id').val();--}}
-                {{--var user_id=$('#user_id').val();--}}
-                {{--$(this).data('DateTimePicker').hide();--}}
-{{--//                alert('valeu');--}}
-                {{--pesquisarCaso(inicio,fim,estado,responsavel_id,user_id);--}}
-
-            {{--});--}}
-        {{--});--}}
-    {{--</script>--}}
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajaxSetup({
@@ -334,25 +324,7 @@
                     data: {inicio:criteria1,fim:criteria2,estado:criteria3,responsavel_id:criteria4,user_id:criteria5},
                     success: function(data) {
                         if (data) {
-//                            console.log(data);
-//                            for(var i=0;i<data.length;i++) {
-//                                dados += '<tr>' +
-//                                        '<td>'+data[i].id+'</td>' +
-//                                        '<td>'+data[i].user.nome+'</td>' +
-//                                        '<td>'+data[i].created_at+'</td>' +
-//                                        '<td>'+data[i].updated_at+'</td>' +
-//                                        '<td>'+data[i].responsavel.respnome+'</td>' +
-//                                        '<td>'+data[i].estado_caso+'</td>' +
-//                                        '<td>'+data[i].id+'</td>' +
-////                                        '<td>'+
-//////                                        '<a href="'+route('caso.show',data[i].id)+'">' +
-//////                                        '<button class="btn btn-info" data-id="'+data[i].id+'">'+
-//////                        '<span class="glyphicon glyphicon-eye-open"></span></button></a>'+
-//////                        '<button class="edit-caso btn btn-success" data-id="'+data[i].id+'" data-title="" data-description="" style="margin-left:3px!important">'+
-//////                        '<span class="glyphicon glyphicon-edit"></span></button>' +
-////                                        '</td>'+
-//                                        '</tr>';
-//                            }
+
                             $('tbody').html(data);
 
                         }else {
@@ -364,6 +336,89 @@
                 });
 
             }
+
+            $(document).on('click', '.edit-caso', function() {
+                $('#footer_action_button').text("Actualizar");
+                $('#footer_action_button').addClass('glyphicon-check');
+                $('.actionBtn').addClass('btn-success');
+                $('.actionBtn').addClass('edit_caso');
+                $('#mensagem').show();
+                $('#status').show();
+                $('#responsavel').show();
+                $('#motiv').hide();
+                $('#cat_motivo').hide();
+                $('.modal-title').text('Actualizar Caso');
+                $('#caso_id').val($(this).data('id'));
+                $('.form-horizontal').show();
+                $('#myModal').modal({
+                    dismissible:false,
+                    in_duration:3000,
+                    out_duration:3000,
+                    backdrop: 'static',
+                    keyboard: false
+                    // opacity:.9
+                });
+            });
+            $(document).on('click', '.encerrar-caso', function() {
+                $('#footer_action_button').text("Encerrar");
+                $('#footer_action_button').addClass('glyphicon-check');
+                $('.actionBtn').addClass('btn-success');
+                $('.actionBtn').addClass('fechar_caso');
+                $('#motiv').show();
+                $('#cat_motivo').show();
+                $('#mensagem').hide();
+                $('#status').hide();
+                $('#responsavel').hide();
+                $('.modal-title').text('Encerrar Caso');
+                $('#caso_id').val($(this).data('id'));
+                $('.form-horizontal').show();
+                $('#myModal').modal({
+                    dismissible:false,
+                    in_duration:3000,
+                    out_duration:3000,
+                    backdrop: 'static',
+                    keyboard: false
+                    // opacity:.9
+                });
+            });
+
+            $('.modal-footer').on('click', '.edit_caso', function() {
+                var dados = $('#form_edit_caso').serialize();
+                // alert(dados);
+                $.ajax({
+                    type:'post',
+                    url:'/editcaso',
+                    data:dados,
+                    success:function(data){
+                        $('#form_edit_caso')[0].reset();
+
+                        toastr.success("Actualizado Com Sucesso!");
+                    },
+                    error:function(){
+                        toastr.error("Erro na Actualizacao!");
+                    }
+                });
+            });
+            $('.modal-footer').on('click', '.fechar_caso', function() {
+                var dados = $('#form_edit_caso').serialize();
+                // alert(dados);
+                $.ajax({
+                    type:'post',
+                    url:'/editcaso',
+                    data:dados,
+                    success:function(data){
+                        $('#form_edit_caso')[0].reset();
+                        $('.encerrar-caso').addClass('disabled');
+                        $('.edit-caso').addClass('disabled');
+
+                        toastr.success("Actualizado Com Sucesso!");
+                    },
+                    error:function(){
+                        toastr.error("Erro na Actualizacao!");
+                    }
+                });
+            });
+
         })
     </script>
     @endsection

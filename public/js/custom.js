@@ -145,6 +145,7 @@ $('#add_contacto').on('click',function (e) {
 // //        Find motivo
 
     $('#categoriamotivo').on('change',function(){
+        // $('.motivonome').html(" ");
         var mot_id = $(this).val();
         var div=$(this).parent();
         var op=" ";
@@ -167,97 +168,97 @@ $('#add_contacto').on('click',function (e) {
             }
         });
     });
-$(document).on('click', '#addcaso', function() {
-    // alert('hahahha');
-    $('#myModal').modal('show');
-});
-$(document).on('click', '.fwd-caso', function() {
-    $('#footer_action_button').text(" Encaminhar");
-    $('#footer_action_button').addClass('glyphicon-check');
-    $('.actionBtn').addClass('btn-success');
-    $('.actionBtn').addClass('edit');
-    $('.modal-title').text('Edit');
-    $('#contacto_id').val($(this).data('id'));
-    $('.form-horizontal').show();
-    $('#myModal').modal('show');
-});
-$(document).on('click', '.edit-caso', function() {
-    $('#footer_action_button').text("Actualizar");
-    $('#footer_action_button').addClass('glyphicon-check');
-    $('.actionBtn').addClass('btn-success');
-    $('.actionBtn').addClass('edit_caso');
-    $('#mensagem').show();
-    $('#status').show();
-    $('#responsavel').show();
-    $('#motiv').hide();
-    $('#cat_motivo').hide();
-    $('.modal-title').text('Actualizar Caso');
-   $('#caso_id').val($(this).data('id'));
-    $('.form-horizontal').show();
-   $('#myModal').modal({
-        dismissible:false,
-        in_duration:3000,
-        out_duration:3000,
-       backdrop: 'static',
-       keyboard: false
-        // opacity:.9
-    });
-});
-$(document).on('click', '.encerrar-caso', function() {
-    $('#footer_action_button').text("Encerrar");
-    $('#footer_action_button').addClass('glyphicon-check');
-    $('.actionBtn').addClass('btn-success');
-    $('.actionBtn').addClass('edit_caso');
-    $('#motiv').show();
-    $('#cat_motivo').show();
-    $('#mensagem').hide();
-    $('#status').hide();
-    $('#responsavel').hide();
-    $('.modal-title').text('Encerrar Caso');
-   $('#caso_id').val($(this).data('id'));
-    $('.form-horizontal').show();
-   $('#myModal').modal({
-        dismissible:false,
-        in_duration:3000,
-        out_duration:3000,
-       backdrop: 'static',
-       keyboard: false
-        // opacity:.9
-    });
-});
-$('.modal-footer').on('click', '.edit', function() {
-    var dados = $('#form_add_caso').serialize();
-    // alert(dados);
-    $.ajax({
-        type:'post',
-        url:'/addcaso',
-        data:dados,
-        success:function(data){
-            $('#form_add_caso')[0].reset();
-            toastr.success("Registado Com Sucesso!");
-        },
-        error:function(){
-            toastr.error("Registo nao efectuado!");
-        }
-    });
-});
-$('.modal-footer').on('click', '#edit_caso', function() {
-    var dados = $('#form_edit_caso').serialize();
-    // alert(dados);
-    $.ajax({
-        type:'post',
-        url:'/editcaso',
-        data:dados,
-        success:function(data){
-            $('#form_edit_caso')[0].reset();
-
-            toastr.success("Actualizado Com Sucesso!");
-        },
-        error:function(){
-            toastr.error("Erro na Actualizacao!");
-        }
-    });
-});
+// $(document).on('click', '#addcaso', function() {
+//     // alert('hahahha');
+//     $('#myModal').modal('show');
+// });
+// $(document).on('click', '.fwd-caso', function() {
+//     $('#footer_action_button').text(" Encaminhar");
+//     $('#footer_action_button').addClass('glyphicon-check');
+//     $('.actionBtn').addClass('btn-success');
+//     $('.actionBtn').addClass('edit');
+//     $('.modal-title').text('Edit');
+//     $('#contacto_id').val($(this).data('id'));
+//     $('.form-horizontal').show();
+//     $('#myModal').modal('show');
+// });
+// $(document).on('click', '.edit-caso', function() {
+//     $('#footer_action_button').text("Actualizar");
+//     $('#footer_action_button').addClass('glyphicon-check');
+//     $('.actionBtn').addClass('btn-success');
+//     $('.actionBtn').addClass('edit_caso');
+//     $('#mensagem').show();
+//     $('#status').show();
+//     $('#responsavel').show();
+//     $('#motiv').hide();
+//     $('#cat_motivo').hide();
+//     $('.modal-title').text('Actualizar Caso');
+//    $('#caso_id').val($(this).data('id'));
+//     $('.form-horizontal').show();
+//    $('#myModal').modal({
+//         dismissible:false,
+//         in_duration:3000,
+//         out_duration:3000,
+//        backdrop: 'static',
+//        keyboard: false
+//         // opacity:.9
+//     });
+// });
+// $(document).on('click', '.encerrar-caso', function() {
+//     $('#footer_action_button').text("Encerrar");
+//     $('#footer_action_button').addClass('glyphicon-check');
+//     $('.actionBtn').addClass('btn-success');
+//     $('.actionBtn').addClass('edit_caso');
+//     $('#motiv').show();
+//     $('#cat_motivo').show();
+//     $('#mensagem').hide();
+//     $('#status').hide();
+//     $('#responsavel').hide();
+//     $('.modal-title').text('Encerrar Caso');
+//    $('#caso_id').val($(this).data('id'));
+//     $('.form-horizontal').show();
+//    $('#myModal').modal({
+//         dismissible:false,
+//         in_duration:3000,
+//         out_duration:3000,
+//        backdrop: 'static',
+//        keyboard: false
+//         // opacity:.9
+//     });
+// });
+// $('.modal-footer').on('click', '.edit', function() {
+//     var dados = $('#form_add_caso').serialize();
+//     // alert(dados);
+//     $.ajax({
+//         type:'post',
+//         url:'/addcaso',
+//         data:dados,
+//         success:function(data){
+//             $('#form_add_caso')[0].reset();
+//             toastr.success("Registado Com Sucesso!");
+//         },
+//         error:function(){
+//             toastr.error("Registo nao efectuado!");
+//         }
+//     });
+// });
+// $('.modal-footer').on('click', '#edit_caso', function() {
+//     var dados = $('#form_edit_caso').serialize();
+//     // alert(dados);
+//     $.ajax({
+//         type:'post',
+//         url:'/editcaso',
+//         data:dados,
+//         success:function(data){
+//             $('#form_edit_caso')[0].reset();
+//
+//             toastr.success("Actualizado Com Sucesso!");
+//         },
+//         error:function(){
+//             toastr.error("Erro na Actualizacao!");
+//         }
+//     });
+// });
 
 
 $(document).on('change','.provincia',function(){
@@ -285,6 +286,8 @@ $(document).on('change','.provincia',function(){
             }
 
             $('.distritonome').html(" ");
+            $('.localidadenome').html(" ");
+            $('.localidadenome').append('<option value="0" selected disabled>--Escolhe a Localidade--</option>');
             $('.distritonome').append(op);
         },
         error:function(){

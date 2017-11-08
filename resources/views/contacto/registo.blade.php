@@ -175,7 +175,7 @@
                                     <div class="col-md-4 col-sm-4"id="lingua">
                                         <div class="form-group floating-label" >
                                             <select id="idioma" name="idioma" class="form-control">
-                                                <option value="0"disabled selected>Linguas Faladas</option>
+                                                <option value="0"disabled selected>Lingua Falada</option>
                                                 <option value="Portugues">Portugues</option>
                                                 <option value="Macua">Macua</option>
                                                 <option value="Sena">Sena</option>

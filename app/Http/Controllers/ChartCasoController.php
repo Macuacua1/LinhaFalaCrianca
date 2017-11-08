@@ -6,6 +6,7 @@ use App\Caso;
 use App\Contacto;
 use Illuminate\Http\Request;
 use Charts;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ChartCasoController extends Controller
@@ -219,4 +220,39 @@ class ChartCasoController extends Controller
 
         return view('test', ['chart' => $chart]);
     }
+//    public function editcaso(Request $request){
+//        return $request->all();
+//        if (isset($request->estado_caso)) {
+//            Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso]);
+//        }
+//        if (isset($request->motivo_id)){
+//            Caso::where('id', $request->caso_id)->update(['motivo_id' => $request->motivo_id,'estado_caso'=>'Fechado']);
+//        }
+//        if ($request->responsavel_id) {
+//            Caso::where('id', $request->caso_id)->update(['responsavel_id' => $request->responsavel_id]);
+//        }
+//
+//        if (isset($request->estado_caso)and isset($request->responsavel_id) ) {
+//            Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso, 'responsavel_id' => $request->responsavel_id]);
+//        }
+//        if (isset($request->estado_caso)and isset($request->mensagem) ) {
+//            Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso]);
+//            $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
+//        }
+//
+//        if (isset($request->responsavel_id) and isset($request->mensagem) ) {
+//            Caso::where('id', $request->caso_id)->update(['responsavel_id' => $request->responsavel_id]);
+//            $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
+//        }
+//
+//        if (isset($request->estado_caso) and isset($request->responsavel_id) and isset($request->mensagem) ) {
+//            Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso,'responsavel_id' => $request->responsavel_id]);
+//            $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
+//        }
+//
+//        if (isset($request->mensagem)){
+//            $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
+//        }
+//
+//    }
 }

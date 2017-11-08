@@ -16,7 +16,7 @@
     <!-- END META -->
 
     {{--<meta charset="utf-8">--}}
-
+@yield('style')
     {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
     <link type="text/css" rel="stylesheet" href="/css/bootstrap94be.css">
     {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
@@ -175,8 +175,8 @@
                     <ul class="dropdown-menu animation-dock">
                         <li class="dropdown-header">Config</li>
                         <li><a href="">Meu Perfil</a></li>
-                        <li><a href=""><span class="badge style-danger pull-right">16</span>My blog</a></li>
-                        <li><a href="">My appointments</a></li>
+                        {{--<li><a href=""><span class="badge style-danger pull-right">16</span>My blog</a></li>--}}
+                        {{--<li><a href="">My appointments</a></li>--}}
                         <li class="divider"></li>
                         <li><a href=""><i class="fa fa-fw fa-lock"></i> Lock</a></li>
                         <li><a href="{{route('logout')}}"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>

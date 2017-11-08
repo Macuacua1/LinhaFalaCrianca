@@ -148,15 +148,17 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
     <!-- Styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="/css/materialPreloader.min.css" rel="stylesheet">
+    {{--<link href="/css/materialPreloader.min.css" rel="stylesheet">--}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 
 
     <!-- Theme Styles -->
-    <link href="/css/alpha.min.css" rel="stylesheet" type="text/css"/>
+    {{--<link href="/css/alpha.min.css" rel="stylesheet" type="text/css"/>--}}
     <link href="/css/custom.css" rel="stylesheet" type="text/css"/>
 
 
@@ -169,47 +171,7 @@
 
 </head>
 <body class="signin-page">
-{{--<div class="loader-bg"></div>--}}
-{{--<div class="loader">--}}
-    {{--<div class="preloader-wrapper big active">--}}
-        {{--<div class="spinner-layer spinner-blue">--}}
-            {{--<div class="circle-clipper left">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div><div class="gap-patch">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div><div class="circle-clipper right">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="spinner-layer spinner-red">--}}
-            {{--<div class="circle-clipper left">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div><div class="gap-patch">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div><div class="circle-clipper right">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="spinner-layer spinner-yellow">--}}
-            {{--<div class="circle-clipper left">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div><div class="gap-patch">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div><div class="circle-clipper right">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--<div class="spinner-layer spinner-green">--}}
-            {{--<div class="circle-clipper left">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div><div class="gap-patch">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div><div class="circle-clipper right">--}}
-                {{--<div class="circle"></div>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--</div>--}}
+
 <div class="mn-content valign-wrapper" style="margin-top: 150px!important;">
     <main class="mn-inner container">
         <div class="valign">
@@ -244,9 +206,9 @@
 </div>
 
 <!-- Javascripts -->
-<script src="/js/materialPreloader.min.js"></script>
-<script src="/js/jquery.blockui.js"></script>
-<script src="/js/alpha.min.js"></script>
+{{--<script src="/js/materialPreloader.min.js"></script>--}}
+{{--<script src="/js/jquery.blockui.js"></script>--}}
+{{--<script src="/js/alpha.min.js"></script>--}}
 
 
 <script>

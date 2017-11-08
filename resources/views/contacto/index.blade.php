@@ -148,9 +148,15 @@
                                    <a href="{{route('contacto.show',$contacto->id)}}"><button class="btn btn-info" data-id="{{$contacto->id}}" data-title="" data-description="">
                                            <span class="glyphicon glyphicon-eye-open"></span>
                                        </button></a>
-                                    <button class="fwd-caso btn btn-success" data-id="{{$contacto->id}}" data-title="" data-description="">
-                                        <span class="glyphicon glyphicon-forward"></span>
-                                    </button>
+                                @if($contacto->caso_id>0)
+                                        <button class=" btn btn-success" data-id="{{$contacto->id}}" data-title="" data-description="" disabled id="fwd-caso">
+                                            <span class="glyphicon glyphicon-forward"></span>
+                                        </button>
+                                @else
+                                        <button class="btn btn-success" data-id="{{$contacto->id}}" data-title="" data-description="" id="fwd-caso">
+                                            <span class="glyphicon glyphicon-forward"></span>
+                                        </button>
+                                @endif
                                 </td>
                               </tr>
                         @endforeach
@@ -445,6 +451,38 @@
                     },
                     error:function(){
 
+                    }
+                });
+            });
+//            $(document).on('click', '#addcaso', function() {
+//                 alert('hahahha');
+//                $('#myModal').modal('show');
+//            });
+            $(document).on('click', '#fwd-caso', function() {
+                $('#fwd-caso').addClass('fwd-caso');
+                $('#footer_action_button').text(" Encaminhar");
+                $('#footer_action_button').addClass('glyphicon-check');
+                $('.actionBtn').addClass('btn-success');
+                $('.actionBtn').addClass('fwd_caso');
+                $('.modal-title').text('Edit');
+                $('#contacto_id').val($(this).data('id'));
+                $('.form-horizontal').show();
+                $('#myModal').modal('show');
+            });
+            $('.modal-footer').on('click', '.fwd_caso', function() {
+                var dados = $('#form_add_caso').serialize();
+                // alert(dados);
+                $.ajax({
+                    type:'post',
+                    url:'/addcaso',
+                    data:dados,
+                    success:function(data){
+                        $('#form_add_caso')[0].reset();
+                        $('.fwd-caso').addClass('disabled');
+                        toastr.success("Registado Com Sucesso!");
+                    },
+                    error:function(){
+                        toastr.error("Registo nao efectuado!");
                     }
                 });
             });
