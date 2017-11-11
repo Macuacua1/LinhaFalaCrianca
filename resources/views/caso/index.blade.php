@@ -2,7 +2,7 @@
 @extends('layouts.master')
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="margin: -15px 0 0 auto">
             <div class="card">
                 <div class="card-head style-primary" style="margin-top: -5px!important;padding-top: -5px!important;">
                     <header>Casos</header>
@@ -393,6 +393,7 @@
                         $('#form_edit_caso')[0].reset();
 
                         toastr.success("Actualizado Com Sucesso!");
+                        document.location.href="{{url('caso')}}";
                     },
                     error:function(){
                         toastr.error("Erro na Actualizacao!");
@@ -411,7 +412,8 @@
                         $('.encerrar-caso').addClass('disabled');
                         $('.edit-caso').addClass('disabled');
 
-                        toastr.success("Actualizado Com Sucesso!");
+                        toastr.success("Encerrado Com Sucesso!");
+                        document.location.href="{{url('caso')}}";
                     },
                     error:function(){
                         toastr.error("Erro na Actualizacao!");

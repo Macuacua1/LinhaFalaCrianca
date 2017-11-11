@@ -1,8 +1,34 @@
 @extends('layouts.master')
+@section('style')
+    <style type="text/css">
+        .chart {
+            width: 100%;
+            min-height: 450px;
+        }
+        fieldset.scheduler-border {
+            border: 1px groove #ddd !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 100px 0 1.5em 0 !important;
+            -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+            height: 180px;
+            width: 100%;
+        }
+
+        legend.scheduler-border {
+            font-size: 1.2em !important;
+            font-weight: bold !important;
+            text-align: left !important;
+            width:auto;
+            padding:0 10px;
+            border-bottom:none;
+        }
+    </style>
+@endsection
 @section('content')
     @if( Auth::user()->hasRole('admin'))
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="margin: -15px 0 0 auto">
                 <div class="card">
                     <div class="card-head style-primary" style="margin-top: -5px!important;padding-top: -5px!important;">
                         <header>Estatisticas dos Casos</header>
@@ -11,8 +37,7 @@
             </div>
         </div><!--end .col -->
         <div class="row">
-            {{--<div class="col-lg-12">--}}
-            {{--<!-- BEGIN LAYOUT LEFT ALIGNED -->--}}
+
             <div class="col-md-12 col-sm-12">
                 <div class="card">
                     <div class="card-head">
@@ -24,43 +49,132 @@
                     </div><!--end .card-head -->
                     <div class="card-body tab-content" id="conteudo">
                         <div class="tab-pane active" id="estado">
-                            <center>
-                                {!! $chart_estado->render() !!}
+                            {{--<center>--}}
+                                {{--{!! $chart_estado->render() !!}--}}
 
-                            </center>
-                            <div id='chart_div'></div>
+                            {{--</center>--}}
+                            {{--<div id='chart_div'></div>--}}
+                            <div class="row">
+                                <div class="col-sm-5 col-sm-5">
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Filtro por Datas</legend>
+                                        <div class="form-group">
+                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="start" id="startestado"/>
+                                                    <label>De</label>
+                                                </div>
+                                                <span class="input-group-addon">a</span>
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="end" id="endestado" />
+                                                    <label>Para</label>
+                                                    <div class="form-control-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                    <a id="exportestado" href="#" style="display: none;margin-left: 300px" download="FileName"><button class="btn btn-success" type="button">
+                                            <span class="glyphicon glyphicon-download"></span>
+                                            {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
+                                            Exportar Imagem
+                                        </button></a>
+
+                                </div>
+                                <div class="col-md-7 col-sm-7">
+                                    <center>
+                                        <div id="estadochart" class="chart"></div>
+                                    </center>
+
+                                </div>
+                            </div>
 
                         </div>
 
                         <div class="tab-pane active" id="instituicao">
                             <div class="row">
-                                {{--<div class="col-md-6 col-sm-6">--}}
-                                    {{--<center>--}}
-                                        {{--{!! $chart_instituicao->render() !!}--}}
 
+                                    {{--<center>--}}
+                                        {{--<div id="instituicaochart" style="width: 900px; height: 500px;"></div>--}}
                                     {{--</center>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-6 col-sm-6">--}}
-                                    <center>
-                                        <div id="instituicaochart" style="width: 900px; height: 500px;"></div>
-                                    </center>
-                                {{--</div>--}}
+                                <div class="row">
+                                    <div class="col-sm-5 col-sm-5">
+                                        <fieldset class="scheduler-border">
+                                            <legend class="scheduler-border">Filtro por Datas</legend>
+                                            <div class="form-group">
+                                                <div  class="input-daterange input-group" id="demo-date-range">
+                                                    <div class="input-group-content">
+                                                        <input type="text" class="form-control" name="start" id="startinst"/>
+                                                        <label>De</label>
+                                                    </div>
+                                                    <span class="input-group-addon">a</span>
+                                                    <div class="input-group-content">
+                                                        <input type="text" class="form-control" name="end" id="endinst" />
+                                                        <label>Para</label>
+                                                        <div class="form-control-line"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                        <a id="exportinst" href="#" style="display: none;margin-left: 300px" download="FileName"><button class="btn btn-success" type="button">
+                                                <span class="glyphicon glyphicon-download"></span>
+                                                {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
+                                                Exportar Imagem
+                                            </button></a>
+
+                                    </div>
+                                    <div class="col-md-7 col-sm-7">
+                                        <center>
+                                            <div id="instituicaochart" class="chart"></div>
+                                        </center>
+
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
                         <div class="tab-pane active" id="motivo">
                             <div class="row">
-                                {{--<div class="col-md-6 col-sm-6">--}}
                                     {{--<center>--}}
-                                        {{--{!! $chart_motivo->render() !!}--}}
-
+                                        {{--<div id="motivochartcaso" style="width: 900px; height: 500px;"></div>--}}
                                     {{--</center>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-6 col-sm-6">--}}
-                                    <center>
-                                        <div id="motivochartcaso" style="width: 900px; height: 500px;"></div>
-                                    </center>
-                                {{--</div>--}}
+                                <div class="row">
+                                    <div class="col-sm-5 col-sm-5">
+                                        <fieldset class="scheduler-border">
+                                            <legend class="scheduler-border">Filtro por Datas</legend>
+                                            <div class="form-group">
+                                                <div  class="input-daterange input-group" id="demo-date-range">
+                                                    <div class="input-group-content">
+                                                        <input type="text" class="form-control" name="start" id="startmot"/>
+                                                        <label>De</label>
+                                                    </div>
+                                                    <span class="input-group-addon">a</span>
+                                                    <div class="input-group-content">
+                                                        <input type="text" class="form-control" name="end" id="endmot" />
+                                                        <label>Para</label>
+                                                        <div class="form-control-line"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                        <a id="exportmotivo" href="#" style="display: none;margin-left: 300px" download="FileName"><button class="btn btn-success" type="button">
+                                                <span class="glyphicon glyphicon-download"></span>
+                                                {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
+                                                Exportar Imagem
+                                            </button></a>
+
+                                    </div>
+                                    <div class="col-md-7 col-sm-7">
+                                        <center>
+                                            <div id="motivochartcaso" class="chart"></div>
+                                        </center>
+
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -82,40 +196,27 @@
             google.charts.setOnLoadCallback(drawChartee);
             google.charts.setOnLoadCallback(drawChart);
             google.charts.setOnLoadCallback(drawCharte);
-            google.charts.setOnLoadCallback(drawCharti);
+//            google.charts.setOnLoadCallback(drawCharti);
 
-            function drawCharti() {
-
-                var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
-                    {{--@foreach($results as $result)--}}
-                    {{--['{{$result->stockName}}', {{$result->total}}],--}}
-                    {{--@endforeach--}}
-                ]);
-
-                var options = {
-                    title: 'My Daily Activities'
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('provinciachart'));
-
-                chart.draw(data, options);
-            }
 
             function drawChartee() {
 
                 var data = google.visualization.arrayToDataTable([
                     ['Task', 'Hours per Day'],
-                    {{--@foreach($results as $result)--}}
-                    {{--['{{$result->stockName}}', {{$result->total}}],--}}
-                    {{--@endforeach--}}
+                    @foreach($estados as $estado)
+                    ['{{$estado->estado}}', {{$estado->total}}],
+                    @endforeach
                 ]);
 
                 var options = {
-                    title: 'My Daily Activities'
+                    title: 'Estatísticas por Estado'
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('distritochart'));
+                var chart = new google.visualization.PieChart(document.getElementById('estadochart'));
+                google.visualization.events.addListener(chart,'ready',function () {
+                    var exportdata=chart.getImageURI() ;
+                    $('#exportestado').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Estado'}).show();
+                });
 
                 chart.draw(data, options);
             }
@@ -135,6 +236,10 @@
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('instituicaochart'));
+                google.visualization.events.addListener(chart,'ready',function () {
+                    var exportdata=chart.getImageURI() ;
+                    $('#exportinst').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Instituição'}).show();
+                });
 
                 chart.draw(data, options);
             }
@@ -154,44 +259,13 @@
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('motivochartcaso'));
+                google.visualization.events.addListener(chart,'ready',function () {
+                    var exportdata=chart.getImageURI() ;
+                    $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Caso'}).show();
+                });
 
                 chart.draw(data, options);
             }
         });
     </script>
-    <script type="text/javascript">
-        google.charts.load("current", {packages:['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-
-            var data = google.visualization.arrayToDataTable([
-                ['Element', 'Density', { role: 'style' }],
-                ['Copper', 8.94, '#b87333', ],
-                ['Silver', 10.49, 'silver'],
-                ['Gold', 19.30, 'gold'],
-                ['Platinum', 21.45, 'color: #e5e4e2' ]
-            ]);
-
-            var options = {
-                title: "Density of Precious Metals, in g/cm^3",
-                bar: {groupWidth: '95%'},
-                legend: 'none',
-            };
-
-            var chart_div = document.getElementById('chart_div');
-            var chart = new google.visualization.ColumnChart(chart_div);
-
-            // Wait for the chart to finish drawing before calling the getImageURI() method.
-            google.visualization.events.addListener(chart, 'ready', function () {
-                chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
-                console.log(chart_div.innerHTML);
-            });
-
-            chart.draw(data, options);
-
-        }
-    </script>
-
-
-
 @stop

@@ -35,7 +35,7 @@
     @endsection
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="margin: -15px 0 0 auto">
             <div class="card">
                 <div class="card-head style-primary" style="margin-top: -5px!important;padding-top: -5px!important;">
                     <header>Detalhes do Contacto</header>
@@ -504,14 +504,14 @@
             </div><!--end .panel-group -->
         </div><!--end .col -->
     </div><!--end .row -->
-    <div class="row">
-        <div class="col-md-10 col-sm-10"></div>
-        <div class="col-md-2 col-sm-2">
-            <button class="btn btn-success add-new-utente " style="margin-left: 50px" id="add_new_utente" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Adicionar novo Utente">
-                <span class="glyphicon glyphicon-plus"></span> Utente
-            </button>
-        </div>
-    </div>
+    {{--<div class="row">--}}
+        {{--<div class="col-md-10 col-sm-10"></div>--}}
+        {{--<div class="col-md-2 col-sm-2">--}}
+            {{--<button class="btn btn-success add-new-utente " style="margin-left: 50px" id="add_new_utente" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Adicionar novo Utente">--}}
+                {{--<span class="glyphicon glyphicon-plus"></span> Utente--}}
+            {{--</button>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
 
 @endsection

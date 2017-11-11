@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="margin: -15px 0 0 auto">
             <div class="card">
                 <div class="card-head style-primary" style="margin-top: -5px!important;padding-top: -5px!important;">
                     <header>Utilizadores</header>
@@ -10,6 +10,9 @@
         </div>
     </div><!--end .col -->
 
+    <a href="{{route('user.create')}}"><button class="btn btn-success adduser" style="margin: -15px 0 10px 15px" type="submit" id="edit_utente" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Adicionar novo">
+        <span class="glyphicon glyphicon-plus"></span>novo
+    </button></a>
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -37,7 +40,7 @@
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
 
-                                    <a href="{{route('user.edit',$user->id)}}"> <button class="edit-user btn btn-success"><span class="glyphicon glyphicon-edit"></span></button></a></td>
+                                    {{--<a href="{{route('user.edit',$user->id)}}"> <button class="edit-user btn btn-success"><span class="glyphicon glyphicon-edit"></span></button></a></td>--}}
                             </tr>
                         @endforeach
 
@@ -142,6 +145,7 @@
                     $('#form_edit_user')[0].reset();
 
                     toastr.success("Actualizado Com Sucesso!");
+                    document.location.href="{{url('user')}}";
                 },
                 error:function(){
                     toastr.error("Erro na Actualizacao!");

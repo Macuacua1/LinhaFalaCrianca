@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="margin: -15px 0 0 auto">
             <div class="card">
                 <div class="card-head style-primary" style="margin-top: -5px!important;padding-top: -5px!important;">
                     <header>Contactos</header>
@@ -140,7 +140,24 @@
                                 <td>{{$contacto->resumo_contacto}}</td>
                                 <td>{{$contacto->motivo->motivonome}}</td>
                                 @if($contacto->caso_id>0)
-                                    <td>{{$contacto->caso->estado_caso}}</td>
+                                    <td>
+                                    @if($contacto->caso->estado_caso =='Fechado')
+                                        <span style="color: #4caf50">{{$contacto->caso->estado_caso}}</span>
+                                    @endif
+                                    @if($contacto->caso->estado_caso =='Impossivel Proceder')
+                                        <span style="color: red">{{$contacto->caso->estado_caso}}</span>
+                                    @endif
+                                    @if($contacto->caso->estado_caso =='Assistido')
+                                        <span style="color: #0aa89e">{{$contacto->caso->estado_caso}}</span>
+                                    @endif
+                                    @if($contacto->caso->estado_caso =='Assistido Temporariamente')
+                                        <span style="color: #0c84e4">{{$contacto->caso->estado_caso}}</span>
+                                    @endif
+                                    @if($contacto->caso->estado_caso =='Em Progresso')
+                                        <span style="color: #0aa298">{{$contacto->caso->estado_caso}}</span>
+                                    @endif
+                                    </td>
+                                    {{--<td>{{$contacto->caso->estado_caso}}</td>--}}
                                 @else
                                     <td>Nao Encaminhado</td>
                                 @endif
@@ -479,7 +496,8 @@
                     success:function(data){
                         $('#form_add_caso')[0].reset();
                         $('.fwd-caso').addClass('disabled');
-                        toastr.success("Registado Com Sucesso!");
+                        toastr.success("Encaminhado Com Sucesso!");
+                        document.location.href="{{url('contacto')}}";
                     },
                     error:function(){
                         toastr.error("Registo nao efectuado!");

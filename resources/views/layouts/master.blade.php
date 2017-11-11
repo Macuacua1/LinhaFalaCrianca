@@ -174,7 +174,7 @@
                     </a>
                     <ul class="dropdown-menu animation-dock">
                         <li class="dropdown-header">Config</li>
-                        <li><a href="">Meu Perfil</a></li>
+                        <li><a href="{{url('/getPerfil')}}">Meu Perfil</a></li>
                         {{--<li><a href=""><span class="badge style-danger pull-right">16</span>My blog</a></li>--}}
                         {{--<li><a href="">My appointments</a></li>--}}
                         <li class="divider"></li>
@@ -255,18 +255,18 @@
 
                 <!-- BEGIN EMAIL -->
                 <li class="gui-folder">
-                    <a>
+                    <a href="{{url('user')}}">
                         <div class="gui-icon"><i class="fa fa-user"></i></div>{{--<i class="md md-email"></i>--}}
                         <span class="title">Utilizador</span>
                     </a>
                     <!--start submenu -->
-                    <ul>
-                        <li><a href="" ><span class="title">Perfil</span></a></li>
+                    {{--<ul>--}}
+                        {{--<li><a href="" ><span class="title">Perfil</span></a></li>--}}
 
-                        <li><a href="{{url('user')}}"><span class="title">Listar</span></a></li>
+                        {{--<li><a href="{{url('user')}}"><span class="title">Listar</span></a></li>--}}
 
 
-                    </ul><!--end /submenu -->
+                    {{--</ul><!--end /submenu -->--}}
                 </li><!--end /menu-li -->
                 <!-- END EMAIL -->
 

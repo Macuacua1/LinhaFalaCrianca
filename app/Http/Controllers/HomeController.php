@@ -10,6 +10,7 @@ use App\Provincia;
 use App\Role;
 use App\Tipo_Motivo;
 use App\User;
+use App\Utente;
 use Illuminate\Http\Request;
 use Charts;
 use Illuminate\Support\Facades\DB;
@@ -111,8 +112,12 @@ class HomeController extends Controller
         return view('test',compact('chart','case','caso','contacto'));
     }
     public function provfunct(){
-        $cases=Caso::all()->count();
-        $contacts=Contacto::all()->count();
+        $total_casos=Caso::all()->count();
+        $total_contactos=Contacto::all()->count();
+        $total_vitimas=Utente::where('tipo_utente','Vitima')
+            ->orWhere('tipo_utente','Contactante+Vitima')->count();
+        $resol_casos=Caso::where('estado_caso','Fechado')->count();
+//        dd($total_vitimas);
 
         $chart = Charts::multi('bar', 'highcharts')->labels(['Total de Contactos por Motivo']);
         foreach(Contacto::with('motivos')->distinct()->pluck('motivo_id') as $motivo) {
@@ -133,23 +138,23 @@ class HomeController extends Controller
             ->join('motivos', 'contactos.motivo_id', '=', 'motivos.id')
             ->select('contactos.*','motivos.motivonome as motivo')
             ->get();
-
+//dd($datas);
         $contacto= Charts::database($datas,'line', 'highcharts')
             ->title('Graficos de Contactos')
             ->responsive(true)
             ->groupBy('motivo');
 
-        $contact= DB::table('contactos')
-            ->select(DB::Raw('count(*) as total,estado_contacto'))
-            ->where('estado_contacto','<>',null)
-            ->groupBy('estado_contacto')
-            ->get();
-
-        $casos=DB::table('casos')
-            ->select(DB::Raw('count(*) as total,estado_caso'))
-            ->where('estado_caso','<>',null)
-            ->groupBy('estado_caso')
-            ->get();
+//        $contact= DB::table('contactos')
+//            ->select(DB::Raw('count(*) as total,estado_contacto'))
+//            ->where('estado_contacto','<>',null)
+//            ->groupBy('estado_contacto')
+//            ->get();
+//
+//        $casos=DB::table('casos')
+//            ->select(DB::Raw('count(*) as total,estado_caso'))
+//            ->where('estado_caso','<>',null)
+//            ->groupBy('estado_caso')
+//            ->get();
 //
 //        foreach ($caso as $hey){
 //         dd($caso);
@@ -170,7 +175,8 @@ class HomeController extends Controller
         $tipomotivos=Tipo_Motivo::where('tipomotivonome','<>','Atendimento')->get();
 //        dd($tipomotivos);
         $roles=Role::all();
-        return view('home',compact('prov','tipomotivos','motivos','roles','chart','case','caso','contacto','cases','contacts'));//sent data to view
+        return view('home',compact('prov','tipomotivos','motivos','roles','chart','case','caso','contacto',
+            'cases','contacts','resol_casos','total_casos','total_contactos','total_vitimas'));//sent data to view
 
     }
 

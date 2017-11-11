@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use App\Role;
 use App\User;
+use Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +35,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.profile');
+        return view('auth.register');
     }
 
     /**
@@ -44,7 +46,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        $this->validate($request, [
+//            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//            'local_actual' => 'required|max:255|min:3',
+//            'designacao' => 'required|min:3',
+//            'data' => 'required',
+//            'local' => 'required',
+//        ]);
+       dd($request->all());
     }
 
     /**
@@ -106,15 +115,32 @@ class UserController extends Controller
     }
 
 
-    public function criarConta(Request $request)
+    public function criarConta(Request $request,$qtyCaraceters = 6)
     {
+//        Mail::send(['test'=>'mail'],['name','Mario'],function ($message) {
+//            $message->to('mariocarlitosmacuacua@gmail.com', 'To Mario')->subject('Testando Email');
+//            $message->from('mariocarlitosmacuacua@gmail.com', 'Mario');
+//        });
+//        return $request->all();
+        Mail::send(new SendMail());
 
+//        $smallLetters = str_shuffle('abcdefghijklmnopqrstuvwxyz');
+//        $capitalLetters = str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+//        $numbers = (((date('Ymd') / 12) * 24) + mt_rand(800, 9999));
+//        $numbers .= 1234567890;
+//        $specialCharacters = str_shuffle('!@#$%*-');
+//        $characters = $capitalLetters.$smallLetters.$numbers.$specialCharacters;
+//        $password = substr(str_shuffle($characters), 0, $qtyCaraceters);
 
-        $password = $request->password;
-        $request->request->add(['avatar' => 'default']);
-        $request->request->add(['estado' => 'activo']);
-        $request->request->add(['password' => bcrypt($request->password)]);
-        User::create($request->all());
+//        $request->request->add(['password' => bcrypt($password)]);
+//        $request->request->add(['role_id' => $request->role_id]);
+//        $request->request->add(['avatar' => 'default']);
+//        $request->request->add(['nome' => $request->nome]);
+//        $request->request->add(['email' => $request->email]);
+//        $user = User::create($request->all());
+
+//        return Response($user);
+
 
 //        if (Auth::attempt(['email' => $request->email , 'password' => $password])) {
 //
@@ -133,9 +159,9 @@ class UserController extends Controller
 
     public function getPerfil(){
 
-        $user = Auth::user();
+//        $user = Auth::user();
 
-        return view('users.perfil', compact('user'));
+        return view('user.profile');
     }
     public function block_user(Request $request){
 //        dd($request->all());
@@ -160,6 +186,13 @@ class UserController extends Controller
         if (isset($request->role_id)and isset($request->$request->escritorio)and isset($request->estado) ) {
             User::where('id', $request->user_id)->update(['role_id' => $request->role_id,'escritorio' => $request->escritorio,'estado' => $request->estado]);
         }
+    }
+    public function edituser(Request $request){
+//        dd($request->file("avatar")->getClientOriginalName());
+        $passw= bcrypt($request->password);
+        User::where('id',$request->user_id)->update(['avatar'=>$request->file("avatar")->getClientOriginalName(),'password'=>$passw]);
+        $request->file("avatar")->move( base_path() . '/public/img' , $request->file("avatar")->getClientOriginalName());
+        return back()->with('success','Actualizado com Sucesso!');
     }
 
 }

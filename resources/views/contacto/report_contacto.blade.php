@@ -28,7 +28,7 @@
 @section('content')
     @if( Auth::user()->hasRole('admin'))
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="margin: -15px 0 0 auto">
                 <div class="card">
                     <div class="card-head style-primary" style="margin-top: -5px!important;padding-top: -5px!important;">
                         <header>Estatisticas dos Contactos</header>
@@ -70,13 +70,31 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </fieldset>
+                                    <div class="row">
+                                        <div class="col-md-2 clo-sm-2"></div>
+                                        <div class="col-md-2 clo-sm-4" style="margin-top: -5px;">
+                                            <a href=""><button class="btn btn-success" type="button" style="margin-left: 20px">
+                                                    <span class="glyphicon glyphicon-refresh"></span>
+                                                </button></a>
+                                        </div>
+                                        <div class="col-md-2 clo-sm-6" style="margin-top: -5px;">
+                                            <a id="exportprov" href="#" style="display: none;margin-left: 110px" download="FileName"><button class="btn btn-success" type="button">
+                                                    <span class="glyphicon glyphicon-download"></span>
+                                                    {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
+                                                    Exportar Imagem
+                                                </button></a></div>
+                                    </div>
+
+
 
                                 </div>
                                 <div class="col-md-7 col-sm-7">
                                     <center>
                                         <div id="provinciachart" class="chart"></div>
                                     </center>
+
                                 </div>
                             </div>
 
@@ -84,63 +102,212 @@
 
                         <div class="tab-pane active" id="distrito">
                             <div class="row">
-                                <div class="col-md-4 col-sm-4">
-                                    <div class="form-group floating-label">
-                                        <select id="provincia-id" name="provincia_id" class="form-control provincia">
-                                            <option value="" disabled selected>--Provincia--</option>
-                                            @foreach($prov as $pro)
-                                                <option value="{{$pro->id}}">{{$pro->provincianome}}</option>
-                                            @endforeach
-                                        </select>
+                            <div class="col-sm-5 col-sm-5">
+                                <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border">Filtro por Datas</legend>
+                                    <div class="form-group">
+                                        <div class="form-group floating-label">
+                                            <select id="provincia-id" name="provincia_id" class="form-control provincia">
+                                                <option value="" disabled selected>--Provincia--</option>
+                                                @foreach($prov as $pro)
+                                                    <option value="{{$pro->id}}">{{$pro->provincianome}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group floating-label">
+                                            <select id="distrito"  class="form-control distritonome" name="distrito_id">
+                                                <option value="0" disabled="true" selected="true">--Distrito--</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <div class="form-group floating-label">
-                                        <select id="distrito"  class="form-control distritonome" name="distrito_id">
-                                            <option value="0" disabled="true" selected="true">--Distrito--</option>
-                                        </select>
+                                    <div class="form-group">
+                                        <div  class="input-daterange input-group" id="demo-date-range">
+                                            <div class="input-group-content">
+                                                <input type="text" class="form-control" name="startdist" id="startdist"/>
+                                                <label>De</label>
+                                            </div>
+                                            <span class="input-group-addon">a</span>
+                                            <div class="input-group-content">
+                                                <input type="text" class="form-control" name="enddist" id="enddist" />
+                                                <label>Para</label>
+                                                <div class="form-control-line"></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4">
-                                    <div class="form-group floating-label">
-                                        <select id="localidade" class="form-control localidadenome" name="localidade_id">
-                                            <option value="0" disabled="true" selected="true">--Localidade--</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                </div>
+
+                                </fieldset>
+                                <a id="exportdist" href="#" style="display: none;margin-left: 300px" download="FileName"><button class="btn btn-success" type="button">
+                                        <span class="glyphicon glyphicon-download"></span>
+                                        {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
+                                        Exportar Imagem
+                                    </button></a>
+
+                            </div>
+                            <div class="col-md-7 col-sm-7">
                             <center>
                                 <div id="distritochart" class="chart" style="width: 900px; height: 500px;"></div>
                             </center>
+                            </div>
 
                         </div>
+                            </div>
                         <div class="tab-pane active" id="tipo_contacto">
-                            <center>
-                                <div id="tipochart" class="chart" style="width: 900px; height: 500px;"></div>
-                            </center>
+                            {{--<center>--}}
+                                {{--<div id="tipochart" class="chart" style="width: 900px; height: 500px;"></div>--}}
+                            {{--</center>--}}
+                            <div class="row">
+                                <div class="col-sm-5 col-sm-5">
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Filtro por Datas</legend>
+                                        <div class="form-group">
+                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="start" id="start"/>
+                                                    <label>De</label>
+                                                </div>
+                                                <span class="input-group-addon">a</span>
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="end" id="end" />
+                                                    <label>Para</label>
+                                                    <div class="form-control-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                    <a id="exporttipo" href="#" style="display: none;margin-left: 300px" download="FileName"><button class="btn btn-success" type="button">
+                                            <span class="glyphicon glyphicon-download"></span>
+                                            {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
+                                            Exportar Imagem
+                                        </button></a>
+
+                                </div>
+                                <div class="col-md-7 col-sm-7">
+                                    <center>
+                                        <div id="tipochart" class="chart"></div>
+                                    </center>
+
+                                </div>
+                            </div>
 
                         </div>
                         <div class="tab-pane active" id="motivo">
-                            <center>
-                                {{--<div id="motivochart" style="width: 900px; height: 500px;"></div>--}}
-                                <div id="top_x_div" class="chart" style="width: 600px; height: 500px;"></div>
-                            </center>
+                                                       {{--<center>--}}
+                            {{--<div id="top_x_div" class="chart" style="width: 600px; height: 500px;"></div>--}}
+                            {{--</center>--}}
+                            <div class="row">
+                                <div class="col-sm-5 col-sm-5">
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Filtro por Datas</legend>
+                                        <div class="form-group">
+                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="start" id="startmotivo"/>
+                                                    <label>De</label>
+                                                </div>
+                                                <span class="input-group-addon">a</span>
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="end" id="endmotivo" />
+                                                    <label>Para</label>
+                                                    <div class="form-control-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
 
+                                    </fieldset>
+                                    <a id="exportmotivo" href="#" style="display: none;margin-left: 300px" download="FileName"><button class="btn btn-success" type="button">
+                                            <span class="glyphicon glyphicon-download"></span>
+                                            {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
+                                            Exportar Imagem
+                                        </button></a>
+
+                                </div>
+                                <div class="col-md-7 col-sm-7">
+                                    <center>
+                                        <div id="top_x_div" class="chart"></div>
+                                    </center>
+
+                                </div>
+                            </div>
 
                         </div>
                         <div class="tab-pane active" id="idade">
-                            <center>
-                                {{--<div id="motivochart" style="width: 900px; height: 500px;"></div>--}}
-                                <div id="idadechart" class="chart" style="width: 600px; height: 500px;"></div>
-                            </center>
+                            {{--<center>--}}
+                                {{--<div id="idadechart" class="chart" style="width: 600px; height: 500px;"></div>--}}
+                            {{--</center>--}}
+                            <div class="row">
+                                <div class="col-sm-5 col-sm-5">
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Filtro por Datas</legend>
+                                        <div class="form-group">
+                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="start" id="startidade"/>
+                                                    <label>De</label>
+                                                </div>
+                                                <span class="input-group-addon">a</span>
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="end" id="endidade" />
+                                                    <label>Para</label>
+                                                    <div class="form-control-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                    <a id="exportidade" href="#" style="display: none;margin-left: 300px" download="FileName"><button class="btn btn-success" type="button">
+                                            <span class="glyphicon glyphicon-download"></span>
+                                            {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
+                                            Exportar Imagem
+                                        </button></a>
+
+                                </div>
+                                <div class="col-md-7 col-sm-7">
+                                    <center>
+                                        <div id="idadechart" class="chart"></div>
+                                    </center>
+
+                                </div>
+                            </div>
 
 
                         </div>
                         <div class="tab-pane active" id="genero">
-                            <center>
-                                {{--<div id="motivochart" style="width: 900px; height: 500px;"></div>--}}
-                                <div id="generochart" class="chart" style="width: 600px; height: 500px;"></div>
-                            </center>
+                            <div class="row">
+                                <div class="col-sm-5 col-sm-5">
+                                    <fieldset class="scheduler-border">
+                                        <legend class="scheduler-border">Filtro por Datas</legend>
+                                        <div class="form-group">
+                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="start" id="startgenero"/>
+                                                    <label>De</label>
+                                                </div>
+                                                <span class="input-group-addon">a</span>
+                                                <div class="input-group-content">
+                                                    <input type="text" class="form-control" name="end" id="endgenero" />
+                                                    <label>Para</label>
+                                                    <div class="form-control-line"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+
+                                    <a id="exportgenero" href="#" style="display: none;margin-left: 300px" download="FileName"><button class="btn btn-success" type="button">
+                                            <span class="glyphicon glyphicon-download"></span>
+                                            {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
+                                            Exportar Imagem
+                                        </button></a>
+
+                                </div>
+                                <div class="col-md-7 col-sm-7">
+                                    <center>
+                                        <div id="generochart" class="chart"></div>
+                                    </center>
+
+                                </div>
+                            </div>
 
 
                         </div>
@@ -163,6 +330,7 @@
             google.charts.setOnLoadCallback(drawCharti);
             google.charts.setOnLoadCallback(drawStuff);
             google.charts.setOnLoadCallback(drawStu);
+
 
             function drawStuff() {
                 var data = new google.visualization.arrayToDataTable([
@@ -188,24 +356,34 @@
                 };
 
                 var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+                google.visualization.events.addListener(chart,'ready',function () {
+                    var exportdata=chart.getImageURI() ;
+                    $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Contacto'}).show();
+                });
                 // Convert the Classic options to Material options.
                 chart.draw(data, google.charts.Bar.convertOptions(options));
             }
 
             function drawCharti() {
 
-                var data = google.visualization.arrayToDataTable([
+                var data = google.visualization.arrayToDataTable(
+                        [
                     ['Task', 'Hours per Day'],
                     @foreach($provincias as $provincia)
                     ['{{$provincia->provincia}}', {{$provincia->total}}],
                     @endforeach
-                ]);
+                ]
+                );
 
                 var options = {
                     title: 'Número de Vítimas Por Província'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('provinciachart'));
+                google.visualization.events.addListener(chart,'ready',function () {
+                   var exportdata=chart.getImageURI() ;
+                    $('#exportprov').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Província'}).show();
+                });
 
                 chart.draw(data, options);
             }
@@ -224,7 +402,10 @@
                     };
 
                     var chart = new google.visualization.PieChart(document.getElementById('distritochart'));
-
+                    google.visualization.events.addListener(chart,'ready',function () {
+                        var exportdata=chart.getImageURI() ;
+                        $('#exportdist').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Distrito'}).show();
+                    });
                     chart.draw(data, options);
                 }
 
@@ -243,6 +424,10 @@
                     };
 
                     var chart = new google.visualization.PieChart(document.getElementById('tipochart'));
+                    google.visualization.events.addListener(chart,'ready',function () {
+                        var exportdata=chart.getImageURI() ;
+                        $('#exporttipo').attr({'href':exportdata,'download':'Relatorio de Estatísticas pelo Tipo de Contacto'}).show();
+                    });
 
                     chart.draw(data, options);
                 }
@@ -262,6 +447,10 @@
                     };
 
                     var chart = new google.visualization.PieChart(document.getElementById('idadechart'));
+                    google.visualization.events.addListener(chart,'ready',function () {
+                        var exportdata=chart.getImageURI() ;
+                        $('#exportidade').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Idade das Vítimas'}).show();
+                    });
 
                     chart.draw(data, options);
                 }
@@ -275,10 +464,14 @@
                 ]);
 
                 var options = {
-                    title: 'Número de Vítimas Por Província'
+                    title: 'Número de Vítimas Por Genero'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('generochart'));
+                google.visualization.events.addListener(chart,'ready',function () {
+                    var exportdata=chart.getImageURI() ;
+                    $('#exportgenero').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Genero'}).show();
+                });
 
                 chart.draw(data, options);
             }
@@ -290,7 +483,7 @@
           $("#endpro").datepicker("change", { minDate: minDate });
           var inicio=$('#startpro').val();
           var fim= $('#endpro').val();
-          pesquisarCaso(inicio,fim);
+          pesquisarPro(inicio,fim);
       });
 
       $("#endpro").on('change',function () {
@@ -298,26 +491,78 @@
           var inicio=$('#startpro').val();
           var fim= $('#endpro').val();
 //          alert(fim);
-          pesquisarCaso(inicio,fim);
+          pesquisarPro(inicio,fim);
       });
-      function pesquisarCaso(criteria1,criteria2) {
-          var dados= " ";
+      $("#startdist").on('change',function(){
+          var minDate = $('#startdist').datepicker('getDate');
+          $("#enddist").datepicker("change", { minDate: minDate });
+          var inicio=$('#startdist').val();
+          var fim= $('#enddist').val();
+//          pesquisarPro(inicio,fim);
+      });
+
+      $("#enddist").on('change',function () {
+          var maxDate = $('#enddist').datepicker('getDate');
+          var inicio=$('#startdist').val();
+          var fim= $('#enddist').val();
+//          alert(fim);
+//          pesquisarPro(inicio,fim);
+      });
+
+      function pesquisarPro(criteria1,criteria2) {
+          var chardat=[];
+          var titulo=['provincia','total'];
+          chardat.push(titulo);
           $.ajax({
               type: 'post',
               url: '/pesquisapro',
               data: {inicio:criteria1,fim:criteria2},
+              dataType: 'json',
               success: function(data) {
-                  if (data) {
-//                      $('#provinciachart').empty();
+                  data.forEach(function (dados) {
+                      chardat.push([dados.provincia,parseInt(dados.total)]);
+                  });
 
-                  }else {
-                      $('#provinciachart').empty();
-//                            alert('Nao Existem dados');
-
-                  }
+                  drawChartiii(chardat);
+//                  console.log(data);
+              },error:function () {
+                  alert('Erro, plese try again')
               }
           });
 
       }
+      function drawChartiii(dados) {
+
+          var data = google.visualization.arrayToDataTable(dados);   //chardat
+
+          var options = {
+              title: 'Número de Vítimas Por Província'
+          };
+
+          var chart = new google.visualization.PieChart(document.getElementById('provinciachart'));
+          google.visualization.events.addListener(chart,'ready',function () {
+              var exportdata=chart.getImageURI() ;
+              $('#exportprov').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Província'}).show();
+          });
+
+          chart.draw(data, options);
+      }
   </script>
+    <script type="text/javascript">
+        $("#start").on('change',function(){
+            var minDate = $('#start').datepicker('getDate');
+            $("#end").datepicker("change", { minDate: minDate });
+            var inicio=$('#start').val();
+            var fim= $('#end').val();
+//          pesquisarPro(inicio,fim);
+        });
+
+        $("#end").on('change',function () {
+            var maxDate = $('#end').datepicker('getDate');
+            var inicio=$('#start').val();
+            var fim= $('#end').val();
+//          alert(fim);
+//          pesquisarPro(inicio,fim);
+        });
+    </script>
 @stop

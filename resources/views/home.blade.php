@@ -10,7 +10,7 @@
                                 <div class="card-body no-padding">
                                     <div class="alert alert-callout alert-info no-margin">
                                         <strong class="pull-right text-success text-lg">0,38% <i class="md md-trending-up"></i></strong>
-                                        <strong class="text-xl">32,829</strong><br/>
+                                        <strong class="text-xl">{{$total_contactos}}</strong><br/>
                                         <span class="opacity-50 text-success">Contactos Registados</span>
                                         <div class="stick-bottom-left-right">
                                             <div class="height-2 sparkline-revenue" data-line-color="#bdc1c1"></div>
@@ -21,22 +21,7 @@
                         </div><!--end .col -->
                         <!-- END ALERT - REVENUE -->
 
-                        <!-- BEGIN ALERT - VISITS -->
-                        <div class="col-md-3 col-sm-6">
-                            <div class="card">
-                                <div class="card-body no-padding">
-                                    <div class="alert alert-callout alert-warning no-margin">
-                                        <strong class="pull-right text-warning text-lg">0,01% <i class="md md-swap-vert"></i></strong>
-                                        <strong class="text-xl">4,901</strong><br/>
-                                        <span class="opacity-50 text-warning">Contactos Encaminhados</span>
-                                        <div class="stick-bottom-right">
-                                            <div class="height-1 sparkline-visits" data-bar-color="#e5e6e6"></div>
-                                        </div>
-                                    </div>
-                                </div><!--end .card-body -->
-                            </div><!--end .card -->
-                        </div><!--end .col -->
-                        <!-- END ALERT - VISITS -->
+
 
                         <!-- BEGIN ALERT - BOUNCE RATES -->
                         <div class="col-md-3 col-sm-6">
@@ -44,8 +29,8 @@
                                 <div class="card-body no-padding">
                                     <div class="alert alert-callout alert-danger no-margin">
                                         <strong class="pull-right text-danger text-lg">0,18% <i class="md md-trending-down"></i></strong>
-                                        <strong class="text-xl">420</strong><br/>
-                                        <span class="opacity-50 text-danger"  >Casos Registados</span>
+                                        <strong class="text-xl">{{$total_vitimas}}</strong><br/>
+                                        <span class="opacity-50 text-danger"  >Total de Vitimas</span>
                                         <div class="stick-bottom-left-right">
                                             <div class="progress progress-hairline no-margin">
                                                 <div class="progress-bar progress-bar-danger" style="width:43%"></div>
@@ -56,6 +41,22 @@
                             </div><!--end .card -->
                         </div><!--end .col -->
                         <!-- END ALERT - BOUNCE RATES -->
+                        <!-- BEGIN ALERT - VISITS -->
+                        <div class="col-md-3 col-sm-6">
+                            <div class="card">
+                                <div class="card-body no-padding">
+                                    <div class="alert alert-callout alert-warning no-margin">
+                                        <strong class="pull-right text-warning text-lg">0,01% <i class="md md-swap-vert"></i></strong>
+                                        <strong class="text-xl">{{$total_casos}}</strong><br/>
+                                        <span class="opacity-50 text-warning">Casos Registados</span>
+                                        <div class="stick-bottom-right">
+                                            <div class="height-1 sparkline-visits" data-bar-color="#e5e6e6"></div>
+                                        </div>
+                                    </div>
+                                </div><!--end .card-body -->
+                            </div><!--end .card -->
+                        </div><!--end .col -->
+                        <!-- END ALERT - VISITS -->
 
                         <!-- BEGIN ALERT - TIME ON SITE -->
                         <div class="col-md-3 col-sm-6">
@@ -63,7 +64,7 @@
                                 <div class="card-body no-padding">
                                     <div class="alert alert-callout alert-success no-margin">
                                         <h1 class="pull-right text-success"><i class="md md-timer"></i></h1>
-                                        <strong class="text-xl">210</strong><br/>
+                                        <strong class="text-xl">{{$resol_casos}}</strong><br/>
                                         <span class="opacity-50 text-success">Casos Resolvidos</span>
                                     </div>
                                 </div><!--end .card-body -->

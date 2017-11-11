@@ -12,15 +12,36 @@ use Illuminate\Support\Facades\DB;
 
 class ChartContactoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function pesquisapro(Request $request){
         $provincias=DB::table('utentes')
             ->join('provincias','utentes.provincia_id','=','provincias.id')
             ->select(DB::raw('count(*) as total,provincias.provincianome as provincia'))
             ->where('provincia_id','<>',null)
-            ->where('tipo_utente','<>','Contactante')
+            ->where('tipo_utente','Vitima')
+            ->orWhere('tipo_utente','Contactante+Vitima')
             ->whereBetween('utentes.created_at',[$request->inicio,$request->fim])
             ->groupBy('provincia')->get();
         return Response($provincias);
+//                if ($provincias !=null){
+//////            $charData= new array(count($provincias)+1);
+//            $charData = new \SplFixedArray(count($provincias)+1);
+//            $charData[0]=["provincia","total"];
+//            $j=0;
+////            $data=(object)$provincias;
+//            $data=json_decode($provincias,true);
+//            foreach ($data as $key=>$value){
+//                $j++;
+//                $charData[$j]=([$data[$key]['provincia'],$data[$key]['total']]);
+//////  dd($data[$key]['provincia']);
+//            }
+//        }
+//        $dados=(object)($charData);
+//        return response()->json($dados);
+//       return Response($provincias);
 
     }
     public function report_contacto(){
@@ -53,14 +74,34 @@ class ChartContactoController extends Controller
             ->join('provincias','utentes.provincia_id','=','provincias.id')
             ->select(DB::raw('count(*) as total,provincias.provincianome as provincia'))
             ->where('provincia_id','<>',null)
-            ->where('tipo_utente','<>','Contactante')
+            ->where('tipo_utente','Vitima')
+            ->orWhere('tipo_utente','Contactante+Vitima')
             ->groupBy('provincia')->get();
+//        dd($provincias);
+
+//        if ($provincias !=null){
+////            $charData= new array(count($provincias)+1);
+//            $charData = new \SplFixedArray(count($provincias)+1);
+//            $charData[0]=["provincia","total"];
+//            $j=0;
+////            $data=(object)$provincias;
+//            $data=json_decode($provincias,true);
+//            foreach ($data as $key=>$value){
+//                $j++;
+//                $charData[$j]=([$data[$key]['provincia'],$data[$key]['total']]);
+////  dd($data[$key]['provincia']);
+//            }
+//        }
+//        $dados=(object)($charData);
+//        return response()->json($charData);
+//       return Response($provincias);
 
         $distritos=DB::table('utentes')
             ->join('distritos','utentes.distrito_id','=','distritos.id')
             ->select(DB::raw('count(*) as total,distritos.distritonome as distrito'))
             ->where('distrito_id','<>',null)
-            ->where('tipo_utente','<>','Contactante')
+            ->where('tipo_utente','Vitima')
+            ->orWhere('tipo_utente','Contactante+Vitima')
             ->groupBy('distrito')->get();
 
         $idades=DB::table('utentes')
@@ -86,7 +127,7 @@ class ChartContactoController extends Controller
         $tipos=Contacto::where('tipo_contacto','<>',null)->selectRaw('count(*) as total,tipo_contacto')
             ->groupBy('tipo_contacto')->get();
 
-        return view('contacto.report_contacto',compact('motivos','tipos','chart_motivo','idades','distritos','provincias','prov','generos'));
+        return view('contacto.report_contacto',compact('motivos','tipos','chart_motivo','idades','distritos','prov','generos','provincias'));
     }
     public function pesquisacontacto(Request $request){
         if ($request->ajax()) {

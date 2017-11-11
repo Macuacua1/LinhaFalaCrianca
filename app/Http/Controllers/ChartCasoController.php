@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class ChartCasoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function reportcaso(){
 //        $plant = Caso::with(['motivo' => function($q){
 //            $q->groupBy('motivonome');
@@ -23,6 +27,11 @@ class ChartCasoController extends Controller
             ->select(DB::Raw('count(*) as total,motivos.motivonome as motivo'))
             ->where('motivo_id','<>',null)
             ->groupBy('motivo')
+            ->get();
+
+        $estados=DB::table('casos')
+            ->select(DB::Raw('count(*) as total,estado_caso as estado'))
+            ->groupBy('estado')
             ->get();
 
         $instituicaos= DB::table('casos')
@@ -44,7 +53,7 @@ class ChartCasoController extends Controller
             ->title('Casos por Estado')
             ->responsive(true)
             ->groupBy('motivo_id');
-        return view('caso.report_caso',compact('chart_estado','chart_instituicao','chart_motivo','motivos','instituicaos'));
+        return view('caso.report_caso',compact('chart_estado','chart_instituicao','chart_motivo','motivos','instituicaos','estados'));
     }
 
     public function pesquisacaso(Request $request){

@@ -1,132 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
+@section('content')
+    <div class="row">
+        <div class="col-lg-12" style="margin: -15px 0 0 auto">
+            <div class="card">
+                <div class="card-head style-primary" style="margin-top: -5px!important;padding-top: -5px!important;">
+                    <header>Registar Utilizadores</header>
+                </div>
+            </div><!--end .card -->
+        </div>
+    </div><!--end .col -->
 
-<!-- Mirrored from steelcoders.com/alpha/v1.2/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Jul 2017 11:05:09 GMT -->
-<head>
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2">
 
-    <!-- Title -->
-    <title>Linha Fala Criança</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Linha Fala Criança / UNICEF Mozambique" />
-    <meta name="keywords" content="Linha Fala Criança ,UNICEF Mozambique" />
-    <meta name="author" content="Linha Fala Criança / UNICEF Mozambique">
-    <link rel="icon" href="/img/lfc_logo.png">
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    {{--<link href="/css/materialPreloader.min.css" rel="stylesheet">--}}
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
-
-
-    <!-- Theme Styles -->
-    {{--<link href="/css/alpha.min.css" rel="stylesheet" type="text/css"/>--}}
-    <link href="/css/custom.css" rel="stylesheet" type="text/css"/>
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="http://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="http://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-<body class="signup-page">
-
-<div class="mn-content valign-wrapper"  style="margin-top: 100px!important;">
-    <main class="mn-inner container ">
-        <div class="valign">
-            <div class="row">
-                <div class="col s12 m6 l4 offset-l4 offset-m3">
-                    <div class="card white darken-1" style="width: 400px!important;">
-                        <div class="card-content ">
-                            <span class="card-title">Registo do Utilizador</span>
-                            <div class="row">
-                                <form class="col s12" role="form" id="form-criar-conta" method="POST" {{--action="{{route('register')}}"--}}>
-                                    {{ csrf_field() }}
-                                    <div class="input-field col s12">
-                                        <input id="name" type="text" class="validate" id="nome" name="nome" value="{{ old('nome') }}">
-                                        <label for="nome">Nome</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="email" type="email" class="validate" name="email" value="{{ old('email') }}">
-                                        <label for="email">Email</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="password" type="password" class="validate" id="nome" name="password" value="{{ old('password') }}">
-                                        <label for="password">Password</label>
-                                    </div>
-                                    <div class="input-field col s12">
-                                        <input id="password-confirm" type="password" name="password_confirmation" class="validate">
-                                        <label for="password-confirm">Confirm Password</label>
-                                    </div>
-                                    <div class="col s12 right-align m-t-sm">
-                                        <a href="/login" class="waves-effect waves-grey btn-flat" style="font-size: 12px!important;">Login</a>
-                                        <a href="" type="submit" id="registar-user" class="waves-effect waves-light btn teal" style="font-size: 12px!important;">Registar</a>
-                                    </div>
-                                </form>
+                    </div>
+                    <div class="col-md-8 col-sm-8">
+                        <form class="form" role="form" method="post" id="form_add_user">
+                            {{csrf_field()}}
+                            <div class="form-group floating-label">
+                                <input type="text" name="nome" class="form-control input-lg" id="large4" required>
+                                <label for="large4">Nome</label>
                             </div>
-                        </div>
+                            <div class="form-group floating-label">
+                                <input type="email" name="email" class="form-control input-lg" id="large4" required>
+                                <label for="large4">Email</label>
+                            </div>
+                            <div class="form-group floating-label">
+                                <select id="select2" name="role_id" class="form-control"required>
+                                    <option value="">&nbsp;</option>
+                                    <option value="1">Administrador</option>
+                                    <option value="2">Conselheiro</option>
+                                </select>
+                                <label for="select2" style="font-size: 1.6em;">Perfil</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-2 col-sm-2"></div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-sm-8"></div>
+                    <div class="col-md-4 col-sm-4" style="margin-top: 10px">
+                        <a><button class="btn btn-success adduser" style="margin: -15px 0 10px 15px" type="submit" id="edit_utente" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Adicionar novo">
+                                <span class="glyphicon glyphicon-plus"></span>novo
+                            </button></a>
+                    </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
-</div>
 
-<!-- Javascripts -->
-{{--<script src="/js/materialPreloader.min.js"></script>--}}
-{{--<script src="/js/jquery.blockui.js"></script>--}}
-{{--<script src="/js/alpha.min.js"></script>--}}
 
-<script>
-    $(document).ready(function () {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $('#registar-user').on('click', function (e) {
-            e.preventDefault();
-
-            var dados = $('#form-criar-conta').serialize();
-
-            $.ajax({
-                method: 'Post',
-                url: '/register',
-//                enctype: 'multipart/form-data',
-                data: dados,
-                success: function (data) {
-
-                    if (data) {
-
-                        setTimeout(function(){ Materialize.toast('Registado com Sucesso!', 4000) }, 4000);
-                        $('#form-criar-conta')[0].reset();
-                        window.location.href = '/';
-//                        alert('Salvo com Sucesso!');
-
-                    }
-                    else {
-                        alert(error)
-
-                    }
+        </div><!--end .card -->
+    </div><!--end .col -->
+    <div class="col-lg-2"></div>
+@stop
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $('.adduser').on('click', function() {
+                var dados = $('#form_add_user').serialize();
+//                alert(dados);
+                $.ajax({
+                    type:'post',
+                    url:'/criar_conta',
+                    data:dados,
+                    success:function(data){
+                        $('#form_add_user')[0].reset();
 
-        })
+                        toastr.success("Actualizado Com Sucesso!");
+                        document.location.href="{{url('user')}}";
+                    },
+                    error:function(){
+                        toastr.error("Erro na Actualizacao!");
+                    }
+                });
+            });
+
+        });
+
+    </script>
 
 
-    });
-</script>
-
-</body>
-
-</html>
+@stop

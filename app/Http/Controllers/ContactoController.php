@@ -49,6 +49,7 @@ class ContactoController extends Controller
         $tipos= Tipo_Motivo::where('tipomotivonome','Atendimento')->first();
         $motivos=Motivo::where('tipo_motivo_id',$tipos->id)->get();
         $tipomotivos=Tipo_Motivo::where('tipomotivonome','<>','Atendimento')->get();
+//        $tipomotivos=Tipo_Motivo::all();
         $roles=Role::all();
         return view('contacto/registo',compact('prov','tipomotivos','motivos','roles'));//sent data to view
 

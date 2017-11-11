@@ -132,7 +132,7 @@ $('#add_contacto').on('click',function (e) {
             if (data) {
                 $('#form_add_contacto')[0].reset();
                 toastr.success("Registado Com Sucesso!");
-                window.location.href = '/';
+                // window.location.href = '/';
             }
             else {
                 toastr.error("Registo nao Efectuado!");

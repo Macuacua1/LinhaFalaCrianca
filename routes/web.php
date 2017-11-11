@@ -28,7 +28,9 @@ Route::get('/reg', function () {
 Route::get('/perfil', function () {
     return view('user/profile');
 });
-//Route::post('/criar-conta','UserController@criarConta');
+Route::post('/criar_conta','UserController@criarConta');
+Route::post('/edituser','UserController@edituser');
+Route::get('/getPerfil','UserController@getPerfil');
 //Route::get('perfil','UserController@getPerfil');
 Route::resource('contacto','ContactoController');
 Route::resource('caso','CasoController');
