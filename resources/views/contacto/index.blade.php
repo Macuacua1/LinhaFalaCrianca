@@ -170,7 +170,7 @@
                                             <span class="glyphicon glyphicon-forward"></span>
                                         </button>
                                 @else
-                                        <button class="btn btn-success" data-id="{{$contacto->id}}" data-title="" data-description="" id="fwd-caso">
+                                        <button class="btn btn-success" data-id="{{$contacto->id}}" data-toggle="modal" data-target="#formModal" id="fwd-caso">
                                             <span class="glyphicon glyphicon-forward"></span>
                                         </button>
                                 @endif
@@ -181,54 +181,57 @@
 
                     </table>
                 </div><!--end .table-responsive -->
-                <div id="myModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"></h4>
-                            </div>
-                            <div class="modal-body">
-                                <form class="form-horizontal" role="form" method="post" id="form_add_caso">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="form-group floating-label">
-                                            <select name="responsavel_id" id="responsavel" class="form-control">
-                                                <option value="" disabled selected>--Reencaminhar para:--</option>
-                                                @foreach($resps as $resp)
-                                                    <option value="{{$resp->id}}">{{$resp->respnome}}</option>
-                                                @endforeach
-                                            </select>
-                                            {{--<label for="help2">Reencaminhar para:</label>--}}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-sm-12">
-                                        <input type="hidden" class="form-control" id="contacto_id" name="contacto_id">
-                                    </div>
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="form-group floating-label">
-                                            <textarea name="mensagem" id="textarea1" class="form-control" rows="3"></textarea>
-                                            <label for="help2">Mensagem:</label>
-                                        </div>
-                                        {{--<a href="" class="btn btn-success glyphicon-lock" id="add_caso"  type="submit">Gravar</a>--}}
-                                    </div>
 
-                                </form>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn actionBtn" data-dismiss="modal" id="add_caso">
-                                        <span id="footer_action_button" class='glyphicon'> </span>
-                                    </button>
-                                    <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                        <span class='glyphicon glyphicon-remove'></span> Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div><!--end .card-body -->
         </div><!--end .card -->
     </div><!--end .col -->
+    <!-- BEGIN FORM MODAL MARKUP -->
+    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="formModalLabel">Reencaminhamento</h4>
+                </div>
+                <form class="form-horizontal" role="form" method="post" id="form_add_caso">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="email1" class="control-label">Instituicao</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <select name="responsavel_id" id="responsavel" class="form-control">
+                                    <option value="" disabled selected>--Reencaminhar para:--</option>
+                                    @foreach($resps as $resp)
+                                        <option value="{{$resp->id}}">{{$resp->respnome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <input type="hidden" class="form-control" id="contacto_id" name="contacto_id">
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="password1" class="control-label">Mensagem</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <textarea name="mensagem" id="textarea1" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">
+                            <span class='glyphicon glyphicon-remove'></span> Close</button>
+                        <button type="button" class="btn actionBtn" data-dismiss="modal" id="add_caso">
+                            <span id="footer_action_button" class='glyphicon'> </span>
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- END FORM MODAL MARKUP -->
 @endsection
 @section('scripts')
     <script type="text/javascript">
@@ -419,11 +422,7 @@
                     url:'/findDistrito',
                     data:{'id':prov_id},
                     success:function(data){
-                        //console.log('success');
 
-                        //console.log(data);
-
-                        //console.log(data.length);
                         op+='<option value="0" class="form-control" selected disabled>--Escolhe o Distrito--</option>';
                         for(var i=0;i<data.length;i++){
                             op+='<option class="form-control" value="'+data[i].id+'">'+data[i].distritonome+'</option>';
@@ -471,10 +470,7 @@
                     }
                 });
             });
-//            $(document).on('click', '#addcaso', function() {
-//                 alert('hahahha');
-//                $('#myModal').modal('show');
-//            });
+
             $(document).on('click', '#fwd-caso', function() {
                 $('#fwd-caso').addClass('fwd-caso');
                 $('#footer_action_button').text(" Encaminhar");
@@ -484,11 +480,11 @@
                 $('.modal-title').text('Edit');
                 $('#contacto_id').val($(this).data('id'));
                 $('.form-horizontal').show();
-                $('#myModal').modal('show');
+//                $('#myModal').modal('show');
             });
             $('.modal-footer').on('click', '.fwd_caso', function() {
                 var dados = $('#form_add_caso').serialize();
-                // alert(dados);
+                 alert(dados);
                 $.ajax({
                     type:'post',
                     url:'/addcaso',

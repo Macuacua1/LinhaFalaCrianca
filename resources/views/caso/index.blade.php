@@ -15,26 +15,7 @@
             <div class="card-body">
                 <form class="form">
                     <div class="row">
-                        {{--<div class='col-md-2'>--}}
-                            {{--<div class="form-group">--}}
-                                {{--<div class='input-group date' id='datetimepicker6'>--}}
-                                    {{--<input type='text' class="form-control" />--}}
-                                    {{--<span class="input-group-addon">--}}
-                    {{--<span class="glyphicon glyphicon-calendar"></span>--}}
-                {{--</span>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                        {{--<div class='col-md-2'>--}}
-                            {{--<div class="form-group">--}}
-                                {{--<div class='input-group date' id='datetimepicker7'>--}}
-                                    {{--<input type='text' class="form-control" />--}}
-                                    {{--<span class="input-group-addon">--}}
-                    {{--<span class="glyphicon glyphicon-calendar"></span>--}}
-                {{--</span>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
+
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
                                 <div  class="input-daterange input-group" id="demo-date-range">
@@ -146,7 +127,7 @@
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </button>
                                     @else
-                                        <button class="edit-caso btn btn-success" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}">
+                                        <button class="edit-caso btn btn-success" data-toggle="modal" data-target="#formModal" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </button>
                                     @endif
@@ -155,7 +136,7 @@
                                             <span class="glyphicon glyphicon-lock"></span>
                                         </button>
                                 @else
-                                        <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-title="" data-description="">
+                                        <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-toggle="modal" data-target="#formModal">
                                             <span class="glyphicon glyphicon-lock"></span>
                                         </button>
                                 @endif
@@ -172,31 +153,37 @@
                     </center>
 
                 </div>
-                <div id="myModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static" style="">
+                <!-- BEGIN FORM MODAL MARKUP -->
+                <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"></h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="formModalLabel"></h4>
                             </div>
-                            <div class="modal-body">
-                                <form class="form-horizontal" role="form" method="post" id="form_edit_caso">
-                                    <div class="col-md-12 col-sm-12" id="responsavel">
-                                        <div class="form-group floating-label">
+                            <form class="form-horizontal" role="form"  method="post" id="form_edit_caso">
+                                <div class="modal-body">
+                                    <div class="row" id="responsavel">
+                                    <div class="form-group" >
+                                        <div class="col-sm-3">
+                                            <label for="email1" class="control-label">Responsavel</label>
+                                        </div>
+                                        <div class="col-sm-9">
                                             <select name="responsavel_id" id="responsavel_id" class="form-control">
                                                 <option value="" disabled selected>--Reencaminhar para:--</option>
                                                 @foreach($resps as $resp)
                                                     <option value="{{$resp->id}}">{{$resp->respnome}}</option>
                                                 @endforeach
                                             </select>
-                                            {{--<label for="help2">Reencaminhar para:</label>--}}
                                         </div>
                                     </div>
-                                    <div class="col-md-12 col-sm-12">
-                                        <input type="hidden" class="form-control" id="caso_id" name="caso_id">
                                     </div>
-                                    <div class="col-md-12 col-sm-12" id="status">
-                                        <div class="form-group floating-label">
+                                    <div class="row" id="status">
+                                    <div class="form-group" id="status">
+                                        <div class="col-sm-3">
+                                            <label for="email1" class="control-label">Estado</label>
+                                        </div>
+                                        <div class="col-sm-9">
                                             <select name="estado_caso" id="estado_caso" class="form-control">
                                                 <option value="" disabled selected>--Novo Estado--</option>
                                                 <option value="Em Progresso">Em Progresso</option>
@@ -207,44 +194,132 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 col-sm-12" id="mensagem">
-                                        <div class="form-group floating-label">
+                                        </div>
+                                    <div class="row" id="mensagem">
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            <label for="email1" class="control-label">Mensagem</label>
+                                        </div>
+                                        <div class="col-sm-9">
                                             <textarea name="mensagem" id="textarea1" class="form-control" rows="3"></textarea>
-                                            <label for="help2">Mensagem:</label>
+
                                         </div>
                                     </div>
-                                        <div class="col-md-6 col-sm-6" id="cat_motivo">
-                                            <div class="form-group floating-label">
-                                                <select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo">
-                                                    <option value="" disabled selected>--Categoria do Motivo--</option>
-                                                    @foreach($tipomotivos as $tipomotivo)
-                                                        <option value="{{$tipomotivo->id}}">{{$tipomotivo->tipomotivonome}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6" id="motiv">
-                                            <div class="form-group floating-label">
-                                                <select id="motivo"  class="form-control motivonome" name="motivo_id">
-                                                    <option value="0" disabled="true" selected="true">--Motivo--</option>
-                                                </select>
-                                            </div>
+                                    <div class="row" id="cat_mot">
+                                    <div class="form-group">
+                                        <div class="col-sm-3" >
+                                            <label for="email1" class="control-label">Categoria do Motivo</label>
                                         </div>
+                                        <div class="col-sm-9">
+                                            <select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo">
+                                                <option value="" disabled selected>--Categoria do Motivo--</option>
+                                                @foreach($tipomotivos as $tipomotivo)
+                                                    <option value="{{$tipomotivo->id}}">{{$tipomotivo->tipomotivonome}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    <div class="row" id="mot">
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            <label for="password1" class="control-label">Motivo</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <select id="motivo"  class="form-control motivonome" name="motivo_id">
+                                                <option value="0" disabled="true" selected="true">--Motivo--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    <input type="hidden" class="form-control" id="caso_id" name="caso_id">
 
-                                </form>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn actionBtn" data-dismiss="modal">
-                                        <span id="footer_action_button" class='glyphicon'> </span>
-                                    </button>
-                                    <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                        <span class='glyphicon glyphicon-remove'></span> Close
-                                    </button>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">
+                                        <span class='glyphicon glyphicon-remove'></span> Close</button>
+                                    <button type="button" class="btn actionBtn" data-dismiss="modal">
+                                        <span id="footer_action_button" class='glyphicon'> </span></button>
+                                </div>
+                            </form>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+                <!-- END FORM MODAL MARKUP -->
+                {{--<div id="myModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static" style="">--}}
+                    {{--<div class="modal-dialog">--}}
+                        {{--<div class="modal-content">--}}
+                            {{--<div class="modal-header">--}}
+                                {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
+                                {{--<h4 class="modal-title"></h4>--}}
+                            {{--</div>--}}
+                            {{--<div class="modal-body">--}}
+                                {{--<form class="form-horizontal" role="form" method="post" id="form_edit_caso">--}}
+                                    {{--<div class="col-md-12 col-sm-12" id="responsavel">--}}
+                                        {{--<div class="form-group floating-label">--}}
+                                            {{--<select name="responsavel_id" id="responsavel_id" class="form-control">--}}
+                                                {{--<option value="" disabled selected>--Reencaminhar para:--</option>--}}
+                                                {{--@foreach($resps as $resp)--}}
+                                                    {{--<option value="{{$resp->id}}">{{$resp->respnome}}</option>--}}
+                                                {{--@endforeach--}}
+                                            {{--</select>--}}
+                                            {{--<label for="help2">Reencaminhar para:</label>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-12 col-sm-12">--}}
+                                        {{--<input type="hidden" class="form-control" id="caso_id" name="caso_id">--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-12 col-sm-12" id="status">--}}
+                                        {{--<div class="form-group floating-label">--}}
+                                            {{--<select name="estado_caso" id="estado_caso" class="form-control">--}}
+                                                {{--<option value="" disabled selected>--Novo Estado--</option>--}}
+                                                {{--<option value="Em Progresso">Em Progresso</option>--}}
+                                                {{--<option value="Assistido Temporariamente">Assistido Temporariamente</option>--}}
+                                                {{--<option value="Assistido">Assistido</option>--}}
+                                                {{--<option value="Impossivel Proceder">Impossivel Proceder</option>--}}
+                                                {{--<option value="Fechado">Fechado</option>--}}
+                                            {{--</select>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-md-12 col-sm-12" id="mensagem">--}}
+                                        {{--<div class="form-group floating-label">--}}
+                                            {{--<textarea name="mensagem" id="textarea1" class="form-control" rows="3"></textarea>--}}
+                                            {{--<label for="help2">Mensagem:</label>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                        {{--<div class="col-md-6 col-sm-6" id="cat_motivo">--}}
+                                            {{--<div class="form-group floating-label">--}}
+                                                {{--<select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo">--}}
+                                                    {{--<option value="" disabled selected>--Categoria do Motivo--</option>--}}
+                                                    {{--@foreach($tipomotivos as $tipomotivo)--}}
+                                                        {{--<option value="{{$tipomotivo->id}}">{{$tipomotivo->tipomotivonome}}</option>--}}
+                                                    {{--@endforeach--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-6 col-sm-6" id="motiv">--}}
+                                            {{--<div class="form-group floating-label">--}}
+                                                {{--<select id="motivo"  class="form-control motivonome" name="motivo_id">--}}
+                                                    {{--<option value="0" disabled="true" selected="true">--Motivo--</option>--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+
+                                {{--</form>--}}
+
+                                {{--<div class="modal-footer">--}}
+                                    {{--<button type="button" class="btn actionBtn" data-dismiss="modal">--}}
+                                        {{--<span id="footer_action_button" class='glyphicon'> </span>--}}
+                                    {{--</button>--}}
+                                    {{--<button type="button" class="btn btn-warning" data-dismiss="modal">--}}
+                                        {{--<span class='glyphicon glyphicon-remove'></span> Close--}}
+                                    {{--</button>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div><!--end .card-body -->
         </div><!--end .card -->
     </div><!--end .col -->
@@ -350,14 +425,14 @@
                 $('.modal-title').text('Actualizar Caso');
                 $('#caso_id').val($(this).data('id'));
                 $('.form-horizontal').show();
-                $('#myModal').modal({
-                    dismissible:false,
-                    in_duration:3000,
-                    out_duration:3000,
-                    backdrop: 'static',
-                    keyboard: false
-                    // opacity:.9
-                });
+//                $('#myModal').modal({
+//                    dismissible:false,
+//                    in_duration:3000,
+//                    out_duration:3000,
+//                    backdrop: 'static',
+//                    keyboard: false
+//                    // opacity:.9
+//                });
             });
             $(document).on('click', '.encerrar-caso', function() {
                 $('#footer_action_button').text("Encerrar");
