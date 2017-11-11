@@ -41,7 +41,7 @@
                                     </button>
 
 
-                                    <a href="{{url('/deleteuser',$user->id)}}"> <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a></td>
+                                    {{--<a href="{{url('/deleteuser',$user->id)}}"> <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a></td>--}}
                             </tr>
                         @endforeach
 
