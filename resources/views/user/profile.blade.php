@@ -81,7 +81,7 @@
                                             <a class="btn btn-icon-toggle ink-reaction btn-default"><i class="md md-attach-file"></i></a>
                                         </div>
                                         <button class="btn btn-success" type="submit" id="" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados do Utilizador">
-                                            <span class="glyphicon glyphicon-floppy-save"></span> Registar
+                                            <span class="glyphicon glyphicon-refresh"></span> Actualizar
                                         </button>
                                     </div><!--end .card-actionbar-row -->
                                 </div><!--end .card-actionbar -->

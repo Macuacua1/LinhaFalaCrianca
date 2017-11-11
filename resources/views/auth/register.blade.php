@@ -46,7 +46,7 @@
                     <div class="col-md-8 col-sm-8"></div>
                     <div class="col-md-4 col-sm-4" style="margin-top: 10px">
                         <a><button class="btn btn-success adduser" style="margin: -15px 0 10px 15px" type="submit" id="edit_utente" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Adicionar novo">
-                                <span class="glyphicon glyphicon-plus"></span>novo
+                                <span class="glyphicon glyphicon-floppy-save"></span> Registar
                             </button></a>
                     </div>
                     </div>
