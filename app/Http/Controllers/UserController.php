@@ -105,10 +105,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        $user=User::findOrFail($id);
-//        dd($user->id);
+        $user=User::findOrFail($request->id);
+        dd($user);
         $user->delete();
 //        return redirect()->route('users');
         return response()>json(['mario'=>'hahahhaahhah']);
@@ -193,6 +193,12 @@ class UserController extends Controller
         User::where('id',$request->user_id)->update(['avatar'=>$request->file("avatar")->getClientOriginalName(),'password'=>$passw]);
         $request->file("avatar")->move( base_path() . '/public/img' , $request->file("avatar")->getClientOriginalName());
         return back()->with('success','Actualizado com Sucesso!');
+    }
+    public function deleteuser(Request $request,$id){
+        $user=User::findOrFail($id);
+//        dd($user);
+        $user->delete();
+
     }
 
 }
