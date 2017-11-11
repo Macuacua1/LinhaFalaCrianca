@@ -68,14 +68,14 @@
                                                 <input type="radio" name="genero" value="Femenino"><span>Femenino</span>
                                             </label>
                                         </div>
-                                    <div id="anonimo" class="col-md-3 col-sm-3" style="margin-top: 30px!important;">
+                                    <div id="anonimo" class="col-md-3 col-sm-3" style="margin-top: 30px!important;" >
                                         <label class="checkbox-inline checkbox-styled">
-                                            <input type="checkbox" value="Sim" name="anonimo"><span>Permanecer anonimo(a)</span>
+                                            <input type="checkbox" value="1" name="anonimo" id="anonimato" onclick="showHideRow()"><span>Permanecer anonimo(a)</span>
                                         </label>
 
                                     </div><!--end .col -->
                                 </div>
-                                <div class="row">
+                                <div class="row" id="anonimous">
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group floating-label">
                                             <input type="text" name="nome" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Nome e Sobrenome">

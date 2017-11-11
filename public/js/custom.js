@@ -46,6 +46,7 @@ $('#tipo_utente').on('change',function() {
            $("#conhecer_linhaa").removeClass('col-md-4 col-sm-4');
            $("#conhecer_linhaa").addClass('col-md-6 col-sm-6');
            $("#case").show();
+           $("#anonimous").show();
            $("#notcase").hide();
        }
         if (tipo_utent=='Contactante+Perpetrador'){
@@ -59,6 +60,7 @@ $('#tipo_utente').on('change',function() {
             $("#conhecer_linhaa").removeClass('col-md-4 col-sm-4');
             $("#conhecer_linhaa").addClass('col-md-6 col-sm-6');
            $("#case").show();
+            $("#anonimous").show();
            $("#notcase").hide();
 
        }
@@ -73,6 +75,7 @@ $('#tipo_utente').on('change',function() {
         $("#relacao").addClass('col-md-6 col-sm-6');
         $("#conhecer_linhaa").hide();
         $("#case").show();
+        $("#anonimous").show();
         $("#notcase").hide();
 
     }
@@ -83,10 +86,18 @@ $('#tipo_utente').on('change',function() {
         $("#relacao").hide();
         $("#conhecer_linhaa").hide();
         $("#case").show();
+        $("#anonimous").show();
         $("#notcase").hide();
     }
 
 });
+function showHideRow() {
+    if(document.getElementById('anonimato').checked) {
+        $("#anonimous").hide();
+    } else {
+        $("#anonimous").show();
+    }
+}
 
 
 $('#add_utente').on('click',function (e) {
