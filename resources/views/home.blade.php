@@ -90,7 +90,7 @@
 
                                 <center>
                                     {{--@if($cases>0)--}}
-                                    {!! $caso->render() !!}
+                                    {!! $provincias->render() !!}
                                      {{--@endif--}}
                                 </center>
 
@@ -111,7 +111,8 @@
                         <div class="col-md-6 col-sm-6">
 
                                 <center>
-                                    {!! $case->render() !!}
+                                    {!! $caso->render() !!}
+                                    {{--{!! $case->render() !!}--}}
 
                                 </center>
 

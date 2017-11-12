@@ -43,14 +43,7 @@
             </div><!--end .card -->
         </div>
     </div><!--end .row -->
-    {{--<div class="row">--}}
-        {{--<div class="col-md-10 col-sm-10"></div>--}}
-        {{--<div class="col-md-2 col-sm-2">--}}
-            {{--<button class="btn btn-success" type="submit" id="add_new_utente" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Adicionar novo Utente">--}}
-                {{--<span class="glyphicon glyphicon-plus"></span> Utente--}}
-            {{--</button>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+
 
     <div class="row">
 
@@ -225,50 +218,7 @@
                     </div>
                     <div id="accordion7-{{$utent->id}}" class="collapse">
                         <div class="card-body">
-                            {{--<dl class="dl-horizontal">--}}
-                                {{--<div class="col-md-4 col-sm-4">--}}
-                                    {{--<dt>Nome :</dt>--}}
-                                    {{--<dd>{{$utent->nome}}</dd>--}}
-                                    {{--<dt>Provincia :</dt>--}}
-                                    {{--@if($utent->provincia_id)--}}
-                                        {{--<dd>{{$utent->provincia->provincianome}}</dd>--}}
-                                    {{--@else--}}
-                                        {{--<dd></dd>--}}
-                                    {{--@endif--}}
-                                    {{--<dt>Idioma :</dt>--}}
-                                    {{--<dd>{{$utent->idioma}}</dd>--}}
-                                    {{--<dt>Idade :</dt>--}}
-                                    {{--<dd>{{$utent->idade}}</dd>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-4 col-sm-4">--}}
-                                    {{--<dt>Apelido :</dt>--}}
-                                    {{--<dd>{{$utent->apelido}}</dd>--}}
-                                    {{--<dt>Distrito :</dt>--}}
-                                    {{--@if($utent->distrito_id)--}}
-                                        {{--<dd>{{$utent->distrito->distritonome}}</dd>--}}
-                                    {{--@else--}}
-                                        {{--<dd></dd>--}}
-                                    {{--@endif--}}
-                                    {{--<dt>Cell princi. :</dt>--}}
-                                    {{--<dd>{{$utent->cell1}}</dd>--}}
-                                    {{--<dt>Situacao Educacio. :</dt>--}}
-                                    {{--<dd>{{$utent->situacao_educacional}}</dd>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-md-4 col-sm-4">--}}
-                                    {{--<dt>Genero :</dt>--}}
-                                    {{--<dd>{{$utent->genero}}</dd>--}}
-                                    {{--<dt>Localidade :</dt>--}}
-                                    {{--@if($utent->localidade_id)--}}
-                                        {{--<dd>{{$utent->localidade->localidadenome}}</dd>--}}
-                                    {{--@else--}}
-                                        {{--<dd></dd>--}}
-                                    {{--@endif--}}
-                                    {{--<dt>Cell altern. :</dt>--}}
-                                    {{--<dd>{{$utent->cell2}}</dd>--}}
-                                    {{--<dt>Relacao vitim. :</dt>--}}
-                                    {{--<dd>{{$utent->relacao_vitima}}</dd>--}}
-                                {{--</div>--}}
-                            {{--</dl>--}}
+
                             <form class="form-edit-utente" id="form_edit_utente">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6">

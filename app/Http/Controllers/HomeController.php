@@ -22,55 +22,16 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-//        $chart = Charts::multi('bar', 'material')
-//            // Setup the chart settings
-//            ->title("My Cool Chart")
-//            // A dimension of 0 means it will take 100% of the space
-//            ->dimensions(0, 400) // Width x Height
-//            // This defines a preset of colors already done:)
-//            ->template("material")
-//            // You could always set them manually
-//            // ->colors(['#2196F3', '#F44336', '#FFC107'])
-//            // Setup the diferent datasets (this is a multi chart)
-//            ->dataset('Element 1', [5,20,100])
-//            ->dataset('Element 2', [15,30,80])
-//            ->dataset('Element 3', [25,10,40])
-//            // Setup what the values mean
-//            ->labels(['One', 'Two', 'Three']);
-//        $users = Contacto::where(DB::raw("(DATE_FORMAT(created_at,'%Y'))"),date('Y'))
-//
-//            ->get();
-//
-//        $chart = Charts::database($users, 'bar', 'highcharts')
-//
-//            ->title("Monthly new Register Users")
-//
-//            ->elementLabel("Total Users")
-//
-//            ->dimensions(1000, 500)
-//
-//            ->responsive(false)
-//
-//            ->groupByMonth(date('Y'), true);
-//        $chart = Charts::database(User::all(), 'bar', 'highcharts')
-//            ->elementLabel("Total")
-//            ->dimensions(1000, 500)
-//            ->responsive(false)
-//            ->groupByDay();
-//        $chart = Charts::database(User::all(), 'bar', 'highcharts')->data(Role::all());
-//        $chart = Charts::multi('bar', 'minimalist')
-//            ->responsive(false)
-//            ->dimensions(0, 500)
-//            ->colors(['#ff0000', '#00ff00', '#0000ff'])
-//            ->labels(['One', 'Two', 'Three'])
-//            ->dataset('Test 1', [1,2,3])
-//            ->dataset('Test 2', [0,6,0])
-//            ->dataset('Test 3', [3,4,1]);
-//        $chart = Charts::database(User::all(), 'bar', 'highcharts')
-//            ->elementLabel("Total")
-//            ->dimensions(1000, 500)
-//            ->responsive(true)
-//            ->groupByDay();
+
+        $provincias=DB::table('utentes')
+            ->join('provincias','utentes.provincia_id','=','provincias.id')
+            ->select(DB::raw('count(*) as total,provincias.provincianome as provincia'))
+            ->where('provincia_id','<>',null)
+            ->where('tipo_utente','Contactante')
+            ->orWhere('tipo_utente','Contactante+Vitima')
+            ->orWhere('tipo_utente','Contactante+Perpetrador')
+            ->groupBy('provincia')->get();
+        dd($provincias);
         $chart = Charts::multi('bar', 'highcharts')->labels(['Total de Contactos por Motivo']);
         foreach(Contacto::with('motivos')->distinct()->pluck('motivo_id') as $motivo)
         {
@@ -80,7 +41,7 @@ class HomeController extends Controller
             $chart->dataset($motivo,$data3);
         }
        $caso= Charts::database(Caso::all(),'donut', 'highcharts')
-            ->title('Graficos de Casos')
+            ->title('Casos por Estado')
 //            ->labels(['First', 'Second', 'Third'])
 //            ->values([5,10,20])
 //            ->dimensions(1000,500)
@@ -93,7 +54,7 @@ class HomeController extends Controller
             ->get();
 //        dd($datas);
         $contacto= Charts::database($datas,'line', 'highcharts')
-            ->title('Graficos de Contactos')
+            ->title('Contactos por Motivo')
 //            ->labels(['First', 'Second', 'Third'])
 //            ->values([5,10,20])
 //            ->dimensions(1000,500)
@@ -109,17 +70,31 @@ class HomeController extends Controller
             ->dataset('Test 1', [1,2,3])
             ->dataset('Test 2', [0,6,0])
             ->dataset('Test 3', [3,4,1]);
-        return view('test',compact('chart','case','caso','contacto'));
+        return view('test',compact('chart','case','caso','contacto','provincias'));
     }
     public function provfunct(){
+
         $total_casos=Caso::all()->count();
         $total_contactos=Contacto::all()->count();
         $total_vitimas=Utente::where('tipo_utente','Vitima')
             ->orWhere('tipo_utente','Contactante+Vitima')->count();
         $resol_casos=Caso::where('estado_caso','Fechado')->count();
 //        dd($total_vitimas);
+        $dados=DB::table('utentes')
+            ->join('provincias','utentes.provincia_id','=','provincias.id')
+            ->select(DB::raw('count(*) as total,provincias.provincianome as provincia'))
+            ->where('provincia_id','<>',null)
+            ->where('tipo_utente','Contactante')
+            ->orWhere('tipo_utente','Contactante+Vitima')
+            ->orWhere('tipo_utente','Contactante+Perpetrador')
+            ->groupBy('provincia')->get();
+        $provincias= Charts::database($dados,'donut', 'highcharts')
+            ->title('Contactos por Provincia')
+            ->responsive(true)
+            ->groupBy('provincia');
+//        dd($provincias);
 
-        $chart = Charts::multi('bar', 'highcharts')->labels(['Total de Contactos por Motivo']);
+        $chart = Charts::multi('bar', 'highcharts')->labels(['Contactos por Motivo']);
         foreach(Contacto::with('motivos')->distinct()->pluck('motivo_id') as $motivo) {
             foreach (Motivo::where('id', $motivo)->pluck('motivonome') as $motivonome) {
 //            dd($motivonome);
@@ -131,7 +106,7 @@ class HomeController extends Controller
         }
 
         $caso= Charts::database(Caso::all(),'donut', 'highcharts')
-            ->title('Graficos de Casos')
+            ->title('Casos por Estado')
             ->responsive(true)
             ->groupBy('estado_caso');
         $datas=DB::table('contactos')
@@ -140,25 +115,9 @@ class HomeController extends Controller
             ->get();
 //dd($datas);
         $contacto= Charts::database($datas,'line', 'highcharts')
-            ->title('Graficos de Contactos')
+            ->title('Contactos por Motivo')
             ->responsive(true)
             ->groupBy('motivo');
-
-//        $contact= DB::table('contactos')
-//            ->select(DB::Raw('count(*) as total,estado_contacto'))
-//            ->where('estado_contacto','<>',null)
-//            ->groupBy('estado_contacto')
-//            ->get();
-//
-//        $casos=DB::table('casos')
-//            ->select(DB::Raw('count(*) as total,estado_caso'))
-//            ->where('estado_caso','<>',null)
-//            ->groupBy('estado_caso')
-//            ->get();
-//
-//        foreach ($caso as $hey){
-//         dd($caso);
-////     }
 
 
         $case = Charts::multi('areaspline', 'highcharts')
@@ -176,7 +135,7 @@ class HomeController extends Controller
 //        dd($tipomotivos);
         $roles=Role::all();
         return view('home',compact('prov','tipomotivos','motivos','roles','chart','case','caso','contacto',
-            'cases','contacts','resol_casos','total_casos','total_contactos','total_vitimas'));//sent data to view
+            'cases','contacts','resol_casos','total_casos','total_contactos','total_vitimas','provincias'));//sent data to view
 
     }
 

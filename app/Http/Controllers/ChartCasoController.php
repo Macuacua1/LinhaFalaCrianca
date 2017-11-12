@@ -165,15 +165,29 @@ class ChartCasoController extends Controller
                         }else{
                             $output.= '<td>Sem Motivo</td>';
                         }
-//
-//
-                       $output.='<td>'.
-                        '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info" data-id="'.$caso->id.'">'.
-                        '<span class="glyphicon glyphicon-eye-open"></span></button></a>'.
-                        '<button class="edit-caso btn btn-success" data-id="'.$caso->id.'" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important">'.
-                        '<span class="glyphicon glyphicon-edit"></span></button>'.
-                        '</td>'.
-                    '</tr>';
+                    if($caso->motivo_id){
+                        $output.='<td>'.
+                            '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info" data-id="'.$caso->id.'">'.
+                            '<span class="glyphicon glyphicon-eye-open"></span></button></a>'.
+                            '<button class="edit-caso btn btn-success" data-id="'.$caso->id.'" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important" disabled>'.
+                            '<span class="glyphicon glyphicon-edit"></span></button>'.
+                             '<button class="encerrar-caso btn btn-success" data-id="'.$caso->id.'" data-title="" style="margin-left:3px!important" data-description="" disabled>'.
+                                            '<span class="glyphicon glyphicon-lock"></span>'.
+                                        '</button>'.
+                            '</td>'.
+                            '</tr>';
+                    }else{
+                        $output.='<td>'.
+                            '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info" data-id="'.$caso->id.'" style="margin-left:3px!important">'.
+                            '<span class="glyphicon glyphicon-eye-open"></span></button></a>'.
+                            '<button class="edit-caso btn btn-success" data-id="'.$caso->id.'" style="margin-left:3px!important" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important" data-toggle="modal" data-target="#formModal">'.
+                            '<span class="glyphicon glyphicon-edit"></span></button>'.
+                            '<button class="encerrar-caso btn btn-success" data-id="'.$caso->id.'" data-toggle="modal" data-target="#formModall" style="margin-left:3px!important">'.
+                            '<span class="glyphicon glyphicon-lock"></span>'.
+                            '</button>'.
+                            '</td>'.
+                            '</tr>';
+                    }
 
                 }
 //               dd($output);

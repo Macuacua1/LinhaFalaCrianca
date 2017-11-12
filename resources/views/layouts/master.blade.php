@@ -285,16 +285,11 @@
                 </li><!--end /menu-li -->
                 <!-- END UI -->
                 <li class="gui-folder">
-                    <a>
+                    <a  href="{{url('caso')}}">
                         <div class="gui-icon"><i class="fa fa-legal"></i></div>
                         <span class="title">Caso</span>
                     </a>
-                    <!--start submenu -->
-                    <ul>
-                        <li><a href="{{url('caso.create')}}" ><span class="title">Registar</span></a></li>
 
-                        <li><a  href="{{url('caso')}}"  ><span class="title">Listar</span></a></li>
-                    </ul><!--end /submenu -->
                 </li><!--end /menu-li -->
                 <!-- END UI -->
 
@@ -324,46 +319,25 @@
                     </li><!--end /menu-li -->
                     <!-- END DASHBOARD -->
 
-                    <!-- BEGIN EMAIL -->
-                    <li class="gui-folder">
-                        <a>
-                            <div class="gui-icon"><i class="fa fa-user-circle"></i></div>{{--<i class="md md-email"></i>--}}
-                            <span class="title">Utilizador</span>
-                        </a>
-                        <!--start submenu -->
-                        <ul>
-                            <li><a href="" ><span class="title">Perfil</span></a></li>
-
-                        </ul><!--end /submenu -->
-                    </li><!--end /menu-li -->
-                    <!-- END EMAIL -->
-
                     <!-- BEGIN UI -->
                     <li class="gui-folder">
                         <a>
-                            <div class="gui-icon"><i class="fa fa-puzzle-piece fa-fw"></i></div>
+                            <div class="gui-icon"><i class="fa fa-phone"></i></div>
                             <span class="title">Contacto</span>
                         </a>
                         <!--start submenu -->
                         <ul>
-                            <li><a href="{{url('contacto.create')}}" ><span class="title">Registar</span></a></li>
+                            <li><a href="{{route('contacto.create')}}" ><span class="title">Registar</span></a></li>
 
                             <li><a  href="{{url('contacto')}}"  ><span class="title">Listar</span></a></li>
                         </ul><!--end /submenu -->
                     </li><!--end /menu-li -->
                     <!-- END UI -->
                     <li class="gui-folder">
-                        <a>
-                            <div class="gui-icon"><i class="fa fa-puzzle-piece fa-fw"></i></div>
+                        <a  href="{{url('caso')}}">
+                            <div class="gui-icon"><i class="fa fa-legal"></i></div>
                             <span class="title">Caso</span>
                         </a>
-                        <!--start submenu -->
-                        <ul>
-                            <li><a href="{{url('caso.create')}}" ><span class="title">Registar</span></a></li>
-
-                            <li><a  href="{{url('caso')}}"  ><span class="title">Listar</span></a></li>
-                        </ul><!--end /submenu -->
-                    </li><!--end /menu-li -->
                     <!-- END UI -->
                 @endif
             </ul><!--end .main-menu -->

@@ -136,7 +136,7 @@
                                             <span class="glyphicon glyphicon-lock"></span>
                                         </button>
                                 @else
-                                        <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-toggle="modal" data-target="#formModal">
+                                        <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-toggle="modal" data-target="#formModall">
                                             <span class="glyphicon glyphicon-lock"></span>
                                         </button>
                                 @endif
@@ -159,11 +159,11 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="formModalLabel"></h4>
+                                <h4 class="modal-title" id="formModalLabel">Actualizar Caso</h4>
                             </div>
                             <form class="form-horizontal" role="form"  method="post" id="form_edit_caso">
                                 <div class="modal-body">
-                                    <div class="row" id="responsavel">
+                                    {{--<div class="row" id="responsavel">--}}
                                     <div class="form-group" >
                                         <div class="col-sm-3">
                                             <label for="email1" class="control-label">Responsavel</label>
@@ -177,8 +177,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                    </div>
-                                    <div class="row" id="status">
+                                    {{--</div>--}}
+                                    {{--<div class="row" id="status">--}}
                                     <div class="form-group" id="status">
                                         <div class="col-sm-3">
                                             <label for="email1" class="control-label">Estado</label>
@@ -194,8 +194,8 @@
                                             </select>
                                         </div>
                                     </div>
-                                        </div>
-                                    <div class="row" id="mensagem">
+                                        {{--</div>--}}
+                                    {{--<div class="row" id="mensagem">--}}
                                     <div class="form-group">
                                         <div class="col-sm-3">
                                             <label for="email1" class="control-label">Mensagem</label>
@@ -205,34 +205,8 @@
 
                                         </div>
                                     </div>
-                                        </div>
-                                    <div class="row" id="cat_mot">
-                                    <div class="form-group">
-                                        <div class="col-sm-3" >
-                                            <label for="email1" class="control-label">Categoria do Motivo</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo">
-                                                <option value="" disabled selected>--Categoria do Motivo--</option>
-                                                @foreach($tipomotivos as $tipomotivo)
-                                                    <option value="{{$tipomotivo->id}}">{{$tipomotivo->tipomotivonome}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                        </div>
-                                    <div class="row" id="mot">
-                                    <div class="form-group">
-                                        <div class="col-sm-3">
-                                            <label for="password1" class="control-label">Motivo</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <select id="motivo"  class="form-control motivonome" name="motivo_id">
-                                                <option value="0" disabled="true" selected="true">--Motivo--</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                        </div>
+                                        {{--</div>--}}
+
                                     <input type="hidden" class="form-control" id="caso_id" name="caso_id">
 
                                 </div>
@@ -247,79 +221,57 @@
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
                 <!-- END FORM MODAL MARKUP -->
-                {{--<div id="myModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static" style="">--}}
-                    {{--<div class="modal-dialog">--}}
-                        {{--<div class="modal-content">--}}
-                            {{--<div class="modal-header">--}}
-                                {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
-                                {{--<h4 class="modal-title"></h4>--}}
-                            {{--</div>--}}
-                            {{--<div class="modal-body">--}}
-                                {{--<form class="form-horizontal" role="form" method="post" id="form_edit_caso">--}}
-                                    {{--<div class="col-md-12 col-sm-12" id="responsavel">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select name="responsavel_id" id="responsavel_id" class="form-control">--}}
-                                                {{--<option value="" disabled selected>--Reencaminhar para:--</option>--}}
-                                                {{--@foreach($resps as $resp)--}}
-                                                    {{--<option value="{{$resp->id}}">{{$resp->respnome}}</option>--}}
-                                                {{--@endforeach--}}
-                                            {{--</select>--}}
-                                            {{--<label for="help2">Reencaminhar para:</label>--}}
-                                        {{--</div>--}}
+                <!-- BEGIN FORM MODAL MARKUP -->
+                <div class="modal fade" id="formModall" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="formModalLabel">Encerrar Caso</h4>
+                            </div>
+                            <form class="form-horizontal" role="form"  method="post" id="form_close_caso">
+                                <div class="modal-body">
+                                    {{--<div class="row" id="cat_mot">--}}
+                                        <div class="form-group">
+                                            <div class="col-sm-3" >
+                                                <label for="email1" class="control-label">Categoria do Motivo</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo">
+                                                    <option value="" disabled selected>--Categoria do Motivo--</option>
+                                                    @foreach($tipomotivos as $tipomotivo)
+                                                        <option value="{{$tipomotivo->id}}">{{$tipomotivo->tipomotivonome}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
                                     {{--</div>--}}
-                                    {{--<div class="col-md-12 col-sm-12">--}}
-                                        {{--<input type="hidden" class="form-control" id="caso_id" name="caso_id">--}}
+                                    {{--<div class="row" id="mot">--}}
+                                        <div class="form-group">
+                                            <div class="col-sm-3">
+                                                <label for="password1" class="control-label">Motivo</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <select id="motivo"  class="form-control motivonome" name="motivo_id">
+                                                    <option value="0" disabled="true" selected="true">--Motivo--</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     {{--</div>--}}
-                                    {{--<div class="col-md-12 col-sm-12" id="status">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select name="estado_caso" id="estado_caso" class="form-control">--}}
-                                                {{--<option value="" disabled selected>--Novo Estado--</option>--}}
-                                                {{--<option value="Em Progresso">Em Progresso</option>--}}
-                                                {{--<option value="Assistido Temporariamente">Assistido Temporariamente</option>--}}
-                                                {{--<option value="Assistido">Assistido</option>--}}
-                                                {{--<option value="Impossivel Proceder">Impossivel Proceder</option>--}}
-                                                {{--<option value="Fechado">Fechado</option>--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-12 col-sm-12" id="mensagem">--}}
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<textarea name="mensagem" id="textarea1" class="form-control" rows="3"></textarea>--}}
-                                            {{--<label for="help2">Mensagem:</label>--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                        {{--<div class="col-md-6 col-sm-6" id="cat_motivo">--}}
-                                            {{--<div class="form-group floating-label">--}}
-                                                {{--<select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo">--}}
-                                                    {{--<option value="" disabled selected>--Categoria do Motivo--</option>--}}
-                                                    {{--@foreach($tipomotivos as $tipomotivo)--}}
-                                                        {{--<option value="{{$tipomotivo->id}}">{{$tipomotivo->tipomotivonome}}</option>--}}
-                                                    {{--@endforeach--}}
-                                                {{--</select>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="col-md-6 col-sm-6" id="motiv">--}}
-                                            {{--<div class="form-group floating-label">--}}
-                                                {{--<select id="motivo"  class="form-control motivonome" name="motivo_id">--}}
-                                                    {{--<option value="0" disabled="true" selected="true">--Motivo--</option>--}}
-                                                {{--</select>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
+                                    <input type="hidden" class="form-control" id="caso_close_id" name="caso_id">
 
-                                {{--</form>--}}
-
-                                {{--<div class="modal-footer">--}}
-                                    {{--<button type="button" class="btn actionBtn" data-dismiss="modal">--}}
-                                        {{--<span id="footer_action_button" class='glyphicon'> </span>--}}
-                                    {{--</button>--}}
-                                    {{--<button type="button" class="btn btn-warning" data-dismiss="modal">--}}
-                                        {{--<span class='glyphicon glyphicon-remove'></span> Close--}}
-                                    {{--</button>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">
+                                        <span class='glyphicon glyphicon-remove'></span> Close</button>
+                                    <button type="button" class="btn btn-success close_caso" data-dismiss="modal">
+                                        <span id="fechar_caso" class='glyphicon glyphicon-check'></span>Encerrar</button>
+                                </div>
+                            </form>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+                <!-- END FORM MODAL MARKUP -->
             </div><!--end .card-body -->
         </div><!--end .card -->
     </div><!--end .col -->
@@ -417,46 +369,35 @@
                 $('#footer_action_button').addClass('glyphicon-check');
                 $('.actionBtn').addClass('btn-success');
                 $('.actionBtn').addClass('edit_caso');
-                $('#mensagem').show();
-                $('#status').show();
-                $('#responsavel').show();
-                $('#motiv').hide();
-                $('#cat_motivo').hide();
-                $('.modal-title').text('Actualizar Caso');
+//                $('.modal-title').text('Actualizar Caso');
                 $('#caso_id').val($(this).data('id'));
                 $('.form-horizontal').show();
-//                $('#myModal').modal({
-//                    dismissible:false,
-//                    in_duration:3000,
-//                    out_duration:3000,
-//                    backdrop: 'static',
-//                    keyboard: false
-//                    // opacity:.9
-//                });
+
             });
             $(document).on('click', '.encerrar-caso', function() {
-                $('#footer_action_button').text("Encerrar");
-                $('#footer_action_button').addClass('glyphicon-check');
-                $('.actionBtn').addClass('btn-success');
-                $('.actionBtn').addClass('fechar_caso');
-                $('#motiv').show();
-                $('#cat_motivo').show();
-                $('#mensagem').hide();
-                $('#status').hide();
-                $('#responsavel').hide();
-                $('.modal-title').text('Encerrar Caso');
-                $('#caso_id').val($(this).data('id'));
+
+                $('#caso_close_id').val($(this).data('id'));
                 $('.form-horizontal').show();
-                $('#myModal').modal({
-                    dismissible:false,
-                    in_duration:3000,
-                    out_duration:3000,
-                    backdrop: 'static',
-                    keyboard: false
-                    // opacity:.9
-                });
             });
 
+            $('.modal-footer').on('click', '.close_caso', function() {
+                var dados = $('#form_close_caso').serialize();
+//                 alert(dados);
+                $.ajax({
+                    type:'post',
+                    url:'/editcaso',
+                    data:dados,
+                    success:function(data){
+                        $('#form_edit_caso')[0].reset();
+
+                        toastr.success("Actualizado Com Sucesso!");
+                        document.location.href="{{url('caso')}}";
+                    },
+                    error:function(){
+                        toastr.error("Erro na Actualizacao!");
+                    }
+                });
+            });
             $('.modal-footer').on('click', '.edit_caso', function() {
                 var dados = $('#form_edit_caso').serialize();
                 // alert(dados);

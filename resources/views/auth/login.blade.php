@@ -192,8 +192,8 @@
                                         <label for="password">Password</label>
                                     </div>
                                     <div class="col s12 right-align m-t-sm">
-                                        <a href="/register" type="submit" id="reg-user" class="waves-effect waves-grey btn-flat">sign up</a>
-                                        <a type="submit" id="log-user" class="waves-effect waves-light btn teal">sign in</a>
+                                        {{--<a href="/register" type="submit" id="reg-user" class="waves-effect waves-grey btn-flat">sign up</a>--}}
+                                        <a type="submit" id="log-user" class="waves-effect waves-light btn teal">Login</a>
                                     </div>
                                 </form>
                             </div>
