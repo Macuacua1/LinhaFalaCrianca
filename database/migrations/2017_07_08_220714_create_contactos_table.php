@@ -25,7 +25,7 @@ class CreateContactosTable extends Migration
             $table->foreign('motivo_id')->references('id')->on('motivos')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->integer('tipo_motivo_id')->unsigned();
+            $table->integer('tipo_motivo_id')->unsigned()->nullable();
             $table->foreign('tipo_motivo_id')->references('id')->on('tipo_motivo')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

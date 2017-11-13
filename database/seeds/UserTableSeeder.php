@@ -20,6 +20,12 @@ class UserTableSeeder extends Seeder
         $employee->password = bcrypt('Macuacua1');
         $employee->role_id = $role_admin->id;
         $employee->save();
+        $employee->nome = 'Admin';
+        $employee->avatar = 'default';
+        $employee->email = 'admin@gmail.com';
+        $employee->password = bcrypt('password');
+        $employee->role_id = $role_admin->id;
+        $employee->save();
 //        $employee->role()->save($role_admin);
         $employee = new \App\User();
         $employee->nome = 'Maria';
