@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->boolean('estado')->default(1);
             $table->string('avatar');
             $table->string('escritorio')->nullable();
-            $table->integer('role_id')->unsigned()->nullable();
+            $table->integer('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

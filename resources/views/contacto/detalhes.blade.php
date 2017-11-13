@@ -61,10 +61,10 @@
                             <div class="row">
                                 <div class="col-md-8 col-sm-8">
 
-                                    <form id="form_edit_contacto">
+                                    <form id="form_edit_contacto" class="form form-validate" novalidate="novalidate">
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4">
-                                           <select id="tipo_contacto" name="tipo_contacto" class="form-control">
+                                           <select id="tipo_contacto" name="tipo_contacto" class="form-control" required>
                                                     <option value="{{$contactos->tipo_contacto}}"  selected>{{$contactos->tipo_contacto}}</option>
                                                @if($contactos->tipo_contacto =='Telefone')
                                                     {{--<option value="Telefone">Telefone</option>--}}
@@ -129,7 +129,7 @@
                                         </div>
                                         <div class="col-md-4 col-sm-4">
                                             <div class="form-group floating-label">
-                                                <select id="motivo"  class="form-control motivonome" name="motivo_id">
+                                                <select id="motivo"  class="form-control motivonome" name="motivo_id" required>
                                                     <option value="{{$contactos->motivo_id}}"  selected="true">{{$contactos->motivo->motivonome}}</option>
                                                 </select>
                                             </div>
@@ -143,17 +143,14 @@
                                         </div>
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <textarea name="resumo_contacto" id="resumo_contacto" class="form-control" rows="3">{{$contactos->resumo_contacto}}</textarea>
+                                                <textarea name="resumo_contacto" id="resumo_contacto" class="form-control" rows="3" required>{{$contactos->resumo_contacto}}</textarea>
                                                 <label>Resumo do Contacto</label>
                                             </div>
                                             <div class="form-group">
-                                                <textarea name="impressao_atendente" id="impressao_atendente" class="form-control" rows="3">{{$contactos->impressao_atendente}}</textarea>
+                                                <textarea name="impressao_atendente" id="impressao_atendente" class="form-control" rows="3" required>{{$contactos->impressao_atendente}}</textarea>
                                                 <label>Impressao do atendente</label>
                                             </div>
                                         </div>
-
-                                        {{--<div class="col-md-4 col-sm-4">--}}
-                                        {{--</div>--}}
 
                                     </div>
                                     </form>
@@ -184,16 +181,20 @@
                                                             <input type="text" name="apelido" value="{{$contactos->created_at}}" class="form-control " disabled>
                                                         </div>
                                                     </div>
+                                                    @if($contactos->caso_id>0)
                                                     <div class="col-md-12 col-sm-12">
                                                         <div class="form-group floating-label">
-                                                            <label for="apelido">Numero do caso :</label>
-                                                            <input type="text" name="caso_id"  id="caso_id" value="{{$contactos->caso_id ? $contactos->caso_id:''}}" class="form-control " disabled>
+                                                            {{--<label for="apelido">Numero do caso :</label>--}}
+                                                            <a href="{{route('caso.show',$contactos->caso_id )}}" style="font-size: 16px!important;color: green">Numero do caso :</a>
+                                                            <a href="{{route('caso.show',$contactos->caso_id )}}"><span style="font-size: 16px!important;color: green">{{$contactos->caso_id }}</span></a>
+                                                            {{--<input type="text" name="caso_id"  id="caso_id" value="{{$contactos->caso_id ? $contactos->caso_id:''}}" class="form-control " disabled>--}}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 col-sm-12">
                                                         <label for="apelido">Estado do Caso :</label>
-                                                        <input type="text" name="apelido" value="{{$contactos->caso_id ? $contactos->caso->estado_caso:''}}" class="form-control " disabled>
+                                                        <input type="text" name="apelido" value="{{$contactos->caso->estado_caso}}" class="form-control " disabled>
                                                     </div>
+                                                        @endif
                                                 </dl>
                                             </div>
 
@@ -219,11 +220,11 @@
                     <div id="accordion7-{{$utent->id}}" class="collapse">
                         <div class="card-body">
 
-                            <form class="form-edit-utente" id="form_edit_utente">
+                            <form class="form-edit-utente form-validate" id="form_edit_utente" novalidate="novalidate">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group floating-label">
-                                            <select id="tipo_utente" name="tipo_utente[]" class="form-control">
+                                            <select id="tipo_utente" name="tipo_utente[]" class="form-control" required>
                                                 <option value="" disabled selected>Tipo de Utente</option>
                                                 <option value="{{$utent->tipo_utente}}"  selected>{{$utent->tipo_utente}}</option>
                                                 @if($utent->tipo_utente =='Contactante')
@@ -454,14 +455,7 @@
             </div><!--end .panel-group -->
         </div><!--end .col -->
     </div><!--end .row -->
-    {{--<div class="row">--}}
-        {{--<div class="col-md-10 col-sm-10"></div>--}}
-        {{--<div class="col-md-2 col-sm-2">--}}
-            {{--<button class="btn btn-success add-new-utente " style="margin-left: 50px" id="add_new_utente" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Adicionar novo Utente">--}}
-                {{--<span class="glyphicon glyphicon-plus"></span> Utente--}}
-            {{--</button>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+
 
 
 @endsection

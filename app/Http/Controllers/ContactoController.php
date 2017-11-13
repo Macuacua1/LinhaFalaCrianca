@@ -18,8 +18,10 @@ use Charts;
 
 class ContactoController extends Controller
 {
+//private $tipo_contacto;
     public function __construct()
     {
+//        $tipo_contacto="";
         $this->middleware('auth');
     }
     /**
@@ -27,6 +29,12 @@ class ContactoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public  function destroySession(){
+        if(Session::has('utentes')) {
+            Session::forget('utentes');}
+        return back();
+
+    }
     public function index()
     {
 
@@ -48,10 +56,10 @@ class ContactoController extends Controller
         $prov=Provincia::all();//get data from table
         $tipos= Tipo_Motivo::where('tipomotivonome','Atendimento')->first();
         $motivos=Motivo::where('tipo_motivo_id',$tipos->id)->get();
-        $tipomotivos=Tipo_Motivo::where('tipomotivonome','<>','Atendimento')->get();
-//        $tipomotivos=Tipo_Motivo::all();
+        $tipomotivos=Tipo_Motivo::all();
+        $tipo_contacto="";
         $roles=Role::all();
-        return view('contacto/registo',compact('prov','tipomotivos','motivos','roles'));//sent data to view
+        return view('contacto/registo',compact('prov','tipomotivos','motivos','roles','tipo_contacto'));//sent data to view
 
     }
 
@@ -115,34 +123,48 @@ class ContactoController extends Controller
         //
     }
     public function addUtente(Request $request){
-
-//
-//        if(Session::has('utentes')) {
-//            dd( $request->session()->get('utentes'));
-//            Session::forget('utentes');}
-//            }else{
-//            dd('Sem sessao');}
+        $notification = array(
+            'message' => 'Adicioado com Sucesso!',
+            'alert-type' => 'success'
+        );
+        $noterro = array(
+            'message' => 'Seleccione o tipo de utente!',
+            'alert-type' => 'error'
+        );
 //        dd($request->all());
-//        $utentes= [$request->all()];
-        $utentes= ['tipo_utente'=>$request->tipo_utente,'nome'=>$request->nome,'apelido'=>$request->apelido,'idade'=>$request->idade
-            ,'genero'=>$request->genero,'idioma'=>$request->idioma,'conhecer_linha'=>$request->conhecer_linha,'descricao_local'=>$request->descricao_local,'vive_com'=>$request->vive_com
-            ,'cell1'=>$request->cell1,'cell2'=>$request->cell2,'provincia_id'=>$request->provincia_id,'distrito_id'=>$request->distrito_id,'situacao_educacional'=>$request->situacao_educacional
-            ,'relacao_vitima'=>$request->relacao_vitima,'descricao_extendida'=>$request->descricao_extendida,'localidade_id'=>$request->localidade_id];
-//        dd($utentes);
-        if($request->session()->has('utentes')) {
-            $request->session()->push('utentes', $utentes);
+        if ($request->tipo_utente){
+
+            $tipo_contacto=$request->tipo_contact;
+            $request->session()->put('tipocontacto',$request->tipo_contact);
             $request->session()->save();
+//            dd(count(Session::get('tipocontacto')));
+            $utentes= ['tipo_utente'=>$request->tipo_utente,'nome'=>$request->nome,'apelido'=>$request->apelido,'idade'=>$request->idade
+                ,'genero'=>$request->genero,'idioma'=>$request->idioma,'conhecer_linha'=>$request->conhecer_linha,'descricao_local'=>$request->descricao_local,'vive_com'=>$request->vive_com
+                ,'cell1'=>$request->cell1,'cell2'=>$request->cell2,'provincia_id'=>$request->provincia_id,'distrito_id'=>$request->distrito_id,'situacao_educacional'=>$request->situacao_educacional
+                ,'relacao_vitima'=>$request->relacao_vitima,'descricao_extendida'=>$request->descricao_extendida,'localidade_id'=>$request->localidade_id];
+
+            if($request->session()->has('utentes')) {
+                $request->session()->push('utentes', $utentes);
+                $request->session()->save();
+            }else{
+                $request->session()->push('utentes', $utentes);
+                $request->session()->save();
+            }
+            return back()->with($notification);
         }else{
-            $request->session()->push('utentes', $utentes);
-            $request->session()->save();
+            return back()->with($noterro);
         }
-//        dd($utentes[0]['apelido']);
-        dd( count($request->session()->get('utentes')));
-        return response()->json($request->session()->get('utentes'));
 
     }
     public function addcontacto(Request $request){
-//        dd($request->all());
+        $notification = array(
+            'message' => 'Registado com Sucesso!',
+            'alert-type' => 'success'
+        );
+        $noterro = array(
+            'message' => 'Adicione pelo menos um  utente!',
+            'alert-type' => 'error'
+        );
         $contacto=Contacto::create(['tipo_contacto'=>$request->tipo_contacto,'estado_contacto'=>'Registado',
             'desc_antecedentes'=>$request->desc_antecedentes,'resumo_contacto'=>$request->resumo_contacto,
             'impressao_atendente'=>$request->impressao_atendente,'motivo_id'=>$request->motivo_id,'user_id'=>Auth::user()->id]);
@@ -173,10 +195,13 @@ class ContactoController extends Controller
                 $pessoa->save();
                 $contacto->utente()->attach($pessoa->id);
                 Session::forget('utentes');
+                Session::forget('tipocontacto');
             }
+            return back()->with($notification);
+        }else{
+            return back()->with($noterro);
         }
-        return back()
-            ->with('success','Gravado com Sucesso.');
+
     }
 
 

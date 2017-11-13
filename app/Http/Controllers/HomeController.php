@@ -13,6 +13,7 @@ use App\User;
 use App\Utente;
 use Illuminate\Http\Request;
 use Charts;
+use Session;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -73,7 +74,7 @@ class HomeController extends Controller
         return view('test',compact('chart','case','caso','contacto','provincias'));
     }
     public function provfunct(){
-
+//        Session::forget('tipo_contacto');
         $total_casos=Caso::all()->count();
         $total_contactos=Contacto::all()->count();
         $total_vitimas=Utente::where('tipo_utente','Vitima')
@@ -131,7 +132,7 @@ class HomeController extends Controller
         $prov=Provincia::all();//get data from table
         $tipos= Tipo_Motivo::where('tipomotivonome','Atendimento')->first();
         $motivos=Motivo::where('tipo_motivo_id',$tipos->id)->get();
-        $tipomotivos=Tipo_Motivo::where('tipomotivonome','<>','Atendimento')->get();
+        $tipomotivos=Tipo_Motivo::all();
 //        dd($tipomotivos);
         $roles=Role::all();
         return view('home',compact('prov','tipomotivos','motivos','roles','chart','case','caso','contacto',

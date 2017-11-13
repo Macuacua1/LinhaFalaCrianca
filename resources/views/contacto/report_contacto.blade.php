@@ -107,18 +107,18 @@
                                     <legend class="scheduler-border">Filtro por Datas</legend>
                                     <div class="form-group">
                                         <div class="form-group floating-label">
-                                            <select id="provincia-id" name="provincia_id" class="form-control provincia">
+                                            <select id="prov-id" name="provincia_id" class="form-control prov">
                                                 <option value="" disabled selected>--Provincia--</option>
                                                 @foreach($prov as $pro)
                                                     <option value="{{$pro->id}}">{{$pro->provincianome}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="form-group floating-label">
-                                            <select id="distrito"  class="form-control distritonome" name="distrito_id">
-                                                <option value="0" disabled="true" selected="true">--Distrito--</option>
-                                            </select>
-                                        </div>
+                                        {{--<div class="form-group floating-label">--}}
+                                            {{--<select id="distrito"  class="form-control distritonome" name="distrito_id">--}}
+                                                {{--<option value="0" disabled="true" selected="true">--Distrito--</option>--}}
+                                            {{--</select>--}}
+                                        {{--</div>--}}
                                     </div>
                                     <div class="form-group">
                                         <div  class="input-daterange input-group" id="demo-date-range">
@@ -145,7 +145,7 @@
                             </div>
                             <div class="col-md-7 col-sm-7">
                             <center>
-                                <div id="distritochart" class="chart" style="width: 900px; height: 500px;"></div>
+                                <div id="distritochart" class="chart"></div>
                             </center>
                             </div>
 
@@ -263,9 +263,15 @@
 
                                 </div>
                                 <div class="col-md-7 col-sm-7">
-                                    <center>
-                                        <div id="idadechart" class="chart"></div>
-                                    </center>
+                                    <table class="columns">
+                                        <tr>
+                                            <td><div id="idadechart" style="border: 1px solid #ccc;margin-right: 10px"></div></td>
+                                            <td><div id="idadetab" style="border: 1px solid #ccc"></div></td>
+                                        </tr>
+                                    </table>
+                                    {{--<center>--}}
+                                        {{--<div id="idadechart" class="chart"></div>--}}
+                                    {{--</center>--}}
 
                                 </div>
                             </div>
@@ -318,7 +324,7 @@
         </div><!--end .col -->
     @else
         <!-- BEGIN CONTENT-->
-        {{--<div id="content">--}}
+        <div id="content">
 
             <!-- BEGIN 404 MESSAGE -->
             <section>
@@ -352,7 +358,7 @@
             </section>
             <!-- END SEARCH SECTION -->
 
-        {{--</div><!--end #content-->--}}
+        </div><!--end #content-->
         <!-- END CONTENT -->
     @endif
 @endsection
@@ -362,7 +368,9 @@
         $(document).ready( function () {
 
                 google.charts.load('current', {'packages': ['corechart']});
-                google.charts.setOnLoadCallback(drawChartee);
+            google.charts.load('current', {'packages':['table']});
+//                google.charts.setOnLoadCallback(drawChartee);
+                google.charts.setOnLoadCallback(pesquisaDist);
                 google.charts.setOnLoadCallback(drawChart);
                 google.charts.setOnLoadCallback(drawCharte);
             google.charts.setOnLoadCallback(drawCharti);
@@ -392,14 +400,16 @@
                     },
                     bar: { groupWidth: "70%" }
                 };
+                var chart = new google.visualization.BarChart(document.getElementById('top_x_div'));
 
-                var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+//                var chart = new google.charts.Bar(document.getElementById('top_x_div'));
                 google.visualization.events.addListener(chart,'ready',function () {
-                    var exportdata=chart.getImageURI() ;
+                    var exportdata=chart.getImageURI();
                     $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Contacto'}).show();
                 });
                 // Convert the Classic options to Material options.
-                chart.draw(data, google.charts.Bar.convertOptions(options));
+                chart.draw(data, options);
+//                chart.draw(data, google.charts.Bar.convertOptions(options));
             }
 
             function drawCharti() {
@@ -426,14 +436,32 @@
                 chart.draw(data, options);
             }
 
-                function drawChartee() {
-
-                    var data = google.visualization.arrayToDataTable([
-                        ['Task', 'Hours per Day'],
-                            @foreach($distritos as $distrito)
-                        ['{{$distrito->distrito}}', {{$distrito->total}}],
-                        @endforeach
-                    ]);
+           function pesquisaDist() {
+               var chardat=[];
+               var titulo=['distrito','total'];
+               chardat.push(titulo);
+               $('#prov-id').on('change',function () {
+                   var prov_id= $('#prov-id').val();
+                   $.ajax({
+                       type: 'post',
+                       url: '/pesquisadist',
+                       data: {id:prov_id},
+                       dataType: 'json',
+                       success: function(data) {
+                           alert(data);
+                           data.forEach(function (dados) {
+                               chardat.push([dados.distrito,parseInt(dados.total)]);
+                           });
+                           drawChartee(chardat);
+//                  console.log(data);
+                       },error:function () {
+                           alert('Erro, plese try again')
+                       }
+                   });
+               });
+           }
+                function drawChartee(datas) {
+                    var data = google.visualization.arrayToDataTable(datas);
 
                     var options = {
                         title: 'Número de Vítimas Por Distrito'
@@ -471,9 +499,10 @@
                 }
 
                 function drawCharte() {
-
-                    var data = google.visualization.arrayToDataTable([
-                        ['Task', 'Hours per Day'],
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Idade');
+                    data.addColumn('number', 'Total');
+                    data.addRows([
                             @foreach($idades as $idade)
                         ['{{$idade->idade}}', {{$idade->total}}],
                         @endforeach
@@ -481,16 +510,19 @@
 
                     var options = {
                         title: 'Estatísticas por Idade das Vítimas ',
-                        is3D: true
+                        width:400,
+                        height:300,
+                        legend: 'none'
                     };
+                    var table = new google.visualization.Table(document.getElementById('idadetab'));
 
-                    var chart = new google.visualization.PieChart(document.getElementById('idadechart'));
+                    var chart = new google.visualization.BarChart(document.getElementById('idadechart'));
                     google.visualization.events.addListener(chart,'ready',function () {
                         var exportdata=chart.getImageURI() ;
                         $('#exportidade').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Idade das Vítimas'}).show();
                     });
-
                     chart.draw(data, options);
+                    table.draw(data, {showRowNumber: false, width: '300px', height: '300px'});
                 }
             function drawStu() {
 

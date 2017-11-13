@@ -58,9 +58,10 @@ return view('caso.reg_caso',compact('resps'));
      */
     public function show($id)
     {
-        $casos=Caso::find($id);
-//        $prov=Provincia::all();
-        return view('caso.detalhes',compact('casos'));
+//        $casos=Caso::find($id);
+        $msgs=Mensagem::where('caso_id',$id)->get();
+//        dd($msgs);
+        return view('caso.detalhes',compact('msgs'));
     }
 
     /**

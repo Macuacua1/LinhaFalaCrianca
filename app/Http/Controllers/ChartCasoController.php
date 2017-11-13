@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Caso;
 use App\Contacto;
+use App\Mensagem;
 use Illuminate\Http\Request;
 use Charts;
 use Illuminate\Support\Facades\Auth;

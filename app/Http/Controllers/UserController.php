@@ -64,7 +64,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-      return view('user.profile');
+      return view('user.perfil');
     }
 
     /**
@@ -161,7 +161,7 @@ class UserController extends Controller
 
 //        $user = Auth::user();
 
-        return view('user.profile');
+        return view('user.perfil');
     }
     public function block_user(Request $request){
 //        dd($request->all());
@@ -188,11 +188,28 @@ class UserController extends Controller
         }
     }
     public function edituser(Request $request){
-//        dd($request->file("avatar")->getClientOriginalName());
+        $notification = array(
+            'message' => 'Actualizado com Sucesso!',
+            'alert-type' => 'success'
+        );
+        $noterro = array(
+            'message' => 'Preencha um dos campos para actualizar dados!',
+            'alert-type' => 'error'
+        );
         $passw= bcrypt($request->password);
-        User::where('id',$request->user_id)->update(['avatar'=>$request->file("avatar")->getClientOriginalName(),'password'=>$passw]);
-        $request->file("avatar")->move( base_path() . '/public/img' , $request->file("avatar")->getClientOriginalName());
-        return back()->with('success','Actualizado com Sucesso!');
+        if ($request->avatar and $request->password) {
+            User::where('id', $request->user_id)->update(['avatar' => $request->file("avatar")->getClientOriginalName(), 'password' => $passw]);
+            $request->file("avatar")->move(base_path() . '/public/img', $request->file("avatar")->getClientOriginalName());
+//            session()->set('success','Item created successfully.');
+            return back()->with($notification);
+        }
+        if ($request->password) {
+            User::where('id', $request->user_id)->update(['password' => $passw]);
+//            session()->set('success','Item created successfully.');
+            return back()->with($notification);
+        }
+//        session()->set('success','Item created successfully.');
+            return back()->with($noterro);
     }
     public function deleteuser(Request $request,$id){
         $user=User::findOrFail($id);

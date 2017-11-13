@@ -26,7 +26,10 @@ Route::get('/reg', function () {
     return view('contacto/reg_contacto');
 });
 Route::get('/perfil', function () {
-    return view('user/profile');
+    return view('user/perfil');
+});
+Route::get('/teste', function () {
+    return view('test');
 });
 Route::post('/criar_conta','UserController@criarConta');
 Route::post('/edituser','UserController@edituser');
@@ -51,6 +54,7 @@ Route::post('/pesquisapro','ChartContactoController@pesquisapro');
 Route::post('/pesquisacontacto','ChartContactoController@pesquisacontacto');
 Route::post('/editcontacto','ContactoController@editcontacto');
 Route::post('/editutente','ContactoController@editutente');
+Route::get('/destroySession','ContactoController@destroySession');
 
 Route::get('/findDistrito','EnderecoController@findDistrito');
 Route::get('/findLocalidade','EnderecoController@findLocalidade');
@@ -61,4 +65,5 @@ Route::post('/block_user','UserController@block_user');
 
 //Graficos
 Route::get('/report_contacto','ChartContactoController@report_contacto');
+Route::post('/pesquisadist','ChartContactoController@pesquisadist');
 Route::get('/reportacaso','ChartCasoController@reportcaso');

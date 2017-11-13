@@ -98,36 +98,40 @@ function showHideRow() {
         $("#anonimous").show();
     }
 }
-
-
-$('#add_utente').on('click',function (e) {
-    event.preventDefault();
-
-    var dados = $('#form_add_utente').serialize();
-    var valor_get_total=$('#soma').val();
-    var valor_get_novo_total=Number(valor_get_total)+Number(1);
-
-    $('#soma').val(valor_get_novo_total);
-
-
-        $('#tipo_contacto').val($('#tipo_contact').val());
-
-    $.ajax({
-        type: 'post',
-        url: '/addUtente',
-        data: dados,
-        success: function(data) {
-            if (data) {
-                $('#form_add_utente')[0].reset();
-                toastr.success("Adicionado Com Sucesso!");
-                $('#tipo_contact').val($('#tipo_contacto').val());
-            }else {
-                toastr.error("Erro ao Adicionar Utente!");
-
-            }
-        }
-    });
+$('#tipo_contact').on('change',function () {
+    // alert('hahaahah');
+    $('#tipo_contacto').val($('#tipo_contact').val());
 });
+
+
+// $('.add_utente').on('click',function (e) {
+//     event.preventDefault();
+// // alert('hahaahah');
+//     var dados = $('#form_add_utente').serialize();
+//     var valor_get_total=$('#soma').val();
+//     var valor_get_novo_total=Number(valor_get_total)+Number(1);
+//
+//     $('#soma').val(valor_get_novo_total);
+//
+//
+//         $('#tipo_contacto').val($('#tipo_contact').val());
+//
+//     // $.ajax({
+//     //     type: 'post',
+//     //     url: '/addUtente',
+//     //     data: dados,
+//     //     success: function(data) {
+//     //         if (data) {
+//     //             $('#form_add_utente')[0].reset();
+//     //             toastr.success("Adicionado Com Sucesso!");
+//     //             $('#tipo_contact').val($('#tipo_contacto').val());
+//     //         }else {
+//     //             toastr.error("Erro ao Adicionar Utente!");
+//     //
+//     //         }
+//     //     }
+//     // });
+// });
 
 $('#add_contacto').on('click',function (e) {
     e.preventDefault();

@@ -174,8 +174,6 @@ class MotivoSeeder extends Seeder
         $categoria_motivo->save();
         $motivo= new \App\Motivo(['motivonome'=>'Informacoes Sobre a Linha de Ajuda','tipo_motivo_id'=>13]);
         $motivo->save();
-        $motivo= new \App\Motivo(['motivonome'=>'Informacoes Sobre a Linha de Ajuda','tipo_motivo_id'=>13]);
-        $motivo->save();
         $motivo= new \App\Motivo(['motivonome'=>'Informacoes Sobre Problemas relacionados as Criancas/direitos','tipo_motivo_id'=>13]);
         $motivo->save();
         $motivo= new \App\Motivo(['motivonome'=>'Chamadas de Comportamento(travessuras)','tipo_motivo_id'=>13]);
@@ -189,6 +187,8 @@ class MotivoSeeder extends Seeder
         $motivo= new \App\Motivo(['motivonome'=>'Chamadas de Silencio','tipo_motivo_id'=>13]);
         $motivo->save();
         $motivo= new \App\Motivo(['motivonome'=>'Agradecimentos pela Assistencia','tipo_motivo_id'=>13]);
+        $motivo->save();
+        $motivo= new \App\Motivo(['motivonome'=>'Chamadas de Cobranca','tipo_motivo_id'=>13]);
         $motivo->save();
 
 

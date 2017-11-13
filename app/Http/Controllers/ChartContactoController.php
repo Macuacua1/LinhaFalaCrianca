@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Caso;
 use App\Contacto;
+use App\Distrito;
 use App\Provincia;
 use App\Utente;
 use Illuminate\Http\Request;
@@ -284,6 +285,32 @@ class ChartContactoController extends Controller
 
             }
         }
+
+    }
+    public function pesquisadist(Request $request){
+        $dist[]=null;
+//        unset($dist);
+        $distritos=Distrito::select('id')->where('provincia_id',$request->id)->get();
+//        dd($distritos);
+//        unset($dist);
+        for ($i=0; $i<count($distritos );$i++){
+          $dist=$i;
+        }
+//        dd($dist);
+//        $valor=$dist;
+//        $dist=null;
+//        dd($valor);
+        $data=DB::table('utentes')
+            ->join('distritos','utentes.distrito_id','=','distritos.id')
+            ->select(DB::raw('count(*) as total,distritos.distritonome as distrito'))
+            ->where('distrito_id','<>',null)
+            ->whereIn('distrito_id',[1,2,3,4])
+            ->where('tipo_utente','Vitima')
+            ->orWhere('tipo_utente','Contactante+Vitima')
+            ->groupBy('distrito')->get();
+//        $valor=null;
+//        dd($data);
+        return response()->json($data);//then sent this data to ajax success
 
     }
 }

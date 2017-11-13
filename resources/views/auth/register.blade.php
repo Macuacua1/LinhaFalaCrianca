@@ -75,11 +75,11 @@
                     success:function(data){
                         $('#form_add_user')[0].reset();
 
-                        toastr.success("Actualizado Com Sucesso!");
+                        toastr.success("Registado Com Sucesso!");
                         document.location.href="{{url('user')}}";
                     },
                     error:function(){
-                        toastr.error("Erro na Actualizacao!");
+                        toastr.error("Erro no Registo!");
                     }
                 });
             });

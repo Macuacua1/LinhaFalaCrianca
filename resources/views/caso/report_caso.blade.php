@@ -168,6 +168,7 @@
 
                                     </div>
                                     <div class="col-md-7 col-sm-7">
+                                        {{--<td><div id="motivochartcaso" style="border: 1px solid #ccc"class="chart"></div></td>--}}
                                         <center>
                                             <div id="motivochartcaso" class="chart"></div>
                                         </center>
@@ -293,10 +294,13 @@
 
                 var options = {
                     title: 'Estatísticas por Motivo do Caso',
-                    is3D: true
+                    width:400,
+                    height:300,
+                    legend: 'none'
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('motivochartcaso'));
+//                var chart = new google.visualization.PieChart(document.getElementById('motivochartcaso'));
+                var chart = new google.visualization.BarChart(document.getElementById('motivochartcaso'));
                 google.visualization.events.addListener(chart,'ready',function () {
                     var exportdata=chart.getImageURI() ;
                     $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Caso'}).show();

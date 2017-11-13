@@ -29,11 +29,12 @@
                                 <div class="row" id="test_append">
                                     <input type="hidden" class="form-control" name="soma" id="soma" value="0">
                                 </div>
-                                <form class="form" id="form_add_utente">
-                                <div class="row">
+                                <form class="form form-validate" id="form_add_utente" novalidate="novalidate" method="post" action="{{url('/addUtente')}}">
+                                    {{csrf_field()}}
+                                <div class="row" style="margin: 0 40px">
                                     <div class="col-md-3 col-sm-3">
                                         <div class="form-group floating-label">
-                                            <select id="tipo_contact" name="tipo_contact" class="form-control">
+                                            <select id="tipo_contact" name="tipo_contact" class="form-control" required>
                                                 <option value="" disabled selected>Tipo de Contacto</option>
                                                 <option value="Telefone">Telefone</option>
                                                 <option value="Email">Email</option>
@@ -48,7 +49,7 @@
 
                                     <div class="col-md-3 col-sm-3">
                                         <div class="form-group floating-label">
-                                            <select id="tipo_utente" name="tipo_utente" class="form-control">
+                                            <select id="tipo_utente" name="tipo_utente" class="form-control" required>
                                                 <option value="" disabled selected>Tipo de Utente</option>
                                                 <option value="Contactante">Contactante</option>
                                                 <option value="Contactante+Vitima">Contactante+Vitima</option>
@@ -75,7 +76,7 @@
 
                                     </div><!--end .col -->
                                 </div>
-                                <div class="row" id="anonimous">
+                                <div class="row" id="anonimous" style="margin: 0 40px">
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group floating-label">
                                             <input type="text" name="nome" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Nome e Sobrenome">
@@ -90,7 +91,7 @@
                                     </div>
 
                                 </div>
-                                <div class="row">
+                                <div class="row" style="margin: 0 40px">
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group floating-label">
                                             <select id="provincia-id" name="provincia_id" class="form-control provincia">
@@ -123,7 +124,7 @@
                                     </div>
                                 </div><!--end .row -->
 
-                                <div id="vivecom_vitima" class="row">
+                                <div id="vivecom_vitima" class="row" style="margin: 0 40px">
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
                                             <input type="number"  name="idade" class="form-control">
@@ -144,10 +145,10 @@
                                         </div>
                                     </div>
                                     </div>
-                                    <div class="row" id="viveducacional">
+                                    <div class="row" id="viveducacional" style="margin: 0 40px">
                                         <div class="col-md-6 col-sm-6">
                                             <div class="form-group floating-label">
-                                                <select id="situacao_educacional" name="situacao_educacional" class="form-control">
+                                                <select id="situacao_educacional" name="situacao_educacional" class="form-control" required>
                                                     <option value="0" disabled selected>Situacao Educacional</option>
                                                     <option value="Formal">Formal</option>
                                                     <option value="Primario">Primario</option>
@@ -159,7 +160,7 @@
                                         </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group floating-label">
-                                            <select id="vive_com" name="vive_com" class="form-control">
+                                            <select id="vive_com" name="vive_com" class="form-control" required>
                                                 <option value="0" disabled selected>Vive Com</option>
                                                 <option value="Pai">Pai</option>
                                                 <option value="Tia">Tia</option>
@@ -171,10 +172,10 @@
                                     </div>
                                 </div>
 
-                                <div  class="row">
+                                <div  class="row" style="margin: 0 40px">
                                     <div class="col-md-4 col-sm-4"id="lingua">
                                         <div class="form-group floating-label" >
-                                            <select id="idioma" name="idioma" class="form-control">
+                                            <select id="idioma" name="idioma" class="form-control" required>
                                                 <option value="0"disabled selected>Lingua Falada</option>
                                                 <option value="Portugues">Portugues</option>
                                                 <option value="Macua">Macua</option>
@@ -187,7 +188,7 @@
 
                                     <div class="col-md-4 col-sm-4" id="relacao">
                                         <div class="form-group floating-label">
-                                            <select id="relacao_vitima" name="relacao_vitima" class="form-control">
+                                            <select id="relacao_vitima" name="relacao_vitima" class="form-control" required>
                                                 <option value="0" disabled selected>Relacao com a Vitima</option>
                                                 <option value="Pai">Pai</option>
                                                 <option value="Tia">Tia</option>
@@ -207,47 +208,46 @@
                                             {{--<label for="conhecer_linha">De onde conheceu a linha</label>--}}
                                         </div>
                                     </div>
-                                </div>
-                                </form>
 
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-10"></div>
-                                    <div class="col-md-2 col-sm-2">
-                                        <button class="btn btn-success" type="submit" id="add_utente" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Gravar dados actuais e adicionar outros Envolvidos">
+                                </div>
+                                    <div class="row" style="margin: 0 70px">
+                                        <button class="add_utente btn btn-success pull-right" type="submit">
                                             <span class="glyphicon glyphicon-plus"></span> Adicionar Novo
                                         </button>
-                                        {{--<button type="button" id="add_utente" class="btn ink-reaction btn-floating-action btn-sm btn-primary" style="margin-right:0!important;padding-right:0!important;"><i class="fa fa-star"></i></button>--}}
                                     </div>
-                                </div>
-                            {{--</div>--}}
+                                </form>
+
                         </div>
 
                         <div class="tab-pane" id="contactoo">
-
+{{--<h1>{{Session::get('tipocontacto')}}</h1>--}}
                             {{--<div class="container">--}}
-                                <form class="form" id="form_add_contacto">
-                                <div class="row">
+                                <form class="form form-validate" id="form_add_contacto" novalidate="novalidate" method="post" action="/registarcontacto">
+                                    {{csrf_field()}}
+                                <div class="row" style="margin: -10px 40px 0 40px">
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
-                                            <input type="hidden" name="tipo_contacto" id="tipo_contacto" class="form-control" value="">
+                                            @if(Session::has('tipocontacto'))
+                                            <input type="hidden" name="tipo_contacto" id="tipo_contacto" class="form-control" value="{{Session::get('tipocontacto')}}">
+                                             @endif
                                         </div>
                                         </div>
                                     <div class="col-md-12 col-sm-12">
                                         <div class="form-group">
-                                            <textarea name="resumo_contacto" id="resumo_contacto" class="form-control" rows="3"></textarea>
+                                            <textarea name="resumo_contacto" id="resumo_contacto" class="form-control" rows="3" required></textarea>
                                             <label>Resumo do Contacto</label>
                                         </div>
                                         <div class="form-group">
-                                            <textarea name="impressao_atendente" id="impressao_atendente" class="form-control" rows="3"></textarea>
+                                            <textarea name="impressao_atendente" id="impressao_atendente" class="form-control" rows="3" required></textarea>
                                             <label>Impressao do atendente</label>
                                         </div>
                                     </div>
 
                                 </div>
-                                <div id="case" class="row">
+                                <div id="" class="row" style="margin: 0 40px">
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group floating-label">
-                                            <select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo">
+                                            <select name="tipo_motivo_id" id="categoriamotivo" class="form-control categoriamotivo" required>
                                                 <option value="" disabled selected>--Categoria do Motivo--</option>
                                                 @foreach($tipomotivos as $tipomotivo)
                                                     <option value="{{$tipomotivo->id}}">{{$tipomotivo->tipomotivonome}}</option>
@@ -257,33 +257,23 @@
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group floating-label">
-                                            <select id="motivo"  class="form-control motivonome" name="motivo_id">
+                                            <select id="motivo"  class="form-control motivonome" name="motivo_id" required>
                                                 <option value="0" disabled="true" selected="true">--Motivo--</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div><!--end .row -->
-                                <div id="notcase" class="row">
-                                    <div class=" col-md-12 col-sm-12 col-lg-12">
-                                        <div class="form-group floating-label">
-                                            <select name="motivo_id" id="" class="form-control">
-                                                <option value="" disabled selected>--Motivo--</option>
-                                                @foreach($motivos as $motivo)
-                                                <option value="{{$motivo->id}}">{{$motivo->motivonome}}</option>
-                                                @endforeach
-                                            </select>
+
+                                   <div class="row" style="margin: 0 40px">
+                                        <div class="col-md-10 col-sm-10"></div>
+                                        <div class="col-md-2 col-sm-2">
+                                            <button class="btn btn-success pull-right" type="submit"  data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Gravar dados do Contacto">
+                                                <span class="glyphicon glyphicon-floppy-save"></span> Registar
+                                            </button>
                                         </div>
                                     </div>
-                                </div>
                                 </form>
-                                <div class="row">
-                                    <div class="col-md-10 col-sm-10"></div>
-                                    <div class="col-md-2 col-sm-2">
-                                        <button class="btn btn-success" type="submit" id="add_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Gravar dados do Contacto">
-                                            <span class="glyphicon glyphicon-floppy-save"></span> Registar
-                                        </button>
-                                    </div>
-                                </div>
+
                             </div>
                         {{--</div>--}}
                     </div><!--end .card-body -->
@@ -293,4 +283,28 @@
     {{--</div><!--end .row -->--}}
     <!-- END VALIDATION FORM WIZARD -->
     @endif
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+                @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}";
+        switch(type){
+            case 'info':
+                toastr.info("{{ Session::get('message') }}");
+                break;
+
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+        @endif
+    </script>
 @endsection

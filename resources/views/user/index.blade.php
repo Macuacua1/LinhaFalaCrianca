@@ -135,7 +135,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="formModalLabel">Registar Utilizador</h4>
                 </div>
-                <form class="form-horizontal" role="form" method="post" id="form_add_user">
+                <form class="form-horizontal form-validate" role="form" method="post" id="form_add_user" novalidate="novalidate">
                     {{csrf_field()}}
                     <div class="modal-body">
                         <div class="form-group">
@@ -143,7 +143,7 @@
                                 <label for="nome" class="control-label">Nome</label>
                             </div>
                             <div class="col-sm-9">
-                                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome">
+                                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -151,7 +151,7 @@
                                 <label for="email1" class="control-label">Email</label>
                             </div>
                             <div class="col-sm-9">
-                                <input type="email" name="email" id="email1" class="form-control" placeholder="Email">
+                                <input type="email" name="email" id="email1" class="form-control" placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -159,7 +159,7 @@
                                 <label for="password1" class="control-label">Perfil</label>
                             </div>
                             <div class="col-sm-9">
-                                <select id="select2" name="role_id" class="form-control"required>
+                                <select id="select2" name="role_id" class="form-control" required>
                                     <option value="" selected disabled>--Perfil--</option>
                                     <option value="1">Administrador</option>
                                     <option value="2">Conselheiro</option>
@@ -234,11 +234,11 @@
                     success:function(data){
                         $('#form_add_user')[0].reset();
 
-                        toastr.success("Actualizado Com Sucesso!");
+                        toastr.success("Registado Com Sucesso!");
                         document.location.href="{{url('user')}}";
                     },
                     error:function(){
-                        toastr.error("Erro na Actualizacao!");
+                        toastr.error("Erro! Verifique o preenchimento dos campos!");
                     }
                 });
             });

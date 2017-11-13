@@ -12,4 +12,7 @@ class Tipo_Motivo extends Model
     public function motivo(){
         return $this->hasMany(Motivo::class);
     }
+    public function contacto(){
+        return $this->hasMany(Contacto::class);
+    }
 }

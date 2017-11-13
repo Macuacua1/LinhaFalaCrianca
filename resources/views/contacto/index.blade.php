@@ -165,7 +165,7 @@
                                    <a href="{{route('contacto.show',$contacto->id)}}"><button class="btn btn-info" data-id="{{$contacto->id}}" data-title="" data-description="">
                                            <span class="glyphicon glyphicon-eye-open"></span>
                                        </button></a>
-                                @if($contacto->caso_id>0)
+                                @if($contacto->caso_id>0 or $contacto->motivo_id>60)
                                         <button class=" btn btn-success" data-id="{{$contacto->id}}" data-title="" data-description="" disabled id="fwd-caso">
                                             <span class="glyphicon glyphicon-forward"></span>
                                         </button>
@@ -193,14 +193,15 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="formModalLabel">Reencaminhamento</h4>
                 </div>
-                <form class="form-horizontal" role="form" method="post" id="form_add_caso">
+                <form class="form-horizontal form-validate" role="form" method="post" id="form_add_caso" novalidate="novalidate">
+                    {{csrf_field()}}
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="col-sm-3">
                                 <label for="email1" class="control-label">Instituicao</label>
                             </div>
                             <div class="col-sm-9">
-                                <select name="responsavel_id" id="responsavel" class="form-control">
+                                <select name="responsavel_id" id="responsavel" class="form-control" required>
                                     <option value="" disabled selected>--Reencaminhar para:--</option>
                                     @foreach($resps as $resp)
                                         <option value="{{$resp->id}}">{{$resp->respnome}}</option>
@@ -242,6 +243,29 @@
                 }
             });
             $('#datatable').DataTable( {
+                "language": {
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                },
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
@@ -477,14 +501,12 @@
                 $('#footer_action_button').addClass('glyphicon-check');
                 $('.actionBtn').addClass('btn-success');
                 $('.actionBtn').addClass('fwd_caso');
-                $('.modal-title').text('Edit');
                 $('#contacto_id').val($(this).data('id'));
                 $('.form-horizontal').show();
-//                $('#myModal').modal('show');
             });
             $('.modal-footer').on('click', '.fwd_caso', function() {
                 var dados = $('#form_add_caso').serialize();
-                 alert(dados);
+//                 alert(dados);
                 $.ajax({
                     type:'post',
                     url:'/addcaso',

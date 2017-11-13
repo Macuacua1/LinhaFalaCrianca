@@ -21,7 +21,7 @@ class EnderecoController extends Controller
         $prov=Provincia::all();//get data from table
         $tipos= Tipo_Motivo::where('tipomotivonome','Nao caso')->first();
         $motivos=Motivo::where('tipo_motivo_id',$tipos->id)->get();
-        $tipomotivos=Tipo_Motivo::where('tipomotivonome','<>','naocaso')->get();
+        $tipomotivos=Tipo_Motivo::all();
         $roles=Role::all();
         return view('contacto/registo',compact('prov','tipomotivos','motivos','roles'));//sent data to view
 

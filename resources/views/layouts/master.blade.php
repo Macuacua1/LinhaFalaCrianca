@@ -23,6 +23,7 @@
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" />--}}
     {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />--}}
     <link rel="stylesheet" href="/css/datepicker3f394.css" />
+    <link rel="stylesheet" href="/css/parsley.css" />
     {{--<link rel="stylesheet" href="/css/bootstrap-datepicker.min.css" />--}}
 
 
@@ -31,6 +32,8 @@
 
     {!! Charts::assets() !!}
     {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>--}}
+
+    <script src="/js/parsley.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js" charset="utf-8"></script>
@@ -135,24 +138,24 @@
                         <i class="fa fa-bell"></i><sup class="badge style-danger">{{Session::has('utentes') ? count(Session::get('utentes')): ''}}</sup>
                     </a>
                     <ul class="dropdown-menu animation-expand">
-                        <li class="dropdown-header">Today's messages</li>
-                        <li>
-                            <a class="alert alert-callout alert-warning" href="javascript:void(0);">
-                                <img class="pull-right img-circle dropdown-avatar" src="/img/modules/materialadmin/avatar2666b.jpg?1422538624" alt="" />
-                                <strong>Alex Anistor</strong><br/>
-                                <small>Testing functionality...</small>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="alert alert-callout alert-info" href="javascript:void(0);">
-                                <img class="pull-right img-circle dropdown-avatar" src="/img/modules/materialadmin/avatar3666b.jpg?1422538624" alt="" />
-                                <strong>Alicia Adell</strong><br/>
-                                <small>Reviewing last changes...</small>
-                            </a>
-                        </li>
-                        <li class="dropdown-header">Options</li>
-                        <li><a href="">View all messages <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
-                        <li><a href="">Mark as read <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
+                        {{--<li class="dropdown-header">Today's messages</li>--}}
+                        {{--<li>--}}
+                            {{--<a class="alert alert-callout alert-warning" href="javascript:void(0);">--}}
+                                {{--<img class="pull-right img-circle dropdown-avatar" src="/img/modules/materialadmin/avatar2666b.jpg?1422538624" alt="" />--}}
+                                {{--<strong>Alex Anistor</strong><br/>--}}
+                                {{--<small>Testing functionality...</small>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<a class="alert alert-callout alert-info" href="javascript:void(0);">--}}
+                                {{--<img class="pull-right img-circle dropdown-avatar" src="/img/modules/materialadmin/avatar3666b.jpg?1422538624" alt="" />--}}
+                                {{--<strong>Alicia Adell</strong><br/>--}}
+                                {{--<small>Reviewing last changes...</small>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="dropdown-header">Options</li>--}}
+                        <li><a href="{{url('/destroySession')}}">Limpar Sessao<span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>
+                        {{--<li><a href="">Mark as read <span class="pull-right"><i class="fa fa-arrow-right"></i></span></a></li>--}}
                     </ul><!--end .dropdown-menu -->
                 </li><!--end .dropdown -->
             </ul><!--end .header-nav-options -->
@@ -378,7 +381,8 @@
 <script src="/js/DemoTableDynamic.js"></script>
 <script src="/js/DemoFormComponents.js"></script>
 <script src="/js/DemoDashboard.js"></script>{{--fecharrrrrrrrrrrrrrr--}}
-{{--<script src="/js/modules/materialadmin/libs/jquery-ui/jquery-ui.min.js"></script>--}}
+<script src="/js/jquery.validate.min.js"></script>
+<script src="/js/additional-methods.min.js"></script>
 
 {{----}}
 
