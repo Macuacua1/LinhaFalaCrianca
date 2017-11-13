@@ -203,6 +203,12 @@ class UserController extends Controller
 //            session()->set('success','Item created successfully.');
             return back()->with($notification);
         }
+        if ($request->avatar) {
+            User::where('id', $request->user_id)->update(['avatar' => $request->file("avatar")->getClientOriginalName()]);
+            $request->file("avatar")->move(base_path() . '/public/img', $request->file("avatar")->getClientOriginalName());
+//            session()->set('success','Item created successfully.');
+            return back()->with($notification);
+        }
         if ($request->password) {
             User::where('id', $request->user_id)->update(['password' => $passw]);
 //            session()->set('success','Item created successfully.');
