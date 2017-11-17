@@ -16,7 +16,7 @@ class Distrito extends Model
     {
         return $this->hasMany(Localidade::class);
     }
-    public function denuciante()
+    public function utente()
     {
         return $this->hasMany(Utente::class);
     }

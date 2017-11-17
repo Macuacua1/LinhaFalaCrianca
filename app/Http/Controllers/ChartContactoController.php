@@ -18,59 +18,137 @@ class ChartContactoController extends Controller
         $this->middleware('auth');
     }
     public function pesquisapro(Request $request){
+        $provincias=[];
+        if ($request->inicio and $request->fim){
         $provincias=DB::table('utentes')
             ->join('provincias','utentes.provincia_id','=','provincias.id')
             ->select(DB::raw('count(*) as total,provincias.provincianome as provincia'))
-            ->where('provincia_id','<>',null)
-            ->where('tipo_utente','Vitima')
-            ->orWhere('tipo_utente','Contactante+Vitima')
             ->whereBetween('utentes.created_at',[$request->inicio,$request->fim])
+            ->where('provincia_id','<>',null)
+            ->where(function ($q){
+                $q->where('tipo_utente','Vitima')
+               ->orWhere('tipo_utente','Contactante+Vitima');
+
+            })
             ->groupBy('provincia')->get();
-        return Response($provincias);
-//                if ($provincias !=null){
-//////            $charData= new array(count($provincias)+1);
-//            $charData = new \SplFixedArray(count($provincias)+1);
-//            $charData[0]=["provincia","total"];
-//            $j=0;
-////            $data=(object)$provincias;
-//            $data=json_decode($provincias,true);
-//            foreach ($data as $key=>$value){
-//                $j++;
-//                $charData[$j]=([$data[$key]['provincia'],$data[$key]['total']]);
-//////  dd($data[$key]['provincia']);
-//            }
-//        }
-//        $dados=(object)($charData);
-//        return response()->json($dados);
-//       return Response($provincias);
+            return Response($provincias);
+        }else{
+            return Response($provincias);
+        }
+
+    }
+    public function pesquisadist(Request $request){
+        $data=[];
+        if ($request->id) {
+            $data = DB::table('utentes')
+                ->join('distritos', 'utentes.distrito_id', '=', 'distritos.id')
+                ->select(DB::raw('count(*) as total,distritos.distritonome as distrito'))
+                ->where('distrito_id', '<>', null)
+                ->where('distritos.provincia_id', $request->id)
+                ->where(function ($q) {
+                    $q->where('tipo_utente', 'Vitima')
+                        ->orWhere('tipo_utente', 'Contactante+Vitima');
+                })
+                ->groupBy('distrito')->get();
+        }
+
+        if ($request->id and $request->inicio and $request->fim) {
+            $data = DB::table('utentes')
+                ->join('distritos', 'utentes.distrito_id', '=', 'distritos.id')
+                ->select(DB::raw('count(*) as total,distritos.distritonome as distrito'))
+                ->whereBetween('utentes.created_at',[$request->inicio,$request->fim])
+                ->where('distrito_id', '<>', null)
+                ->where('distritos.provincia_id', $request->id)
+                ->where(function ($q) {
+                    $q->where('tipo_utente', 'Vitima')
+                        ->orWhere('tipo_utente', 'Contactante+Vitima');
+                })
+                ->groupBy('distrito')->get();
+        }
+            return response()->json($data);//then sent this data to ajax success
+    }
+
+    public function pesquisatipo(Request $request){
+        $tipos=[];
+        if ($request->inicio and $request->fim){
+            $tipos=Contacto::where('tipo_contacto','<>',null)
+                ->whereBetween('created_at',[$request->inicio,$request->fim])
+                ->selectRaw('count(*) as total,tipo_contacto')
+                ->groupBy('tipo_contacto')->get();
+
+            return Response($tipos);
+        }else{
+            return Response($tipos);
+        }
+
+    }
+    public function pesquisamotivo(Request $request){
+        $motivos=[];
+        if ($request->inicio and $request->fim){
+            $motivos= DB::table('contactos')
+                ->join('motivos','contactos.motivo_id','=','motivos.id')
+                ->select(DB::Raw('count(*) as total,motivos.motivonome as motivo'))
+                ->whereBetween('contactos.created_at',[$request->inicio,$request->fim])
+                ->where('motivo_id','<>',null)
+                ->groupBy('motivo')
+                ->get();
+            return Response($motivos);
+        }else{
+            return Response($motivos);
+        }
+    }
+    public function pesquisaidade(Request $request){
+        $idades=[];
+        if ($request->inicio and $request->fim){
+            $idades=DB::table('utentes')
+                ->select(DB::raw('count(*) as total,idade'))
+                ->whereBetween('created_at',[$request->inicio,$request->fim])
+                ->where(function ($q) {
+                    $q->where('tipo_utente','Vitima')
+                        ->orWhere('tipo_utente','Contactante+Vitima');
+                })
+                ->groupBy('idade')->get();
+            return Response($idades);
+        }else{
+            return Response($idades);
+        }
+
+    }
+    public function pesquisagenero(Request $request){
+        $generos=[];
+        if ($request->inicio and $request->fim){
+            $generos=DB::table('utentes')
+                ->select(DB::raw('count(*) as total,genero'))
+                ->whereBetween('created_at',[$request->inicio,$request->fim])
+                ->where(function ($q) {
+                    $q->where('tipo_utente','Vitima')
+                        ->orWhere('tipo_utente','Contactante+Vitima');
+                })
+                ->groupBy('genero')->get();
+            return Response($generos);
+        }else{
+            return Response($generos);
+        }
 
     }
     public function report_contacto(){
-// $teste=Contacto::with('utente','utente.provincia','utente.distrito')
-//     ->where('utentes.provincia_id','<>',null)
-//     ->selectRaw('count(*) as total,tipo_contacto')
-//     ->groupBy('tipo_contacto')
-//     ->get();
-//
-//        $teste=Contacto::with([
-//            'utente'=>function($query){
-//
-//            }
-//        ])
-//     ->get();
-//        dd($teste);
-//        $test=Contacto::with(['motivo' => function($query){
-//            $query->where('id',22);
-//        }])->where('motivo_id',22)->get();
+//      $dist=Utente::with('distrito')->where('tipo_utente','Vitima')
+//                ->orWhere('tipo_utente','Contactante+Vitima')
+//          ->selectRaw('count(*) as total,distrito.distritonome')
+//           ->groupBy('distrito.distritonome')
+//          ->get();
+        $input='Funhalouro';
+        $qry = Utente::with(array('distrito' => function ($q) use ($input) {
+//            $q->where('distritonome','like',"%{$input}%");
+        }))->whereHas('distrito', function ($q) use ($input) {
+            $q->where('distritonome','like',"%{$input}%")
+                ->groupBy('distritonome');
+        });
 
-//        return response()->json(['aaa'=>$teste]);
+        $res = $qry->get();
 
         $prov=Provincia::all();
-//        if ($provincias){
-//            $provincias->load(['denuciante' => function ($query) {
-//                $query->where('tipo_utente','<>','Contactante')->whereHas('provincia')->orderBy('created_at', 'desc');
-//            }]);}
-//        dd($provincias);
+
         $provincias=DB::table('utentes')
             ->join('provincias','utentes.provincia_id','=','provincias.id')
             ->select(DB::raw('count(*) as total,provincias.provincianome as provincia'))
@@ -287,30 +365,5 @@ class ChartContactoController extends Controller
         }
 
     }
-    public function pesquisadist(Request $request){
-        $dist[]=null;
-//        unset($dist);
-        $distritos=Distrito::select('id')->where('provincia_id',$request->id)->get();
-//        dd($distritos);
-//        unset($dist);
-        for ($i=0; $i<count($distritos );$i++){
-          $dist=$i;
-        }
-//        dd($dist);
-//        $valor=$dist;
-//        $dist=null;
-//        dd($valor);
-        $data=DB::table('utentes')
-            ->join('distritos','utentes.distrito_id','=','distritos.id')
-            ->select(DB::raw('count(*) as total,distritos.distritonome as distrito'))
-            ->where('distrito_id','<>',null)
-            ->whereIn('distrito_id',[1,2,3,4])
-            ->where('tipo_utente','Vitima')
-            ->orWhere('tipo_utente','Contactante+Vitima')
-            ->groupBy('distrito')->get();
-//        $valor=null;
-//        dd($data);
-        return response()->json($data);//then sent this data to ajax success
 
-    }
 }

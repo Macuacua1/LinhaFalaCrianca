@@ -38,6 +38,12 @@ Route::get('/getPerfil','UserController@getPerfil');
 Route::resource('contacto','ContactoController');
 Route::resource('caso','CasoController');
 Route::resource('user','UserController');
+
+Route::resource('instituicao','InstituicaoController');
+Route::post('/add-resp','InstituicaoController@addresp');
+Route::post('/edit-resp','InstituicaoController@editresp');
+
+
 Route::post('/registarcontacto','ContactoController@addcontacto');
 Route::get('/criarcaso/{id}','CasoController@criarcaso');
 Route::get('/deleteuser/{id}','UserController@deleteuser');
@@ -66,4 +72,8 @@ Route::post('/block_user','UserController@block_user');
 //Graficos
 Route::get('/report_contacto','ChartContactoController@report_contacto');
 Route::post('/pesquisadist','ChartContactoController@pesquisadist');
+Route::post('/pesquisatipo','ChartContactoController@pesquisatipo');
+Route::post('/pesquisamotivo','ChartContactoController@pesquisamotivo');
+Route::post('/pesquisaidade','ChartContactoController@pesquisaidade');
+Route::post('/pesquisagenero','ChartContactoController@pesquisagenero');
 Route::get('/reportacaso','ChartCasoController@reportcaso');

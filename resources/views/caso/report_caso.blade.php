@@ -59,7 +59,7 @@
                                     <fieldset class="scheduler-border">
                                         <legend class="scheduler-border">Filtro por Datas</legend>
                                         <div class="form-group">
-                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                            <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                 <div class="input-group-content">
                                                     <input type="text" class="form-control" name="start" id="startestado"/>
                                                     <label>De</label>
@@ -102,7 +102,7 @@
                                         <fieldset class="scheduler-border">
                                             <legend class="scheduler-border">Filtro por Datas</legend>
                                             <div class="form-group">
-                                                <div  class="input-daterange input-group" id="demo-date-range">
+                                                <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                     <div class="input-group-content">
                                                         <input type="text" class="form-control" name="start" id="startinst"/>
                                                         <label>De</label>
@@ -145,7 +145,7 @@
                                         <fieldset class="scheduler-border">
                                             <legend class="scheduler-border">Filtro por Datas</legend>
                                             <div class="form-group">
-                                                <div  class="input-daterange input-group" id="demo-date-range">
+                                                <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                     <div class="input-group-content">
                                                         <input type="text" class="form-control" name="start" id="startmot"/>
                                                         <label>De</label>

@@ -262,16 +262,14 @@
                         <div class="gui-icon"><i class="fa fa-user"></i></div>{{--<i class="md md-email"></i>--}}
                         <span class="title">Utilizador</span>
                     </a>
-                    <!--start submenu -->
-                    {{--<ul>--}}
-                        {{--<li><a href="" ><span class="title">Perfil</span></a></li>--}}
-
-                        {{--<li><a href="{{url('user')}}"><span class="title">Listar</span></a></li>--}}
-
-
-                    {{--</ul><!--end /submenu -->--}}
                 </li><!--end /menu-li -->
                 <!-- END EMAIL -->
+                    <li class="gui-folder">
+                        <a href="{{url('instituicao')}}">
+                            <div class="gui-icon"><i class="fa fa-university"></i></div>{{--<i class="md md-email"></i>--}}
+                            <span class="title">Instituicao</span>
+                        </a>
+                    </li><!--end /menu-li -
 
                 <!-- BEGIN UI -->
                 <li class="gui-folder">

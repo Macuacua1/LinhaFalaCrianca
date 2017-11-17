@@ -57,7 +57,7 @@
                                     <fieldset class="scheduler-border">
                                         <legend class="scheduler-border">Filtro por Datas</legend>
                                         <div class="form-group">
-                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                            <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                 <div class="input-group-content">
                                                     <input type="text" class="form-control" name="start" id="startpro"/>
                                                     <label>De</label>
@@ -121,7 +121,7 @@
                                         {{--</div>--}}
                                     </div>
                                     <div class="form-group">
-                                        <div  class="input-daterange input-group" id="demo-date-range">
+                                        <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                             <div class="input-group-content">
                                                 <input type="text" class="form-control" name="startdist" id="startdist"/>
                                                 <label>De</label>
@@ -160,14 +160,14 @@
                                     <fieldset class="scheduler-border">
                                         <legend class="scheduler-border">Filtro por Datas</legend>
                                         <div class="form-group">
-                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                            <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="start" id="start"/>
+                                                    <input type="text" class="form-control" name="starttipo" id="starttipo"/>
                                                     <label>De</label>
                                                 </div>
                                                 <span class="input-group-addon">a</span>
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="end" id="end" />
+                                                    <input type="text" class="form-control" name="endtipo" id="endtipo" />
                                                     <label>Para</label>
                                                     <div class="form-control-line"></div>
                                                 </div>
@@ -200,14 +200,14 @@
                                     <fieldset class="scheduler-border">
                                         <legend class="scheduler-border">Filtro por Datas</legend>
                                         <div class="form-group">
-                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                            <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="start" id="startmotivo"/>
+                                                    <input type="text" class="form-control" name="startmotivo" id="startmotivo"/>
                                                     <label>De</label>
                                                 </div>
                                                 <span class="input-group-addon">a</span>
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="end" id="endmotivo" />
+                                                    <input type="text" class="form-control" name="endmotivo" id="endmotivo" />
                                                     <label>Para</label>
                                                     <div class="form-control-line"></div>
                                                 </div>
@@ -240,14 +240,14 @@
                                     <fieldset class="scheduler-border">
                                         <legend class="scheduler-border">Filtro por Datas</legend>
                                         <div class="form-group">
-                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                            <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="start" id="startidade"/>
+                                                    <input type="text" class="form-control" name="startidade" id="startidade"/>
                                                     <label>De</label>
                                                 </div>
                                                 <span class="input-group-addon">a</span>
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="end" id="endidade" />
+                                                    <input type="text" class="form-control" name="endidade" id="endidade" />
                                                     <label>Para</label>
                                                     <div class="form-control-line"></div>
                                                 </div>
@@ -284,14 +284,14 @@
                                     <fieldset class="scheduler-border">
                                         <legend class="scheduler-border">Filtro por Datas</legend>
                                         <div class="form-group">
-                                            <div  class="input-daterange input-group" id="demo-date-range">
+                                            <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="start" id="startgenero"/>
+                                                    <input type="text" class="form-control" name="startgenero" id="startgenero"/>
                                                     <label>De</label>
                                                 </div>
                                                 <span class="input-group-addon">a</span>
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="end" id="endgenero" />
+                                                    <input type="text" class="form-control" name="endgenero" id="endgenero" />
                                                     <label>Para</label>
                                                     <div class="form-control-line"></div>
                                                 </div>
@@ -380,7 +380,7 @@
 
             function drawStuff() {
                 var data = new google.visualization.arrayToDataTable([
-                    ['Move', 'Percentage'],
+                    ['Motivo', 'total'],
                         @foreach($motivos as $motivo)
                     ['{{$motivo->motivo}}', {{$motivo->total}}],
                     @endforeach
@@ -416,7 +416,7 @@
 
                 var data = google.visualization.arrayToDataTable(
                         [
-                    ['Task', 'Hours per Day'],
+                    ['Provincia', 'total'],
                     @foreach($provincias as $provincia)
                     ['{{$provincia->provincia}}', {{$provincia->total}}],
                     @endforeach
@@ -436,49 +436,11 @@
                 chart.draw(data, options);
             }
 
-           function pesquisaDist() {
-               var chardat=[];
-               var titulo=['distrito','total'];
-               chardat.push(titulo);
-               $('#prov-id').on('change',function () {
-                   var prov_id= $('#prov-id').val();
-                   $.ajax({
-                       type: 'post',
-                       url: '/pesquisadist',
-                       data: {id:prov_id},
-                       dataType: 'json',
-                       success: function(data) {
-                           alert(data);
-                           data.forEach(function (dados) {
-                               chardat.push([dados.distrito,parseInt(dados.total)]);
-                           });
-                           drawChartee(chardat);
-//                  console.log(data);
-                       },error:function () {
-                           alert('Erro, plese try again')
-                       }
-                   });
-               });
-           }
-                function drawChartee(datas) {
-                    var data = google.visualization.arrayToDataTable(datas);
-
-                    var options = {
-                        title: 'Número de Vítimas Por Distrito'
-                    };
-
-                    var chart = new google.visualization.PieChart(document.getElementById('distritochart'));
-                    google.visualization.events.addListener(chart,'ready',function () {
-                        var exportdata=chart.getImageURI() ;
-                        $('#exportdist').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Distrito'}).show();
-                    });
-                    chart.draw(data, options);
-                }
 
                 function drawChart() {
 
                     var data = google.visualization.arrayToDataTable([
-                        ['Task', 'Hours per Day'],
+                        ['Tipo', 'total'],
                             @foreach($tipos as $tipo)
                         ['{{$tipo->tipo_contacto}}', {{$tipo->total}}],
                         @endforeach
@@ -527,7 +489,7 @@
             function drawStu() {
 
                 var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
+                    ['Genero', 'total'],
                         @foreach($generos as $genero)
                     ['{{$genero->genero}}', {{$genero->total}}],
                     @endforeach
@@ -546,93 +508,521 @@
                 chart.draw(data, options);
             }
             });
-    </script>
-  <script type="text/javascript">
-      $("#startpro").on('change',function(){
-          var minDate = $('#startpro').datepicker('getDate');
-          $("#endpro").datepicker("change", { minDate: minDate });
-          var inicio=$('#startpro').val();
-          var fim= $('#endpro').val();
-          pesquisarPro(inicio,fim);
-      });
 
-      $("#endpro").on('change',function () {
-          var maxDate = $('#endpro').datepicker('getDate');
-          var inicio=$('#startpro').val();
-          var fim= $('#endpro').val();
+        $("#startdist").on('change',function(){
+            var minDate = $('#startdist').datepicker('getDate');
+            $("#enddist").datepicker("change", { minDate: minDate });
+            var inicio=$('#startdist').val();
+            var fim= $('#enddist').val();
+            var prov_id= $('#prov-id').val();
+            pesquisaDist(prov_id,inicio,fim);
+        });
+
+        $("#enddist").on('change',function () {
+            var maxDate = $('#enddist').datepicker('getDate');
+            var inicio=$('#startdist').val();
+            var fim= $('#enddist').val();
+            var prov_id= $('#prov-id').val();
 //          alert(fim);
-          pesquisarPro(inicio,fim);
-      });
-      $("#startdist").on('change',function(){
-          var minDate = $('#startdist').datepicker('getDate');
-          $("#enddist").datepicker("change", { minDate: minDate });
-          var inicio=$('#startdist').val();
-          var fim= $('#enddist').val();
-//          pesquisarPro(inicio,fim);
-      });
+            pesquisaDist(prov_id,inicio,fim);
+        });
 
-      $("#enddist").on('change',function () {
-          var maxDate = $('#enddist').datepicker('getDate');
-          var inicio=$('#startdist').val();
-          var fim= $('#enddist').val();
+        $('#prov-id').on('change',function () {
+            var prov_id= $('#prov-id').val();
+            var inicio=$('#startdist').val();
+            var fim= $('#enddist').val();
+            pesquisaDist(prov_id,inicio,fim);
+        });
+
+        function pesquisaDist(prov_id,criteria1,criteria2) {
+            var chardatd=[];
+            var titulo=['distrito','total'];
+            chardatd.push(titulo);
+
+            $.ajax({
+                type: 'post',
+                url: '/pesquisadist',
+                data: {id:prov_id,inicio:criteria1,fim:criteria2},
+                dataType: 'json',
+                success: function(data) {
+
+                    data.forEach(function (dados) {
+                        chardatd.push([dados.distrito,parseInt(dados.total)]);
+                    });
+                    drawDistrito(chardatd);
+
+                },error:function () {
+                    alert('Erro, plese try again')
+                }
+            });
+        }
+
+        function drawDistrito(datas) {
+
+            var data = google.visualization.arrayToDataTable(datas);
+
+            var options = {
+                title: 'Número de Vítimas Por Distrito'
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('distritochart'));
+            google.visualization.events.addListener(chart,'ready',function () {
+                var exportdata=chart.getImageURI() ;
+                $('#exportdist').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Distrito'}).show();
+            });
+            chart.draw(data, options);
+
+        }
+        $("#startgenero").on('change',function(){
+            var minDate = $('#startgenero').datepicker('getDate');
+            $("#endgenero").datepicker("change", { minDate: minDate });
+            var inicio=$('#startgenero').val();
+            var fim= $('#endgenero').val();
+            pesquisarGenero(inicio,fim);
+        });
+
+        $("#endgenero").on('change',function () {
+            var maxDate = $('#endgenero').datepicker('getDate');
+            var inicio=$('#startgenero').val();
+            var fim= $('#endgenero').val();
 //          alert(fim);
-//          pesquisarPro(inicio,fim);
-      });
+            pesquisarGenero(inicio,fim);
+        });
+        function pesquisarGenero(criteria1,criteria2) {
+            var chardatg=[];
+            var titulo=['genero','total'];
+            chardatg.push(titulo);
+            $.ajax({
+                type: 'post',
+                url: '/pesquisagenero',
+                data: {inicio:criteria1,fim:criteria2},
+                dataType: 'json',
+                success: function(data) {
+                    data.forEach(function (dados) {
+                        chardatg.push([dados.genero,parseInt(dados.total)]);
+                    });
 
-      function pesquisarPro(criteria1,criteria2) {
-          var chardat=[];
-          var titulo=['provincia','total'];
-          chardat.push(titulo);
-          $.ajax({
-              type: 'post',
-              url: '/pesquisapro',
-              data: {inicio:criteria1,fim:criteria2},
-              dataType: 'json',
-              success: function(data) {
-                  data.forEach(function (dados) {
-                      chardat.push([dados.provincia,parseInt(dados.total)]);
-                  });
-
-                  drawChartiii(chardat);
+                    drawGenero(chardatg);
 //                  console.log(data);
-              },error:function () {
-                  alert('Erro, plese try again')
-              }
-          });
+                },error:function () {
+                    alert('Erro, plese try again')
+                }
+            });
 
-      }
-      function drawChartiii(dados) {
+        }
+        function drawGenero(dados) {
 
-          var data = google.visualization.arrayToDataTable(dados);   //chardat
+            var data = google.visualization.arrayToDataTable(dados);   //chardat
 
-          var options = {
-              title: 'Número de Vítimas Por Província'
-          };
+            var options = {
+                title: 'Número de Vítimas Por Genero'
+            };
 
-          var chart = new google.visualization.PieChart(document.getElementById('provinciachart'));
-          google.visualization.events.addListener(chart,'ready',function () {
-              var exportdata=chart.getImageURI() ;
-              $('#exportprov').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Província'}).show();
-          });
+            var chart = new google.visualization.PieChart(document.getElementById('generochart'));
+            google.visualization.events.addListener(chart,'ready',function () {
+                var exportdata=chart.getImageURI() ;
+                $('#exportgenero').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Genero'}).show();
+            });
 
-          chart.draw(data, options);
-      }
-  </script>
-    <script type="text/javascript">
-        $("#start").on('change',function(){
-            var minDate = $('#start').datepicker('getDate');
-            $("#end").datepicker("change", { minDate: minDate });
-            var inicio=$('#start').val();
-            var fim= $('#end').val();
-//          pesquisarPro(inicio,fim);
+            chart.draw(data, options);
+        }
+        $("#startidade").on('change',function(){
+            var minDate = $('#startidade').datepicker('getDate');
+            $("#endidade").datepicker("change", { minDate: minDate });
+            var inicio=$('#startidade').val();
+            var fim= $('#endidade').val();
+            pesquisarIdade(inicio,fim);
         });
 
-        $("#end").on('change',function () {
-            var maxDate = $('#end').datepicker('getDate');
-            var inicio=$('#start').val();
-            var fim= $('#end').val();
+        $("#endidade").on('change',function () {
+            var maxDate = $('#endidade').datepicker('getDate');
+            var inicio=$('#startidade').val();
+            var fim= $('#endidade').val();
 //          alert(fim);
-//          pesquisarPro(inicio,fim);
+            pesquisarIdade(inicio,fim);
         });
+
+        function pesquisarIdade(criteria1,criteria2) {
+            var chardati=[];
+            var titulo=['idade','total'];
+            chardati.push(titulo);
+            $.ajax({
+                type: 'post',
+                url: '/pesquisaidade',
+                data: {inicio:criteria1,fim:criteria2},
+                dataType: 'json',
+                success: function(data) {
+                    data.forEach(function (dados) {
+                        chardati.push([dados.idade,parseInt(dados.total)]);
+                    });
+
+                    drawIdade(chardati);
+//                  console.log(data);
+                },error:function () {
+                    alert('Erro, plese try again')
+                }
+            });
+
+        }
+        function drawIdade(dados) {
+
+            var data = google.visualization.arrayToDataTable(dados);   //chardat
+
+            var options = {
+                title: 'Estatísticas por Idade das Vítimas ',
+                width:400,
+                height:300,
+                legend: 'none'
+            };
+            var table = new google.visualization.Table(document.getElementById('idadetab'));
+
+            var chart = new google.visualization.BarChart(document.getElementById('idadechart'));
+            google.visualization.events.addListener(chart,'ready',function () {
+                var exportdata=chart.getImageURI() ;
+                $('#exportidade').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Idade das Vítimas'}).show();
+            });
+            chart.draw(data, options);
+            table.draw(data, {showRowNumber: false, width: '300px', height: '300px'});
+        }
+
+
+        $("#starttipo").on('change',function(){
+            var minDate = $('#starttipo').datepicker('getDate');
+            $("#endtipo").datepicker("change", { minDate: minDate });
+            var inicio=$('#starttipo').val();
+            var fim= $('#endtipo').val();
+            pesquisarTipo(inicio,fim);
+        });
+
+        $("#endtipo").on('change',function () {
+            var maxDate = $('#endtipo').datepicker('getDate');
+            var inicio=$('#starttipo').val();
+            var fim= $('#endtipo').val();
+//          alert(fim);
+            pesquisarTipo(inicio,fim);
+        });
+        function pesquisarTipo(criteria1,criteria2) {
+            var chardatt=[];
+            var titulo=['tipo','total'];
+            chardatt.push(titulo);
+            $.ajax({
+                type: 'post',
+                url: '/pesquisatipo',
+                data: {inicio:criteria1,fim:criteria2},
+                dataType: 'json',
+                success: function(data) {
+                    data.forEach(function (dados) {
+                        chardatt.push([dados.tipo_contacto,parseInt(dados.total)]);
+                    });
+
+                    drawTipo(chardatt);
+//                  console.log(data);
+                },error:function () {
+                    alert('Erro, plese try again')
+                }
+            });
+
+        }
+        function drawTipo(dados) {
+
+            var data = google.visualization.arrayToDataTable(dados);   //chardat
+
+            var options = {
+                title: 'Estatísticas pelo Tipo de Contacto',
+                is3D: true
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('tipochart'));
+            google.visualization.events.addListener(chart,'ready',function () {
+                var exportdata=chart.getImageURI() ;
+                $('#exporttipo').attr({'href':exportdata,'download':'Relatorio de Estatísticas pelo Tipo de Contacto'}).show();
+            });
+
+            chart.draw(data, options);
+        }
+        $("#startpro").on('change',function(){
+            var minDate = $('#startpro').datepicker('getDate');
+            $("#endpro").datepicker("change", { minDate: minDate });
+            var inicio=$('#startpro').val();
+            var fim= $('#endpro').val();
+            pesquisarPro(inicio,fim);
+        });
+
+        $("#endpro").on('change',function () {
+            var maxDate = $('#endpro').datepicker('getDate');
+            var inicio=$('#startpro').val();
+            var fim= $('#endpro').val();
+//          alert(fim);
+            pesquisarPro(inicio,fim);
+        });
+
+        function pesquisarPro(criteria1,criteria2) {
+            var chardatp=[];
+            var titulo=['provincia','total'];
+            chardatp.push(titulo);
+            $.ajax({
+                type: 'post',
+                url: '/pesquisapro',
+                data: {inicio:criteria1,fim:criteria2},
+                dataType: 'json',
+                success: function(data) {
+                    data.forEach(function (dados) {
+                        chardatp.push([dados.provincia,parseInt(dados.total)]);
+                    });
+
+                    drawProvincia(chardatp);
+//                  console.log(data);
+                },error:function () {
+                    alert('Erro, plese try again')
+                }
+            });
+
+        }
+        function drawProvincia(dados) {
+
+            var data = google.visualization.arrayToDataTable(dados);   //chardat
+
+            var options = {
+                title: 'Número de Vítimas Por Província'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('provinciachart'));
+            google.visualization.events.addListener(chart,'ready',function () {
+                var exportdata=chart.getImageURI() ;
+                $('#exportprov').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Província'}).show();
+            });
+
+            chart.draw(data, options);
+        }
+
+
     </script>
+  {{--<script type="text/javascript">--}}
+      {{--$("#startpro").on('change',function(){--}}
+          {{--var minDate = $('#startpro').datepicker('getDate');--}}
+          {{--$("#endpro").datepicker("change", { minDate: minDate });--}}
+          {{--var inicio=$('#startpro').val();--}}
+          {{--var fim= $('#endpro').val();--}}
+          {{--pesquisarPro(inicio,fim);--}}
+      {{--});--}}
+
+      {{--$("#endpro").on('change',function () {--}}
+          {{--var maxDate = $('#endpro').datepicker('getDate');--}}
+          {{--var inicio=$('#startpro').val();--}}
+          {{--var fim= $('#endpro').val();--}}
+{{--//          alert(fim);--}}
+          {{--pesquisarPro(inicio,fim);--}}
+      {{--});--}}
+
+      {{--function pesquisarPro(criteria1,criteria2) {--}}
+          {{--var chardat=[];--}}
+          {{--var titulo=['provincia','total'];--}}
+          {{--chardat.push(titulo);--}}
+          {{--$.ajax({--}}
+              {{--type: 'post',--}}
+              {{--url: '/pesquisapro',--}}
+              {{--data: {inicio:criteria1,fim:criteria2},--}}
+              {{--dataType: 'json',--}}
+              {{--success: function(data) {--}}
+                  {{--data.forEach(function (dados) {--}}
+                      {{--chardat.push([dados.provincia,parseInt(dados.total)]);--}}
+                  {{--});--}}
+
+                  {{--drawProvincia(chardat);--}}
+{{--//                  console.log(data);--}}
+              {{--},error:function () {--}}
+                  {{--alert('Erro, plese try again')--}}
+              {{--}--}}
+          {{--});--}}
+
+      {{--}--}}
+      {{--function drawProvincia(dados) {--}}
+
+          {{--var data = google.visualization.arrayToDataTable(dados);   //chardat--}}
+
+          {{--var options = {--}}
+              {{--title: 'Número de Vítimas Por Província'--}}
+          {{--};--}}
+
+          {{--var chart = new google.visualization.PieChart(document.getElementById('provinciachart'));--}}
+          {{--google.visualization.events.addListener(chart,'ready',function () {--}}
+              {{--var exportdata=chart.getImageURI() ;--}}
+              {{--$('#exportprov').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Província'}).show();--}}
+          {{--});--}}
+
+          {{--chart.draw(data, options);--}}
+      {{--}--}}
+  {{--</script>--}}
+    {{--<script type="text/javascript">--}}
+        {{--$("#starttipo").on('change',function(){--}}
+            {{--var minDate = $('#starttipo').datepicker('getDate');--}}
+            {{--$("#endtipo").datepicker("change", { minDate: minDate });--}}
+            {{--var inicio=$('#starttipo').val();--}}
+            {{--var fim= $('#endtipo').val();--}}
+          {{--pesquisarTipo(inicio,fim);--}}
+        {{--});--}}
+
+        {{--$("#endtipo").on('change',function () {--}}
+            {{--var maxDate = $('#endtipo').datepicker('getDate');--}}
+            {{--var inicio=$('#starttipo').val();--}}
+            {{--var fim= $('#endtipo').val();--}}
+{{--//          alert(fim);--}}
+          {{--pesquisarTipo(inicio,fim);--}}
+        {{--});--}}
+        {{--function pesquisarTipo(criteria1,criteria2) {--}}
+            {{--var chardat=[];--}}
+            {{--var titulo=['tipo','total'];--}}
+            {{--chardat.push(titulo);--}}
+            {{--$.ajax({--}}
+                {{--type: 'post',--}}
+                {{--url: '/pesquisatipo',--}}
+                {{--data: {inicio:criteria1,fim:criteria2},--}}
+                {{--dataType: 'json',--}}
+                {{--success: function(data) {--}}
+                    {{--data.forEach(function (dados) {--}}
+                        {{--chardat.push([dados.tipo_contacto,parseInt(dados.total)]);--}}
+                    {{--});--}}
+
+                    {{--drawTipo(chardat);--}}
+{{--//                  console.log(data);--}}
+                {{--},error:function () {--}}
+                    {{--alert('Erro, plese try again')--}}
+                {{--}--}}
+            {{--});--}}
+
+        {{--}--}}
+        {{--function drawTipo(dados) {--}}
+
+            {{--var data = google.visualization.arrayToDataTable(dados);   //chardat--}}
+
+            {{--var options = {--}}
+                {{--title: 'Estatísticas pelo Tipo de Contacto',--}}
+                {{--is3D: true--}}
+            {{--};--}}
+
+            {{--var chart = new google.visualization.PieChart(document.getElementById('tipochart'));--}}
+            {{--google.visualization.events.addListener(chart,'ready',function () {--}}
+                {{--var exportdata=chart.getImageURI() ;--}}
+                {{--$('#exporttipo').attr({'href':exportdata,'download':'Relatorio de Estatísticas pelo Tipo de Contacto'}).show();--}}
+            {{--});--}}
+
+            {{--chart.draw(data, options);--}}
+        {{--}--}}
+    {{--</script>--}}
+
+    {{--<script type="text/javascript">--}}
+        {{--$("#startidade").on('change',function(){--}}
+            {{--var minDate = $('#startidade').datepicker('getDate');--}}
+            {{--$("#endidade").datepicker("change", { minDate: minDate });--}}
+            {{--var inicio=$('#startidade').val();--}}
+            {{--var fim= $('#endidade').val();--}}
+            {{--pesquisarIdade(inicio,fim);--}}
+        {{--});--}}
+
+        {{--$("#endidade").on('change',function () {--}}
+            {{--var maxDate = $('#endidade').datepicker('getDate');--}}
+            {{--var inicio=$('#startidade').val();--}}
+            {{--var fim= $('#endidade').val();--}}
+{{--//          alert(fim);--}}
+            {{--pesquisarIdade(inicio,fim);--}}
+        {{--});--}}
+
+        {{--function pesquisarIdade(criteria1,criteria2) {--}}
+            {{--var chardat=[];--}}
+            {{--var titulo=['idade','total'];--}}
+            {{--chardat.push(titulo);--}}
+            {{--$.ajax({--}}
+                {{--type: 'post',--}}
+                {{--url: '/pesquisaidade',--}}
+                {{--data: {inicio:criteria1,fim:criteria2},--}}
+                {{--dataType: 'json',--}}
+                {{--success: function(data) {--}}
+                    {{--data.forEach(function (dados) {--}}
+                        {{--chardat.push([dados.idade,parseInt(dados.total)]);--}}
+                    {{--});--}}
+
+                    {{--drawIdade(chardat);--}}
+{{--//                  console.log(data);--}}
+                {{--},error:function () {--}}
+                    {{--alert('Erro, plese try again')--}}
+                {{--}--}}
+            {{--});--}}
+
+        {{--}--}}
+        {{--function drawIdade(dados) {--}}
+
+            {{--var data = google.visualization.arrayToDataTable(dados);   //chardat--}}
+
+            {{--var options = {--}}
+                {{--title: 'Estatísticas por Idade das Vítimas ',--}}
+                {{--width:400,--}}
+                {{--height:300,--}}
+                {{--legend: 'none'--}}
+            {{--};--}}
+            {{--var table = new google.visualization.Table(document.getElementById('idadetab'));--}}
+
+            {{--var chart = new google.visualization.BarChart(document.getElementById('idadechart'));--}}
+            {{--google.visualization.events.addListener(chart,'ready',function () {--}}
+                {{--var exportdata=chart.getImageURI() ;--}}
+                {{--$('#exportidade').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Idade das Vítimas'}).show();--}}
+            {{--});--}}
+            {{--chart.draw(data, options);--}}
+            {{--table.draw(data, {showRowNumber: false, width: '300px', height: '300px'});--}}
+        {{--}--}}
+    {{--</script>--}}
+
+    {{--<script type="text/javascript">--}}
+        {{--$("#startgenero").on('change',function(){--}}
+            {{--var minDate = $('#startgenero').datepicker('getDate');--}}
+            {{--$("#endgenero").datepicker("change", { minDate: minDate });--}}
+            {{--var inicio=$('#startgenero').val();--}}
+            {{--var fim= $('#endgenero').val();--}}
+            {{--pesquisarGenero(inicio,fim);--}}
+        {{--});--}}
+
+        {{--$("#endgenero").on('change',function () {--}}
+            {{--var maxDate = $('#endgenero').datepicker('getDate');--}}
+            {{--var inicio=$('#startgenero').val();--}}
+            {{--var fim= $('#endgenero').val();--}}
+{{--//          alert(fim);--}}
+            {{--pesquisarGenero(inicio,fim);--}}
+        {{--});--}}
+        {{--function pesquisarGenero(criteria1,criteria2) {--}}
+            {{--var chardat=[];--}}
+            {{--var titulo=['genero','total'];--}}
+            {{--chardat.push(titulo);--}}
+            {{--$.ajax({--}}
+                {{--type: 'post',--}}
+                {{--url: '/pesquisagenero',--}}
+                {{--data: {inicio:criteria1,fim:criteria2},--}}
+                {{--dataType: 'json',--}}
+                {{--success: function(data) {--}}
+                    {{--data.forEach(function (dados) {--}}
+                        {{--chardat.push([dados.genero,parseInt(dados.total)]);--}}
+                    {{--});--}}
+
+                    {{--drawGenero(chardat);--}}
+{{--//                  console.log(data);--}}
+                {{--},error:function () {--}}
+                    {{--alert('Erro, plese try again')--}}
+                {{--}--}}
+            {{--});--}}
+
+        {{--}--}}
+        {{--function drawGenero(dados) {--}}
+
+            {{--var data = google.visualization.arrayToDataTable(dados);   //chardat--}}
+
+            {{--var options = {--}}
+                {{--title: 'Número de Vítimas Por Genero'--}}
+            {{--};--}}
+
+            {{--var chart = new google.visualization.PieChart(document.getElementById('generochart'));--}}
+            {{--google.visualization.events.addListener(chart,'ready',function () {--}}
+                {{--var exportdata=chart.getImageURI() ;--}}
+                {{--$('#exportgenero').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Genero'}).show();--}}
+            {{--});--}}
+
+            {{--chart.draw(data, options);--}}
+        {{--}--}}
+    {{--</script>--}}
 @stop
