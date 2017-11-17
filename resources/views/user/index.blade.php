@@ -41,9 +41,9 @@
                                     <button class="edit-user btn btn-success" data-toggle="modal" data-target="#formModall" data-id="{{$user->id}}" data-nome="{{$user->nome}}" data-email="{{$user->email}}" data-rolenome="{{$user->role_id ? $user->role->designacao :'Sem Perfil'}}" data-role="{{$user->role_id ? $user->role_id:''}}">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
-                                   <a href="{{url('deleteuser',$user->id)}}"><button class=" btn btn-danger">
-                                           <span class="glyphicon glyphicon-remove"></span>
-                                       </button></a>
+                                   {{--<a href="{{url('deleteuser',$user->id)}}"><button class=" btn btn-danger">--}}
+                                           {{--<span class="glyphicon glyphicon-remove"></span>--}}
+                                       {{--</button></a>--}}
                                 </td>
                                 </tr>
                         @endforeach
