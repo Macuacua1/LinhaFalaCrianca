@@ -137,15 +137,15 @@ class ChartContactoController extends Controller
 //          ->selectRaw('count(*) as total,distrito.distritonome')
 //           ->groupBy('distrito.distritonome')
 //          ->get();
-        $input='Funhalouro';
-        $qry = Utente::with(array('distrito' => function ($q) use ($input) {
-//            $q->where('distritonome','like',"%{$input}%");
-        }))->whereHas('distrito', function ($q) use ($input) {
-            $q->where('distritonome','like',"%{$input}%")
-                ->groupBy('distritonome');
-        });
-
-        $res = $qry->get();
+//        $input='Funhalouro';
+//        $qry = Utente::with(array('distrito' => function ($q) use ($input) {
+////            $q->where('distritonome','like',"%{$input}%");
+//        }))->whereHas('distrito', function ($q) use ($input) {
+//            $q->where('distritonome','like',"%{$input}%")
+//                ->groupBy('distritonome');
+//        });
+//
+//        $res = $qry->get();
 
         $prov=Provincia::all();
 
