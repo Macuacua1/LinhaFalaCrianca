@@ -61,12 +61,12 @@
                                         <div class="form-group">
                                             <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="start" id="startestado"/>
+                                                    <input type="text" class="form-control" name="startestado" id="startestado"/>
                                                     <label>De</label>
                                                 </div>
                                                 <span class="input-group-addon">a</span>
                                                 <div class="input-group-content">
-                                                    <input type="text" class="form-control" name="end" id="endestado" />
+                                                    <input type="text" class="form-control" name="endestado" id="endestado" />
                                                     <label>Para</label>
                                                     <div class="form-control-line"></div>
                                                 </div>
@@ -104,12 +104,12 @@
                                             <div class="form-group">
                                                 <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                     <div class="input-group-content">
-                                                        <input type="text" class="form-control" name="start" id="startinst"/>
+                                                        <input type="text" class="form-control" name="startinst" id="startinst"/>
                                                         <label>De</label>
                                                     </div>
                                                     <span class="input-group-addon">a</span>
                                                     <div class="input-group-content">
-                                                        <input type="text" class="form-control" name="end" id="endinst" />
+                                                        <input type="text" class="form-control" name="endinst" id="endinst" />
                                                         <label>Para</label>
                                                         <div class="form-control-line"></div>
                                                     </div>
@@ -147,12 +147,12 @@
                                             <div class="form-group">
                                                 <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                                     <div class="input-group-content">
-                                                        <input type="text" class="form-control" name="start" id="startmot"/>
+                                                        <input type="text" class="form-control" name="startmotivo" id="startmotivo"/>
                                                         <label>De</label>
                                                     </div>
                                                     <span class="input-group-addon">a</span>
                                                     <div class="input-group-content">
-                                                        <input type="text" class="form-control" name="end" id="endmot" />
+                                                        <input type="text" class="form-control" name="endmotivo" id="endmotivo" />
                                                         <label>Para</label>
                                                         <div class="form-control-line"></div>
                                                     </div>
@@ -186,7 +186,6 @@
         </div><!--end .col -->
     @else
         <!-- BEGIN CONTENT-->
-        {{--<div id="content">--}}
 
             <!-- BEGIN 404 MESSAGE -->
             <section>
@@ -304,6 +303,182 @@
                 google.visualization.events.addListener(chart,'ready',function () {
                     var exportdata=chart.getImageURI() ;
                     $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Caso'}).show();
+                });
+
+                chart.draw(data, options);
+            }
+            $("#startmotivo").on('change',function(){
+                var minDate = $('#startmotivo').datepicker('getDate');
+                $("#endmotivo").datepicker("change", { minDate: minDate });
+                var inicio=$('#startmotivo').val();
+                var fim= $('#endmotivo').val();
+                pesquisarMotivo(inicio,fim);
+            });
+
+            $("#endmotivo").on('change',function () {
+                var maxDate = $('#endmotivo').datepicker('getDate');
+                var inicio=$('#startmotivo').val();
+                var fim= $('#endmotivo').val();
+//          alert(fim);
+                pesquisarMotivo(inicio,fim);
+            });
+
+            function pesquisarMotivo(criteria1,criteria2) {
+                var chardatm=[];
+                var titulo=['motivo','total'];
+                chardatm.push(titulo);
+                $.ajax({
+                    type: 'post',
+                    url: '/pesquisacasomotivo',
+                    data: {inicio:criteria1,fim:criteria2},
+                    dataType: 'json',
+                    success: function(data) {
+                        data.forEach(function (dados) {
+                            chardatm.push([dados.motivo,parseInt(dados.total)]);
+                        });
+
+                        drawMotivo(chardatm);
+//                  console.log(data);
+                    },error:function () {
+                        alert('Erro, plese try again')
+                    }
+                });
+
+            }
+            function drawMotivo(dados) {
+
+                var data = google.visualization.arrayToDataTable(dados);   //chardat
+
+                var options = {
+                    width: 600,
+                    legend: { position: 'none' },
+                    chart: {
+                        title: 'Estatísticas por Motivo do Contacto',
+                        subtitle: 'Motivo por Contacto' },
+                    axes: {
+                        x: {
+                            0: { side: 'botton', label: 'Motivos'} // Top x-axis.
+                        }
+                    },
+                    bar: { groupWidth: "70%" }
+                };
+                var chart = new google.visualization.BarChart(document.getElementById('motivochartcaso'));
+
+//                var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+                google.visualization.events.addListener(chart,'ready',function () {
+                    var exportdata=chart.getImageURI();
+                    $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Contacto'}).show();
+                });
+                // Convert the Classic options to Material options.
+                chart.draw(data, options);
+            }
+
+            $("#startestado").on('change',function(){
+                var minDate = $('#startestado').datepicker('getDate');
+                $("#endestado").datepicker("change", { minDate: minDate });
+                var inicio=$('#startestado').val();
+                var fim= $('#endestado').val();
+                pesquisarEstado(inicio,fim);
+            });
+
+            $("#endestado").on('change',function () {
+                var maxDate = $('#endestado').datepicker('getDate');
+                var inicio=$('#startestado').val();
+                var fim= $('#endestado').val();
+//          alert(fim);
+                pesquisarEstado(inicio,fim);
+            });
+
+            function pesquisarEstado(criteria1,criteria2) {
+                var chardate=[];
+                var titulo=['estado','total'];
+                chardate.push(titulo);
+                $.ajax({
+                    type: 'post',
+                    url: '/pesquisaestado',
+                    data: {inicio:criteria1,fim:criteria2},
+                    dataType: 'json',
+                    success: function(data) {
+                        data.forEach(function (dados) {
+                            chardate.push([dados.estado,parseInt(dados.total)]);
+                        });
+
+                        drawEstado(chardate);
+//                  console.log(data);
+                    },error:function () {
+                        alert('Erro, plese try again')
+                    }
+                });
+
+            }
+            function drawEstado(dados) {
+
+                var data = google.visualization.arrayToDataTable(dados);   //chardat
+
+                var options = {
+                    title: 'Estatísticas por Estado'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('estadochart'));
+                google.visualization.events.addListener(chart,'ready',function () {
+                    var exportdata=chart.getImageURI() ;
+                    $('#exportestado').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Estado'}).show();
+                });
+
+                chart.draw(data, options);
+            }
+
+            $("#startinst").on('change',function(){
+                var minDate = $('#startinst').datepicker('getDate');
+                $("#endinst").datepicker("change", { minDate: minDate });
+                var inicio=$('#startinst').val();
+                var fim= $('#endinst').val();
+                pesquisarInst(inicio,fim);
+            });
+
+            $("#endinst").on('change',function () {
+                var maxDate = $('#endinst').datepicker('getDate');
+                var inicio=$('#startinst').val();
+                var fim= $('#endinst').val();
+//          alert(fim);
+                pesquisarInst(inicio,fim);
+            });
+
+            function pesquisarInst(criteria1,criteria2) {
+                var chardati=[];
+                var titulo=['instituicao','total'];
+                chardati.push(titulo);
+                $.ajax({
+                    type: 'post',
+                    url: '/pesquisainstituicao',
+                    data: {inicio:criteria1,fim:criteria2},
+                    dataType: 'json',
+                    success: function(data) {
+                        data.forEach(function (dados) {
+                            chardati.push([dados.responsavel,parseInt(dados.total)]);
+                        });
+
+                        drawInst(chardati);
+//                  console.log(data);
+                    },error:function () {
+                        alert('Erro, plese try again')
+                    }
+                });
+
+            }
+            function drawInst(dados) {
+
+                var data = google.visualization.arrayToDataTable(dados);   //chardat
+
+                var options = {
+                    title: 'Estatísticas por Instituição ',
+                    is3D: true
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('instituicaochart'));
+                google.visualization.events.addListener(chart,'ready',function () {
+                    var exportdata=chart.getImageURI() ;
+                    $('#exportinst').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Instituição'}).show();
                 });
 
                 chart.draw(data, options);

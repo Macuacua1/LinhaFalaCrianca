@@ -17,12 +17,7 @@ class ChartCasoController extends Controller
         $this->middleware('auth');
     }
     public function reportcaso(){
-//        $plant = Caso::with(['motivo' => function($q){
-//            $q->groupBy('motivonome');
-//        }])
-//            ->whereHas('motivo')
-////                ->count()
-//->get();
+
         $motivos= DB::table('casos')
             ->join('motivos','casos.motivo_id','=','motivos.id')
             ->select(DB::Raw('count(*) as total,motivos.motivonome as motivo'))
@@ -56,6 +51,56 @@ class ChartCasoController extends Controller
             ->groupBy('motivo_id');
         return view('caso.report_caso',compact('chart_estado','chart_instituicao','chart_motivo','motivos','instituicaos','estados'));
     }
+
+    public function pesquisamotivo(Request $request)
+    {
+        $motivos = [];
+        if ($request->inicio and $request->fim) {
+            $motivos = DB::table('casos')
+                ->join('motivos', 'casos.motivo_id', '=', 'motivos.id')
+                ->select(DB::Raw('count(*) as total,motivos.motivonome as motivo'))
+                ->whereBetween('casos.created_at', [$request->inicio, $request->fim])
+                ->where('motivo_id', '<>', null)
+                ->groupBy('motivo')
+                ->get();
+            return Response($motivos);
+        } else {
+            return Response($motivos);
+        }
+    }
+
+        public function pesquisaestado(Request $request)
+        {
+            $estados = [];
+            if ($request->inicio and $request->fim) {
+                $estados=DB::table('casos')
+                    ->select(DB::Raw('count(*) as total,estado_caso as estado'))
+                    ->whereBetween('created_at', [$request->inicio, $request->fim])
+                    ->groupBy('estado')
+                    ->get();
+                return Response($estados );
+            } else {
+                return Response($estados );
+            }
+        }
+
+            public function pesquisainstituicao(Request $request){
+                $instituicaos=[];
+                if ($request->inicio and $request->fim){
+                    $instituicaos= DB::table('casos')
+                        ->join('responsavels','casos.responsavel_id','=','responsavels.id')
+                        ->select(DB::Raw('count(*) as total,responsavels.respnome as responsavel'))
+                        ->whereBetween('casos.created_at',[$request->inicio,$request->fim])
+                        ->where('responsavel_id','<>',null)
+                        ->groupBy('responsavel')
+                        ->get();
+
+                    return Response($instituicaos);
+                }else{
+                    return Response($instituicaos);
+                }
+    }
+
 
     public function pesquisacaso(Request $request){
         if ($request->ajax()) {

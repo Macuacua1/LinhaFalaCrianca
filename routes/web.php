@@ -76,4 +76,8 @@ Route::post('/pesquisatipo','ChartContactoController@pesquisatipo');
 Route::post('/pesquisamotivo','ChartContactoController@pesquisamotivo');
 Route::post('/pesquisaidade','ChartContactoController@pesquisaidade');
 Route::post('/pesquisagenero','ChartContactoController@pesquisagenero');
+
+Route::post('/pesquisaestado','ChartCasoController@pesquisaestado');
+Route::post('/pesquisacasomotivo','ChartCasoController@pesquisamotivo');
+Route::post('/pesquisainstituicao','ChartCasoController@pesquisainstituicao');
 Route::get('/reportacaso','ChartCasoController@reportcaso');

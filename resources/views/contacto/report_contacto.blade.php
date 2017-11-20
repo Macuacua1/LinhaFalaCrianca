@@ -793,6 +793,72 @@
 
             chart.draw(data, options);
         }
+        $("#startmotivo").on('change',function(){
+            var minDate = $('#startmotivo').datepicker('getDate');
+            $("#endmotivo").datepicker("change", { minDate: minDate });
+            var inicio=$('#startmotivo').val();
+            var fim= $('#endmotivo').val();
+            pesquisarMotivo(inicio,fim);
+        });
+
+        $("#endmotivo").on('change',function () {
+            var maxDate = $('#endmotivo').datepicker('getDate');
+            var inicio=$('#startmotivo').val();
+            var fim= $('#endmotivo').val();
+//          alert(fim);
+            pesquisarMotivo(inicio,fim);
+        });
+
+        function pesquisarMotivo(criteria1,criteria2) {
+            var chardatm=[];
+            var titulo=['motivo','total'];
+            chardatm.push(titulo);
+            $.ajax({
+                type: 'post',
+                url: '/pesquisamotivo',
+                data: {inicio:criteria1,fim:criteria2},
+                dataType: 'json',
+                success: function(data) {
+                    data.forEach(function (dados) {
+                        chardatm.push([dados.motivo,parseInt(dados.total)]);
+                    });
+
+                    drawMotivo(chardatm);
+//                  console.log(data);
+                },error:function () {
+                    alert('Erro, plese try again')
+                }
+            });
+
+        }
+        function drawMotivo(dados) {
+
+            var data = google.visualization.arrayToDataTable(dados);   //chardat
+
+            var options = {
+                width: 600,
+                legend: { position: 'none' },
+                chart: {
+                    title: 'Estatísticas por Motivo do Contacto',
+                    subtitle: 'Motivo por Contacto' },
+                axes: {
+                    x: {
+                        0: { side: 'botton', label: 'Motivos'} // Top x-axis.
+                    }
+                },
+                bar: { groupWidth: "70%" }
+            };
+            var chart = new google.visualization.BarChart(document.getElementById('top_x_div'));
+
+//                var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+            google.visualization.events.addListener(chart,'ready',function () {
+                var exportdata=chart.getImageURI();
+                $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Contacto'}).show();
+            });
+            // Convert the Classic options to Material options.
+            chart.draw(data, options);
+        }
+
 
 
     </script>

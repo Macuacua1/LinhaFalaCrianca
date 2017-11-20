@@ -156,9 +156,13 @@
                                     </form>
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4"></div>
-                                        <div class="col-md-4 col-sm-4"></div>
                                         <div class="col-md-4 col-sm-4">
-                                            <button class="btn btn-success" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin-left: 100px">
+                                            {{--<button class="btn btn-success pull-right" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin-left: 100px">--}}
+                                                {{--<span class="glyphicon glyphicon-refresh"></span> Actualizar--}}
+                                            {{--</button>--}}
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <button class="btn btn-success" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin:0 0 10px 100px">
                                                 <span class="glyphicon glyphicon-refresh"></span> Actualizar
                                             </button>
                                         </div>
@@ -166,7 +170,7 @@
 
 
                                 </div>
-                                   <div class="col-md-4 col-sm-4" style="height: auto;border-color: #4caf50;">
+                                   <div class="col-md-4 col-sm-4" style="height: 300px!important;border-color: #4caf50;">
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="row">
@@ -200,8 +204,33 @@
 
                                         </div>
                                     </div>
+                                       {{--<button class="btn btn-success" type="submit" id="edit_contacto" style="margin:185px 0 0 100px">--}}
+                                           {{--<span class="glyphicon glyphicon-refresh"></span> Actualizar--}}
+                                       {{--</button>--}}
 
-                                {{--</fieldset>--}}
+                                       <div class="row" style="margin:182px 0 0 -50px">
+                                           <div class="col-md-4 col-sm-4">
+                                               @if($contactos->caso_id>0 or $contactos->motivo_id>60)
+                                                   <button class=" btn btn-success pull-left" data-id="{{$contactos->id}}" data-title="" data-description="" disabled id="fwd-caso" style="margin-left: 10px">
+                                                       <span class="glyphicon glyphicon-forward"></span> Encaminhar
+                                                   </button>
+                                               @else
+                                                   <button class="btn btn-success pull-left" data-id="{{$contactos->id}}" data-toggle="modal" data-target="#formModal" id="fwd-caso" style="margin-left: 10px">
+                                                       <span class="glyphicon glyphicon-forward"></span> Encaminhar
+                                                   </button>
+                                               @endif
+                                               {{--<button class="btn btn-success pull-left" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin-left: 100px">--}}
+                                                   {{--<span class="glyphicon glyphicon-refresh"></span> Actualizar--}}
+                                               {{--</button>--}}
+                                           </div>
+                                           <div class="col-md-4 col-sm-4">
+                                           </div>
+                                           <div class="col-md-4 col-sm-4">
+                                               {{--<button class="btn btn-success" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin-left: 100px">--}}
+                                                   {{--<span class="glyphicon glyphicon-refresh"></span> Actualizar--}}
+                                               {{--</button>--}}
+                                           </div>
+                                       </div>
 
                             </div>
                             </div>
@@ -455,6 +484,54 @@
             </div><!--end .panel-group -->
         </div><!--end .col -->
     </div><!--end .row -->
+    <!-- BEGIN FORM MODAL MARKUP -->
+    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="formModalLabel">Reencaminhamento</h4>
+                </div>
+                <form class="form-horizontal form-validate" role="form" method="post" id="form_add_caso" novalidate="novalidate">
+                    {{csrf_field()}}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="email1" class="control-label">Instituicao</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <select name="responsavel_id" id="responsavel" class="form-control" required>
+                                    <option value="" disabled selected>--Reencaminhar para:--</option>
+                                    @foreach($resps as $resp)
+                                        <option value="{{$resp->id}}">{{$resp->respnome}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        {{--<input type="hidden" class="form-control" id="contacto_id" name="contacto_id">--}}
+
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="password1" class="control-label">Mensagem</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <textarea name="mensagem" id="mensagem" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">
+                            <span class='glyphicon glyphicon-remove'></span> Close</button>
+                        <button type="button" class="btn actionBtn" data-dismiss="modal" id="add_caso">
+                            <span id="footer_action_button" class='glyphicon'> </span>
+                        </button>
+                    </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- END FORM MODAL MARKUP -->
 
 
 
@@ -516,5 +593,58 @@
             alert(valor);
 
         });
+    </script>
+    <script type="text/javascript">
+                @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}";
+        switch(type){
+            case 'info':
+                toastr.info("{{ Session::get('message') }}");
+                break;
+
+            case 'warning':
+                toastr.warning("{{ Session::get('message') }}");
+                break;
+
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+        @endif
+
+            $(document).on('click', '#fwd-caso', function() {
+            $('#fwd-caso').addClass('fwd-caso');
+            $('#footer_action_button').text(" Encaminhar");
+            $('#footer_action_button').addClass('glyphicon-check');
+            $('.actionBtn').addClass('btn-success');
+            $('.actionBtn').addClass('fwd_caso');
+            $('#contacto_id').val($(this).data('id'));
+            $('.form-horizontal').show();
+        });
+                $('.modal-footer').on('click', '.fwd_caso', function() {
+//                    var dados = $('#form_add_caso').serialize();
+                    var contacto_id=$('#contacto_id').val();
+                    var responsavel_id=$('#responsavel').val();
+                    var mensagem=$('#mensagem').val();
+//                 alert(dados);
+                    $.ajax({
+                        type:'post',
+                        url:'/addcaso',
+                        data:{contacto_id:contacto_id,responsavel_id:responsavel_id,mensagem:mensagem},
+                        success:function(data){
+//                            $('#form_add_caso')[0].reset();
+                            $('.fwd-caso').addClass('disabled');
+                            toastr.success("Encaminhado Com Sucesso!");
+                            document.location.href="{{url('contacto')}}";
+                        },
+                        error:function(){
+                            toastr.error("Registo nao efectuado!");
+                        }
+                    });
+                });
     </script>
     @endsection

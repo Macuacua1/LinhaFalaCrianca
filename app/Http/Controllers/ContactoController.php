@@ -85,8 +85,8 @@ class ContactoController extends Controller
         $contactos=Contacto::find($id);
         $prov=Provincia::all();
         $tipomotivos= Tipo_Motivo::all();
-//       return view('admin.contacto.show',compact('contacto'));
-        return view('contacto.detalhes',compact('contactos','tipomotivos','prov'));
+        $resps=Responsavel::all();
+        return view('contacto.detalhes',compact('contactos','tipomotivos','prov','resps'));
     }
 
     /**
@@ -197,7 +197,12 @@ class ContactoController extends Controller
                 Session::forget('utentes');
                 Session::forget('tipocontacto');
             }
-            return back()->with($notification);
+            $contactos=Contacto::find($contacto->id);
+            $prov=Provincia::all();
+            $resps=Responsavel::all();
+            $tipomotivos= Tipo_Motivo::all();
+            return view('contacto.detalhes',compact('contactos','tipomotivos','prov','resps'))->with($notification);
+//            return back()->with($notification);
         }else{
             return back()->with($noterro);
         }
