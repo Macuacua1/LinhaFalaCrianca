@@ -63,7 +63,7 @@
 
                                     <form id="form_edit_contacto" class="form form-validate" novalidate="novalidate">
                                     <div class="row">
-                                        <div class="col-md-4 col-sm-4">
+                                        <div class="col-md-4 col-sm-4" style="margin-top: 15px">
                                            <select id="tipo_contacto" name="tipo_contacto" class="form-control" required>
                                                     <option value="{{$contactos->tipo_contacto}}"  selected>{{$contactos->tipo_contacto}}</option>
                                                @if($contactos->tipo_contacto =='Telefone')
@@ -143,12 +143,11 @@
                                         </div>
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <textarea name="resumo_contacto" id="resumo_contacto" class="form-control" rows="3" required>{{$contactos->resumo_contacto}}</textarea>
-                                                <label>Resumo do Contacto</label>
+                                                <textarea name="resumo_contacto" id="resumo_contacto" class="form-control" rows="3" placeholder="Resumo do Contacto" required>{{$contactos->resumo_contacto}}</textarea>
+                                                {{--<label>Resumo do Contacto</label>--}}
                                             </div>
                                             <div class="form-group">
-                                                <textarea name="impressao_atendente" id="impressao_atendente" class="form-control" rows="3" required>{{$contactos->impressao_atendente}}</textarea>
-                                                <label>Impressao do atendente</label>
+                                                <textarea name="impressao_atendente" id="impressao_atendente" class="form-control" rows="3" placeholder="Impressao do atendente" required>{{$contactos->impressao_atendente}}</textarea>
                                             </div>
                                         </div>
 
@@ -157,9 +156,6 @@
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4"></div>
                                         <div class="col-md-4 col-sm-4">
-                                            {{--<button class="btn btn-success pull-right" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin-left: 100px">--}}
-                                                {{--<span class="glyphicon glyphicon-refresh"></span> Actualizar--}}
-                                            {{--</button>--}}
                                         </div>
                                         <div class="col-md-4 col-sm-4">
                                             <button class="btn btn-success" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin:0 0 10px 100px">
@@ -204,10 +200,6 @@
 
                                         </div>
                                     </div>
-                                       {{--<button class="btn btn-success" type="submit" id="edit_contacto" style="margin:185px 0 0 100px">--}}
-                                           {{--<span class="glyphicon glyphicon-refresh"></span> Actualizar--}}
-                                       {{--</button>--}}
-
                                        <div class="row" style="margin:182px 0 0 -50px">
                                            <div class="col-md-4 col-sm-4">
                                                @if($contactos->caso_id>0 or $contactos->motivo_id>60)
@@ -219,16 +211,10 @@
                                                        <span class="glyphicon glyphicon-forward"></span> Encaminhar
                                                    </button>
                                                @endif
-                                               {{--<button class="btn btn-success pull-left" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin-left: 100px">--}}
-                                                   {{--<span class="glyphicon glyphicon-refresh"></span> Actualizar--}}
-                                               {{--</button>--}}
                                            </div>
                                            <div class="col-md-4 col-sm-4">
                                            </div>
                                            <div class="col-md-4 col-sm-4">
-                                               {{--<button class="btn btn-success" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin-left: 100px">--}}
-                                                   {{--<span class="glyphicon glyphicon-refresh"></span> Actualizar--}}
-                                               {{--</button>--}}
                                            </div>
                                        </div>
 
@@ -257,7 +243,6 @@
                                                 <option value="" disabled selected>Tipo de Utente</option>
                                                 <option value="{{$utent->tipo_utente}}"  selected>{{$utent->tipo_utente}}</option>
                                                 @if($utent->tipo_utente =='Contactante')
-                                                    {{--<option value="Contactante">Contactante</option>--}}
                                                     <option value="Contactante+Vitima">Contactante+Vitima</option>
                                                     <option value="Contactante+Perpetrador">Contactante+Perpetrador</option>
                                                     <option value="Vitima">Vitima</option>
@@ -296,7 +281,7 @@
                                         </div>
                                     </div>
                                     {{--<div class="col-md-2 col-sm-2"></div>--}}
-                                    <div class="col-md-6 col-sm-6" style="margin-top: 30px!important;">
+                                    <div class="col-md-6 col-sm-6" style="margin-top: 10px!important;">
                                         @if($utent->genero =='Masculino')
                                         <label class="radio-inline radio-styled">
                                             <input type="radio" name="genero[]" value="Masculino" checked><span>Masculino</span>
@@ -320,12 +305,7 @@
                                             </label>
                                             @endif
                                     </div>
-                                    {{--<div id="anonimo" class="col-md-3 col-sm-3" style="margin-top: 30px!important;">--}}
-                                        {{--<label class="checkbox-inline checkbox-styled">--}}
-                                            {{--<input type="checkbox" value="Sim" name="anonimo"><span>Permanecer anonimo(a)</span>--}}
-                                        {{--</label>--}}
 
-                                    {{--</div><!--end .col -->--}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
@@ -334,15 +314,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
-                                        <div class="form-group floating-label">
-                                            <input type="text" name="nome[]" value="{{$utent->nome}}" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Nome e Sobrenome">
-                                            <label for="help2">Nome(s)</label>
+                                        <div class="form-group">
+                                            <input type="text" id="help2" name="nome[]" value="{{$utent->nome}}" class="form-control" id="tooltip2" placeholder="Nome(s)">
+                                            {{--<label for="help2">Nome(s)</label>--}}
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
-                                        <div class="form-group floating-label">
-                                            <input type="text" name="apelido[]" value="{{$utent->apelido}}" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Apelido">
-                                            <label for="help2">Apelido</label>
+                                        <div class="form-group">
+                                            <input type="text" id="help3" name="apelido[]" value="{{$utent->apelido}}" class="form-control" id="tooltip2" placeholder="Apelido">
+                                            {{--<label for="help3">Apelido</label>--}}
                                         </div>
                                     </div>
 
@@ -373,9 +353,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-sm-12">
-                                        <div class="form-group floating-label">
-                                            <input type="text" name="descricao_local[]" value="{{$utent->descricao_local}}" class="form-control" id="tooltip2" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" data-original-title="Pequena descricao do local">
-                                            <label for="help2">Descricao do local</label>
+                                        <div class="form-group">
+                                            <input type="text" id="help4" name="descricao_local[]" value="{{$utent->descricao_local}}" class="form-control" id="tooltip2" placeholder="Descricao do local">
+                                            {{--<label for="help4">Descricao do local</label>--}}
                                         </div>
                                     </div>
                                 </div><!--end .row -->
@@ -383,21 +363,21 @@
                                 <div id="vivecom_vitima" class="row">
                                     <div class="col-md-4 col-sm-4">
                                         <div class="form-group">
-                                            <input type="number"  name="idade[]" value="{{$utent->idade}}" class="form-control">
-                                            <label>Idade</label>
+                                            <input type="number" id="help5" name="idade[]" value="{{$utent->idade}}" class="form-control" placeholder="Idade">
+                                            {{--<label for="help5">Idade</label>--}}
                                             {{--<p class="help-block">Must be over 16</p>--}}
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <div id="cell1" class="form-group">
-                                            <input type="number" name="cell1[]" id="celular1" value="{{$utent->cell1}}" class="form-control">
-                                            <label>Cell principal</label>
+                                            <input type="number" id="help6" name="cell1[]" id="celular1" value="{{$utent->cell1}}" class="form-control" placeholder="Cell principal">
+                                            {{--<label for="celular1">Cell principal</label>--}}
                                         </div>
                                     </div>
                                     <div  class="col-md-4 col-sm-4">
                                         <div class="form-group">
-                                            <input type="number" name="cell2[]" id="celular2" value="{{$utent->cell2}}" class="form-control">
-                                            <label>Cell alternativo</label>
+                                            <input type="number" name="cell2[]" id="celular2" value="{{$utent->cell2}}" class="form-control" placeholder="Cell alternativo">
+                                            {{--<label for="celular2">Cell alternativo</label>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -405,13 +385,21 @@
                                     <div class="col-md-6 col-sm-6">
                                         <div class="form-group floating-label">
                                             <select id="situacao_educacional" name="situacao_educacional[]" class="form-control">
+                                                @if($utent->situacao_educacional)
                                                 <option value="{{$utent->situacao_educacional}}" disabled selected>{{$utent->situacao_educacional}}</option>
+                                                    <option value="Formal">Formal</option>
+                                                    <option value="Primario">Primario</option>
+                                                    <option value="Secundario">Secundario</option>
+                                                    <option value="Outra">Outra</option>
+                                                @else
+                                                <option value="" selected disabled>--Situacao Educacional--</option>
                                                 <option value="Formal">Formal</option>
                                                 <option value="Primario">Primario</option>
                                                 <option value="Secundario">Secundario</option>
                                                 <option value="Outra">Outra</option>
+                                                @endif
                                             </select>
-                                            <label for="situacao_educacional">Situacao Educacional</label>
+                                            {{--<label for="situacao_educacional">Situacao Educacional</label>--}}
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-sm-6">
@@ -494,6 +482,7 @@
                 </div>
                 <form class="form-horizontal form-validate" role="form" method="post" id="form_add_caso" novalidate="novalidate">
                     {{csrf_field()}}
+                    <input type="hidden" name="contacto" id="contacto" class="form-control">
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="col-sm-3">
@@ -508,8 +497,30 @@
                                 </select>
                             </div>
                         </div>
-                        {{--<input type="hidden" class="form-control" id="contacto_id" name="contacto_id">--}}
-
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="nome" class="control-label">Nome Inst.</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="nome" name="nome">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="email" class="control-label">Email</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="celular" class="control-label">Celular</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" id="celular" name="celular">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-sm-3">
                                 <label for="password1" class="control-label">Mensagem</label>
@@ -622,24 +633,24 @@
             $('#footer_action_button').addClass('glyphicon-check');
             $('.actionBtn').addClass('btn-success');
             $('.actionBtn').addClass('fwd_caso');
-            $('#contacto_id').val($(this).data('id'));
+            $('#contacto').val($(this).data('id'));
             $('.form-horizontal').show();
         });
                 $('.modal-footer').on('click', '.fwd_caso', function() {
-//                    var dados = $('#form_add_caso').serialize();
-                    var contacto_id=$('#contacto_id').val();
-                    var responsavel_id=$('#responsavel').val();
-                    var mensagem=$('#mensagem').val();
+                    var dados = $('#form_add_caso').serialize();
+//                    var contacto_id=$('#contacto_id').val();
+//                    var responsavel_id=$('#responsavel').val();
+//                    var mensagem=$('#mensagem').val();
 //                 alert(dados);
                     $.ajax({
                         type:'post',
                         url:'/addcaso',
-                        data:{contacto_id:contacto_id,responsavel_id:responsavel_id,mensagem:mensagem},
+                        data:dados,
                         success:function(data){
 //                            $('#form_add_caso')[0].reset();
                             $('.fwd-caso').addClass('disabled');
                             toastr.success("Encaminhado Com Sucesso!");
-                            document.location.href="{{url('contacto')}}";
+                            {{--document.location.href="{{url('contacto')}}";--}}
                         },
                         error:function(){
                             toastr.error("Registo nao efectuado!");

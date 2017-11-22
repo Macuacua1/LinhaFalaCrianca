@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Caso;
 use App\Contacto;
+use App\Mail\SendCaso;
 use App\Mensagem;
+use App\User;
 use Illuminate\Http\Request;
 use Charts;
+use PDF;
+use Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -198,10 +202,11 @@ class ChartCasoController extends Controller
                 foreach ($casos as $caso){
 //                    dd($caso->user->nome);
                     $output.='<tr>'.
-                        '<td>CA-'.$caso->id.'</td>'.
+                        '<td>'.$caso->id.'</td>'.
                         '<td>'.$caso->user->nome.'</td>'.
                         '<td>'.date('d-M-Y',strtotime($caso->created_at)).'</td>'.
                         '<td>'.date('d-M-Y',strtotime($caso->updated_at)).'</td>'.
+                        '<td>'.$caso->created_at->diffForHumans().'</td>'.
                         '<td>'.$caso->responsavel->respnome.'</td>'.
                         '<td>'.$caso->estado_caso.'</td>';
 
@@ -213,23 +218,23 @@ class ChartCasoController extends Controller
                         }
                     if($caso->motivo_id){
                         $output.='<td>'.
-                            '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info" data-id="'.$caso->id.'">'.
-                            '<span class="glyphicon glyphicon-eye-open"></span></button></a>'.
-                            '<button class="edit-caso btn btn-success" data-id="'.$caso->id.'" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important" disabled>'.
-                            '<span class="glyphicon glyphicon-edit"></span></button>'.
-                             '<button class="encerrar-caso btn btn-success" data-id="'.$caso->id.'" data-title="" style="margin-left:3px!important" data-description="" disabled>'.
-                                            '<span class="glyphicon glyphicon-lock"></span>'.
-                                        '</button>'.
+                            '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info btn-sm" data-id="'.$caso->id.'" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do caso">'.
+                            '<i class="fa fa-eye" aria-hidden="true"></i></button></a>'.
+                            '<button class="edit-caso btn btn-success btn-sm" data-id="'.$caso->id.'" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important" disabled>'.
+                            '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>'.
+                             '<button class="encerrar-caso btn btn-success btn-sm" data-id="'.$caso->id.'" data-title="" style="margin-left:3px!important" data-description="" disabled>'.
+                            '<i class="fa fa-lock" aria-hidden="true"></i>'.
+                            '</button>'.
                             '</td>'.
                             '</tr>';
                     }else{
                         $output.='<td>'.
-                            '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info" data-id="'.$caso->id.'" style="margin-left:3px!important">'.
-                            '<span class="glyphicon glyphicon-eye-open"></span></button></a>'.
-                            '<button class="edit-caso btn btn-success" data-id="'.$caso->id.'" style="margin-left:3px!important" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important" data-toggle="modal" data-target="#formModal">'.
-                            '<span class="glyphicon glyphicon-edit"></span></button>'.
-                            '<button class="encerrar-caso btn btn-success" data-id="'.$caso->id.'" data-toggle="modal" data-target="#formModall" style="margin-left:3px!important">'.
-                            '<span class="glyphicon glyphicon-lock"></span>'.
+                            '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info btn-sm" data-id="'.$caso->id.'" style="margin-left:3px!important" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do caso">'.
+                            '<i class="fa fa-eye" aria-hidden="true"></i></button></a>'.
+                            '<button class="edit-caso btn btn-success btn-sm" data-id="'.$caso->id.'" style="margin-left:3px!important" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important" data-toggle="modal" data-target="#formModal">'.
+                            '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>'.
+                            '<button class="encerrar-caso btn btn-success btn-sm" data-id="'.$caso->id.'" data-toggle="modal" data-target="#formModall" style="margin-left:3px!important">'.
+                            '<i class="fa fa-lock" aria-hidden="true"></i>'.
                             '</button>'.
                             '</td>'.
                             '</tr>';
@@ -244,30 +249,18 @@ class ChartCasoController extends Controller
 
     }
     public  function addcaso(Request $request){
-//        dd($request->all());
-        $contacto=Contacto::find($request->contacto_id);
-//        dd($contacto);
-//        dd('hahahahhaha');
-        if (!$contacto->caso_id){
-//            dd('Nao Encaminhado ainda');
-            if (isset($request->contacto_id) and isset($request->mensagem)){
-                $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso']);
-                $caso= Caso::create(request()->all());
-                $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
-                Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
-            }
-            if (isset($request->contacto_id)){
-                $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso']);
-                $caso= Caso::create(request()->all());
-//                $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
-                Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
-            }
-        }else{
-            dd('Ja foi encaminhado');
+        if (isset($request->contacto_id) and isset($request->mensagem)){
+            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso']);
+            $caso= Caso::create(request()->all());
+            $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
+            Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
         }
-
-
-
+        if (isset($request->contacto_id)){
+            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso']);
+            $caso= Caso::create(request()->all());
+            Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
+        }
+        Mail::send(new SendCaso());
     }
     public function chart()
     {

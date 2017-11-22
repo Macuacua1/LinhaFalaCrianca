@@ -13,6 +13,7 @@ use App\Utente;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Session;
 use Charts;
 
@@ -42,7 +43,7 @@ class ContactoController extends Controller
         $provs=Provincia::all();
         $users=User::all();
         $tipomotivos=Tipo_Motivo::all();
-        $contactos=Contacto::orderBy('created_at','desc')->get();
+        $contactos=Contacto::all();
         return view('contacto/index',compact('contactos','resps','provs','users','tipomotivos'));
     }
 
@@ -201,7 +202,11 @@ class ContactoController extends Controller
             $prov=Provincia::all();
             $resps=Responsavel::all();
             $tipomotivos= Tipo_Motivo::all();
-            return view('contacto.detalhes',compact('contactos','tipomotivos','prov','resps'))->with($notification);
+            $data = array('contactos' => $contactos,
+                'tipomotivos' =>$tipomotivos ,'prov'=>$prov,'resps'=>$resps,'notification'=>$notification);
+
+            return Redirect::route('contacto.show',$contactos->id)->with($data);
+//            return view('contacto.detalhes',compact('contactos','tipomotivos','prov','resps'))->with($notification);
 //            return back()->with($notification);
         }else{
             return back()->with($noterro);
@@ -235,12 +240,5 @@ class ContactoController extends Controller
         return Response($utente);
             }
         }
-//        $utente=  Utente::where('id', $request->utente_id)->update(['tipo_utente' => $request->tipo_utente,
-//            'nome'=> $request->nome,'apelido'=> $request->apelido,'idade'=> $request->idade,'genero'=> $request->genero,
-//            'idioma'=> $request->idioma,'conhecer_linha'=> $request->conhecer_linha,'descricao_local'=> $request->descricao_local,
-//            'cell1'=> $request->cell1,'cell2'=> $request->cell2,'situacao_educacional'=> $request->situacao_educacional
-//            ,'vive_com'=> $request->vive_com,'relacao_vitima'=> $request->relacao_vitima,'provincia_id'=> $request->provincia_id,
-//            'distrito_id'=> $request->distrito_id,'localidade_id'=> $request->localidade_id]);
-//        return Response($utente);
     }
 }

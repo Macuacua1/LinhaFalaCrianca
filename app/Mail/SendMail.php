@@ -45,7 +45,7 @@ class SendMail extends Mailable
         $request->request->add(['email' => $request->email]);
         $user = User::create($request->all());
 
-        return $this->view('mail',['nome'=>$request->nome,'password'=>$password,'email'=>$request->email])->to($request->email)->subject('Credenciais de acesso a aplicacao da LFC');;
+        return $this->view('mail',['nome'=>$request->nome,'password'=>$password,'email'=>$request->email])->to($request->email)->subject('Credenciais de acesso a aplicacao da LFC');
 //        return $this->view('mai');
     }
 }

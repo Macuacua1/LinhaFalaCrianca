@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <div  class="input-daterange input-group" id="demo-date-range">
+                                <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                     <div class="input-group-content">
                                         <input type="text" class="form-control" name="inicio" id="inicio"/>
                                         <label>De</label>
@@ -122,7 +122,7 @@
                             <th>Tipo de Contacto</th>
                             <th>Criado a </th>
                             <th>Inserido por</th>
-                            <th>Resumo</th>
+                            <th>Registado a</th>
                             <th>Motivo</th>
                             <th>Estado do Caso</th>
                             {{--<th>Inserido por</th>--}}
@@ -132,12 +132,11 @@
                         <tbody>
                         @foreach ($contactos as $contacto)
                             <tr>
-                                <td>CO-{{$contacto->id}}</td>
+                                <td>{{$contacto->id}}</td>
                                 <td>{{$contacto->tipo_contacto}}</td>
-                                {{--<td>{{$contacto->created_at}}</td>--}}
                                 <td>{{date('d-M-Y',strtotime($contacto->created_at))}}</td>
                                 <td>{{$contacto->user->nome}}</td>
-                                <td>{{$contacto->resumo_contacto}}</td>
+                                <td>{{$contacto->created_at->diffForHumans()}}</td>
                                 <td>{{$contacto->motivo->motivonome}}</td>
                                 @if($contacto->caso_id>0)
                                     <td>
@@ -162,17 +161,27 @@
                                     <td>Nao Encaminhado</td>
                                 @endif
                                 <td>
-                                   <a href="{{route('contacto.show',$contacto->id)}}"><button class="btn btn-info" data-id="{{$contacto->id}}" data-title="" data-description="">
-                                           <span class="glyphicon glyphicon-eye-open"></span>
+                                   <a href="{{route('contacto.show',$contacto->id)}}"><button class="btn btn-info btn-sm" data-id="{{$contacto->id}}" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do contacto">
+                                           <i class="fa fa-eye" aria-hidden="true"></i>
                                        </button></a>
-                                @if($contacto->caso_id>0 or $contacto->motivo_id>60)
-                                        <button class=" btn btn-success" data-id="{{$contacto->id}}" data-title="" data-description="" disabled id="fwd-caso">
-                                            <span class="glyphicon glyphicon-forward"></span>
+                                @if($contacto->caso_id>0)
+                                        <button class=" btn btn-success btn-sm" data-id="{{$contacto->id}}" data-title="" data-description="" disabled id="fwd-caso" >
+                                            <i class="fa fa-forward" aria-hidden="true"></i>
                                         </button>
-                                @else
-                                        <button class="btn btn-success" data-id="{{$contacto->id}}" data-toggle="modal" data-target="#formModal" id="fwd-caso">
-                                            <span class="glyphicon glyphicon-forward"></span>
+                                        <a class="btn btn-primary btn-sm" href="{{route('caso.show',$contacto->caso_id )}}" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver Caso">
+                                            <i class="fa fa-legal"></i></a>
+                                @elseif($contacto->motivo_id>60)
+                                        <button class=" btn btn-success btn-sm" data-id="{{$contacto->id}}" data-title="" data-description="" disabled id="fwd-caso" >
+                                            <i class="fa fa-forward" aria-hidden="true"></i>
                                         </button>
+                                        <a class="btn btn-primary btn-sm" href="{{route('caso.show',$contacto->caso_id )}}" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver Caso" disabled>
+                                            <i class="fa fa-legal"></i></a>
+                                    @else
+                                        <button class="btn btn-success btn-sm" data-id="{{$contacto->id}}" data-toggle="modal" data-target="#formModal" id="fwd-caso">
+                                            <i class="fa fa-forward" aria-hidden="true"></i>
+                                        </button>
+                                        <a class="btn btn-primary btn-sm" href="{{route('caso.show',$contacto->caso_id )}}" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver Caso" disabled>
+                                            <i class="fa fa-legal"></i></a>
                                 @endif
                                 </td>
                               </tr>
@@ -209,6 +218,30 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="nome" class="control-label">Nome Inst.</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="nome" name="nome">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="email" class="control-label">Email</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label for="celular" class="control-label">Celular</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" id="celular" name="celular">
+                            </div>
+                        </div>
                         <input type="hidden" class="form-control" id="contacto_id" name="contacto_id">
 
                         <div class="form-group">
@@ -243,6 +276,8 @@
                 }
             });
             $('#datatable').DataTable( {
+                "order": [[ 0, 'desc' ], [ 1, 'desc' ]],
+                "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -515,7 +550,7 @@
                         $('#form_add_caso')[0].reset();
                         $('.fwd-caso').addClass('disabled');
                         toastr.success("Encaminhado Com Sucesso!");
-                        document.location.href="{{url('contacto')}}";
+                        {{--document.location.href="{{url('contacto')}}";--}}
                     },
                     error:function(){
                         toastr.error("Registo nao efectuado!");

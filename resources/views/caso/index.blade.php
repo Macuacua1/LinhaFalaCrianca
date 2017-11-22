@@ -18,7 +18,7 @@
 
                         <div class="col-md-4 col-sm-4">
                             <div class="form-group">
-                                <div  class="input-daterange input-group" id="demo-date-range">
+                                <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
                                     <div class="input-group-content">
                                         <input type="text" class="form-control" name="start" id="start"/>
                                         <label>De</label>
@@ -81,6 +81,7 @@
                             <th>Inserido por</th>
                             <th>Criado a </th>
                             <th>Actualizado a </th>
+                            <th>Registado a </th>
                             <th>Responsavel</th>
                             <th>Estado do Caso</th>
                             <th>Motivo</th>
@@ -90,11 +91,12 @@
                         <tbody id="tbody">
                         @foreach ($casos as $caso)
                             <tr>
-                                <td>CA-{{$caso->id}}</td>
+                                <td>{{$caso->id}}</td>
                                 <td>{{$caso->user->nome}}</td>
                                 {{--<td>{{$contacto->created_at}}</td>--}}
                                 <td>{{date('d-M-Y',strtotime($caso->created_at))}}</td>
                                 <td>{{date('d-M-Y',strtotime($caso->updated_at))}}</td>
+                                <td>{{$caso->created_at->diffForHumans()}}</td>
                                 <td>{{$caso->responsavel->respnome}}</td>
                                 <td>
                                     @if($caso->estado_caso =='Fechado')
@@ -119,26 +121,26 @@
                                     <td>Sem Motivo</td>
                                 @endif
                                 <td>
-                                    <a href="{{route('caso.show',$caso->id)}}"><button class="btn btn-info" data-id="{{$caso->id}}" data-title="" data-description="">
-                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                    <a href="{{route('caso.show',$caso->id)}}"><button class="btn btn-info btn-sm" data-id="{{$caso->id}}" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do caso">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button></a>
                                     @if($caso->motivo_id)
-                                        <button class="edit-caso btn btn-success" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}" disabled>
-                                            <span class="glyphicon glyphicon-edit"></span>
+                                        <button class="edit-caso btn btn-success btn-sm" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}" disabled>
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </button>
                                     @else
-                                        <button class="edit-caso btn btn-success" data-toggle="modal" data-target="#formModal" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}">
-                                            <span class="glyphicon glyphicon-edit"></span>
-                                        </button>
+                                       <a><button class="edit-caso btn btn-success btn-sm" data-toggle="modal" data-target="#formModal" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </button></a>
                                     @endif
                                 @if($caso->motivo_id)
-                                        <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-title="" data-description="" disabled>
-                                            <span class="glyphicon glyphicon-lock"></span>
-                                        </button>
+                                        <a><button class="encerrar-caso btn btn-success btn-sm" data-id="" data-toggle="modal" data-target="#formModall" disabled>
+                                                <i class="fa fa-lock" aria-hidden="true"></i>
+                                            </button></a>
                                 @else
-                                        <button class="encerrar-caso btn btn-success" data-id="{{$caso->id}}" data-toggle="modal" data-target="#formModall">
-                                            <span class="glyphicon glyphicon-lock"></span>
-                                        </button>
+                                        <a><button class="encerrar-caso btn btn-success btn-sm" data-id="{{$caso->id}}" data-toggle="modal" data-target="#formModall">
+                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                        </button></a>
                                 @endif
 
                                 </td>
@@ -147,12 +149,12 @@
                         </tbody>
                     </table>
                 </div><!--end .table-responsive -->
-                <div class="row">
-                    <center>
-                        {{$casos->render()}}
-                    </center>
+                {{--<div class="row">--}}
+                    {{--<center>--}}
+                        {{--{{$casos->render()}}--}}
+                    {{--</center>--}}
 
-                </div>
+                {{--</div>--}}
                 <!-- BEGIN FORM MODAL MARKUP -->
                 <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
                     <div class="modal-dialog">
@@ -190,7 +192,7 @@
                                                 <option value="Assistido Temporariamente">Assistido Temporariamente</option>
                                                 <option value="Assistido">Assistido</option>
                                                 <option value="Impossivel Proceder">Impossivel Proceder</option>
-                                                <option value="Fechado">Fechado</option>
+                                                {{--<option value="Fechado">Fechado</option>--}}
                                             </select>
                                         </div>
                                     </div>
@@ -286,6 +288,8 @@
                 }
             });
             $('#datatable').DataTable( {
+                "order": [[ 0, 'desc' ], [ 1, 'desc' ]],
+                "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
