@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Caso extends Model
 {
-    protected $fillable=['estado_caso','chave','estado_parceiro','motivo_id','responsavel_id','user_id'];
+    protected $fillable=['estado_caso','chave','estado_parceiro','motivo_id','responsavel_id','user_id','instituicao_id'];
 
     public function motivo(){
         return $this->belongsTo(Motivo::class);
@@ -22,6 +22,9 @@ class Caso extends Model
     }
     public function user(){
         return $this->belongsTo(User::class);
+    }
+    public function instituicao(){
+        return $this->belongsTo(Instituicao::class);
     }
 
 }

@@ -163,7 +163,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
-        Nexmo\Laravel\NexmoServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
 
@@ -230,7 +229,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
-        'Nexmo' => Nexmo\Laravel\Facade\Nexmo::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
 
 

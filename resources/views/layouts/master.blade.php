@@ -35,6 +35,9 @@
 
     <script src="/js/parsley.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    {{--<script src="/js/typeahead.bundle.min.js"></script>--}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js" charset="utf-8"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -44,11 +47,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
     {{--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>--}}
     <script src="/js/bootstrap-datepicker.js"></script>
-    {{--<script src="/js/bootstrap-datepicker.min.js"></script>--}}
-    {{--<script src="/js/custom.js"></script>--}}
-
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>--}}
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
@@ -64,6 +62,9 @@
     <!-- END STYLESHEETS -->
 
     <link type="text/css" rel="stylesheet" href="/css/jquery.dataTablesdee9.css">
+    {{--<link type="text/css" rel="stylesheet" href="/css/jquery-ui-theme5e0a.css">--}}
+    {{--<link type="text/css" rel="stylesheet" href="/css/typeaheadfa6c.css">--}}
+
 
     <link type="text/css" rel="stylesheet" href="/css/dataTables.colVis941e.css">
 

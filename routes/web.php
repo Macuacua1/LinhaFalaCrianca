@@ -81,6 +81,7 @@ Route::post('/pesquisaestado','ChartCasoController@pesquisaestado');
 Route::post('/pesquisacasomotivo','ChartCasoController@pesquisamotivo');
 Route::post('/pesquisainstituicao','ChartCasoController@pesquisainstituicao');
 Route::get('/reportacaso','ChartCasoController@reportcaso');
+Route::get('/autocomplete','ChartCasoController@autocomplete');
 
 Route::get('/sendSMS', function () {
 //    Nexmo::message()->send([
@@ -91,8 +92,8 @@ Route::get('/sendSMS', function () {
     $nexmo = app('Nexmo\Client');
 
     $nexmo->message()->send([
-        'to'   => '258842428499',
+        'to'   => '258849269973',
         'from' => 'Mario',
-        'text' => 'Testando o Nexmo'
+        'text' => 'Hello Dude, estou Testando o Nexmo'
     ]);
 });

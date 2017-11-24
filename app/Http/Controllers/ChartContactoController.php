@@ -208,154 +208,148 @@ class ChartContactoController extends Controller
 
         return view('contacto.report_contacto',compact('motivos','tipos','chart_motivo','idades','distritos','prov','generos','provincias'));
     }
+
+
+
+
     public function pesquisacontacto(Request $request){
         if ($request->ajax()) {
+            $inicio=$request->start;
+            $fim=$request->end;
+            $estado_caso=$request->estado_caso;
+            $responsavel_id=$request->responsavel_id;
+            $user_id=$request->user_id;
+            $provincia_id=$request->provincia_id;
+            $distrito_id=$request->distrito_id;
+            $localidade_id=$request->localidade_id;
+            $motivo_id=$request->motivo_id;
 
             $output = "";
-// return $request->all();
-//            dd($request->except(['start','end','estado_caso']));
-                 $estado=$request->estado_caso;
-//                 $inicio=$request->start;
-//                 $fim=$request->end;
+//            $output='<td>Tabela Vazia</td>';
 
-//            $gadgets = Contacto::with(['caso'=>function($query){
-//              $query->where('estado_caso','Assistido');
-//            }])->whereBetween('created_at',[$inicio,$fim])->where('caso_id','<>',null)->get();
-////            foreach ($request->except(['start','end','estado_caso']) as $key => $parameter) {
-////                if($parameter != ''){
-////                    $gadgets = $gadgets->where($key, '=', $parameter);
-////                }
-////            }
-////            $gadgets = $gadgets->get();
-//            return $gadgets;
-//        if (isset($inicio) or isset($fim) or isset($estado) or isset($request->responsavel_id)){
-        if (isset($estado) or isset($request->responsavel_id)){
-          dd($request->only(['start','end','estado_caso','responsavel_id']));
-        }
-
-            else{
-//                $contacts= new Contacto();
-                $contacts= Contacto::whereBetween('created_at',[$request->start,$request->end])->get();
-//               return $contacts;
-                foreach ($request->except(['start','end','estado_caso','responsavel_id']) as $key => $parameter) {
-                    if($parameter != ''){
-                        $gadgets =  $contacts->where($key, '=', $parameter);
-                    }
-                }
-                $gadget = $gadgets->get();
-               return $gadget;
+            $contactos=Contacto::with(['user','utente','motivo','caso']);
+            if($inicio !=null and $fim !=null){
+                $contactos=$contactos ->whereBetween('created_at',[$inicio,$fim]);
             }
-
-
-
-
-
-            if(isset($request->start) and isset($request->end)){
-                $contactos=Contacto::whereBetween('created_at',[$request->start,$request->end])
-                    ->with('user','caso.responsavel','motivo','utente')->get();
+            if($inicio !=null and $fim !=null){
+                $contactos=$contactos ->whereBetween('created_at',[$inicio,$fim]);
             }
-            if(isset($request->estado)){
-                $contactos=Contacto::where('estado_caso',$request->estado)
-                    ->with('user','responsavel','motivo','utente')->get();
+            if($estado_caso !=null){
+                $contactos=$contactos ->whereHas('caso', function ($q) use ($estado_caso) {
+                    $q->where('estado_caso',$estado_caso);
+                });
             }
-            if(isset($request->responsavel_id)){
-                $contactos=Contacto::where('responsavel_id',$request->responsavel_id)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-            if(isset($request->user_id)){
-                $contactos=Contacto::where('user_id',$request->user_id)->get();
+            if($responsavel_id !=null){
+                $contactos=$contactos ->whereHas('caso',function ($query) use ($responsavel_id){
+                    $query->where('responsavel_id',$responsavel_id);
+                });
 
             }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) ){
-                $contactos=Contacto::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('estado_caso',$request->estado)
-                    ->with('user','responsavel','motivo','utente')->get();
+            if($user_id !=null){
+                $contactos=$contactos ->where('user_id',$user_id);
             }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->responsavel_id) ){
-                $contactos=Contacto::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('responsavel_id',$request->responsavel_id)
-                    ->with('user','responsavel','motivo','utente')->get();
+            if($provincia_id !=null){
+                $contactos=$contactos ->whereHas('utente', function ($q) use($provincia_id) {
+                    $q->where('provincia_id',$provincia_id)
+                    ->where('tipo_utente','<>','Vitima')
+                    ->where('tipo_utente','<>','Perpetrador');
+                });
+            }
+            if($distrito_id !=null){
+                $contactos=$contactos ->whereHas('utente', function ($q) use($distrito_id) {
+                    $q->where('provincia_id',$distrito_id)
+                        ->where('tipo_utente','<>','Vitima')
+                        ->where('tipo_utente','<>','Perpetrador');
+                });
+            }
+            if($localidade_id !=null){
+                $contactos=$contactos ->whereHas('utente', function ($q) use($localidade_id) {
+                    $q->where('provincia_id',$localidade_id)
+                        ->where('tipo_utente','<>','Vitima')
+                        ->where('tipo_utente','<>','Perpetrador');
+                });
+            }
 
+            if($motivo_id !=null){
+                $contactos=$contactos ->where('motivo_id',$motivo_id);
             }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->user_id) ){
-                $contactos=Contacto::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-            if(isset($request->estado) and isset($request->responsavel_id) ){
-                $contactos=Contacto::where('responsavel_id',$request->responsavel_id)
-                    ->where('estado_caso',$request->estado)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-            if(isset($request->estado)  and isset($request->user_id) ){
-                $casos=Caso::where('estado_caso',$request->estado)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-            if(isset($request->responsavel_id) and isset($request->user_id) ){
-                $contactos=Contacto::where('responsavel_id',$request->responsavel_id)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->responsavel_id) ){
-                $contactos=Contacto::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('estado_caso',$request->estado)
-                    ->where('responsavel_id',$request->responsavel_id)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->user_id) ){
-                $contactos=Contacto::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('estado_caso',$request->estado)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->responsavel_id) and isset($request->user_id) ){
-                $contactos=Contacto::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('responsavel_id',$request->responsavel_id)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-            if(isset($request->estado) and isset($request->responsavel_id) and isset($request->user_id) ){
-                $contactos=Contacto::where('responsavel_id',$request->responsavel_id)
-                    ->where('estado_caso',$request->estado)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->responsavel_id) and isset($request->user_id) ){
-                $contactos=Contacto::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('estado_caso',$request->estado)
-                    ->where('user_id',$request->user_id)
-                    ->where('responsavel_id',$request->responsavel_id)
-                    ->with('user','responsavel','motivo','utente')->get();
-            }
-//            dd($contactos);
-//            return Response ($casos);
+
+            $contactos=$contactos->get();
+
+
             if ($contactos){
                 foreach ($contactos as $contacto){
-//                    dd($contacto->user->nome);
+//                    dd($caso->user->nome);
                     $output.='<tr>'.
-                        '<td>CO-'.$contacto->id.'</td>'.
+                        '<td>'.$contacto->id.'</td>'.
                         '<td>'.$contacto->tipo_contacto.'</td>'.
                         '<td>'.date('d-M-Y',strtotime($contacto->created_at)).'</td>'.
                         '<td>'.$contacto->user->nome.'</td>'.
-                        '<td>'.$contacto->resumo_contacto.'</td>'.
+                        '<td>'.$contacto->created_at->diffForHumans().'</td>'.
                         '<td>'.$contacto->motivo->motivonome.'</td>';
 
-//                        '<td>'.$caso->motivo_id ? $caso->motivo->motivonome.'</td>'.
                     if ($contacto->caso_id){
-                        $output.='<td>'. $contacto->caso->estado_caso.'</td>';
-                    }else{
-                        $output.= '<td>Nao Encaminhado</td>';
+                        if($contacto->caso->estado_caso =='Fechado'){
+                            $output.='<td>'.
+                                '<span style="color: #4caf50">'.$contacto->caso->estado_caso.'</span>'.
+                                '</td>';
+                        }
+                        if($contacto->caso->estado_caso =='Impossivel Proceder') {
+                            $output .= '<td>' .
+                                '<span style="color: red">' . $contacto->caso->estado_caso . '</span>' .
+                                '</td>';
+                        }
+
+                        if($contacto->caso->estado_caso =='Assistido') {
+                            $output .= '<td>' .
+                                '<span style="color: color: #0aa89e">' . $contacto->caso->estado_caso . '</span>' .
+                                '</td>';
+                        }
+                        if($contacto->caso->estado_caso =='Assistido Temporariamente') {
+                            $output .= '<td>' .
+                                '<span style="color: color: #0c84e4">' . $contacto->caso->estado_caso . '</span>' .
+                                '</td>';
+                        }
+                        if($contacto->caso->estado_caso =='Em Progresso') {
+                            $output .= '<td>' .
+                                '<span style="color: color: color: #0aa298">' . $contacto->caso->estado_caso . '</span>' .
+                                '</td>';
+                        }
+
+                       }else{
+                        $output.= '<td>Sem Motivo</td>';
                     }
-//
-//
-                    $output.='<td>'.
-                        '<a href="'.route('contacto.show',$contacto->id).'"><button class="btn btn-info" data-id="{{$contacto->id}}" data-title="" data-description="">'.
-                        '<span class="glyphicon glyphicon-eye-open"></span></button></a>'.
-                        '<button class="fwd-caso btn btn-success" data-id="{{$contacto->id}}" data-title="" data-description="">'.
-                        '<span class="glyphicon glyphicon-forward"></span></button>'.
-                        '</td>'.
-                        '</tr>';
+                    if($contacto->caso_id>0){
+                        $output.='<td>'.
+                            '<a href="'.route('caso.show',$contacto->id).'"><button class="btn btn-info btn-sm" data-id="'.$contacto->id.'" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do Contacto">'.
+                            '<i class="fa fa-eye" aria-hidden="true"></i></button></a>'.
+                            '<button class=" btn btn-success btn-sm" data-id="'.$contacto->id.'"data-title="" data-description="" id="fwd-caso"  style="margin-left:3px!important" disabled>'.
+                            '<i class="fa fa-forward" aria-hidden="true"></i></button>'.
+                            '<a class="btn btn-primary btn-sm" href="'.route('caso.show',$contacto->caso_id ).'" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver Caso" style="margin-left:3px!important"> <i class="fa fa-legal"></i></a>'.
+
+
+                            '</td>'.
+                            '</tr>';
+                    }elseif ($contacto->motivo_id>60){
+                        $output.='<td>'.
+                            '<a href="'.route('caso.show',$contacto->id).'"><button class="btn btn-info btn-sm" data-id="'.$contacto->id.'" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do Contacto">'.
+                            '<i class="fa fa-eye" aria-hidden="true"></i></button></a>'.
+                            '<button class=" btn btn-success btn-sm" data-id="'.$contacto->id.'"data-title="" data-description="" id="fwd-caso"  style="margin-left:3px!important" disabled>'.
+                            '<i class="fa fa-forward" aria-hidden="true"></i></button>'.
+                            '<a class="btn btn-primary btn-sm" href="'.route('caso.show',$contacto->caso_id ).'" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver Caso" style="margin-left:3px!important" disabled><i class="fa fa-legal"></i></a>'.
+                            '</td>'.
+                            '</tr>';
+                    }
+                    else{
+                        $output.='<td>'.
+                            '<a href="'.route('caso.show',$contacto->id).'"><button class="btn btn-info btn-sm" data-id="'.$contacto->id.'" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do Contacto">'.
+                            '<i class="fa fa-eye" aria-hidden="true"></i></button></a>'.
+                            '<button class=" btn btn-success btn-sm" data-id="'.$contacto->id.'"data-title="" data-description="" id="fwd-caso"  style="margin-left:3px!important">'.
+                            '<i class="fa fa-forward" aria-hidden="true"></i></button>'.
+                            '<a class="btn btn-primary btn-sm" href="'.route('caso.show',$contacto->caso_id ).'" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver Caso" style="margin-left:3px!important" disabled> <i class="fa fa-legal"></i></a>'.
+                            '</td>'.
+                            '</tr>';
+                    }
 
                 }
 //               dd($output);

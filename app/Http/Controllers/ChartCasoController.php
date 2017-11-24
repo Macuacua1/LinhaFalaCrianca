@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Caso;
 use App\Contacto;
+use App\Instituicao;
 use App\Mail\SendCaso;
 use App\Mensagem;
 use App\User;
@@ -105,99 +106,43 @@ class ChartCasoController extends Controller
                 }
     }
 
+    public function autocomplete(Request $request){
+//return $request->all();
+        $instituicoes = Instituicao::where('responsavel_id',$request->instituicao)->where('nome','LIKE','%'.$request->term.'%')->take(10)
+            ->get();
+        $result=array();
+        foreach ($instituicoes as $key =>$value){
+            $result[]=['id'=>$value->id,'email'=>$value->email,'nome'=>$value->nome];
+        }
+        return response()->json($result);
+
+    }
 
     public function pesquisacaso(Request $request){
         if ($request->ajax()) {
 
+            $inicio=$request->inicio;
+            $fim=$request->fim;
+            $estado=$request->estado;
+            $responsavel_id=$request->responsavel_id;
+            $user_id=$request->user_id;
+//return $request->all();
             $output = "";
+            $casos=Caso::with(['user','responsavel','motivo']);
+            if($inicio !=null and $fim !=null){
+                $casos=$casos->whereBetween('created_at',[$inicio,$fim]);
+            }
+            if($estado !=null){
+                $casos=$casos->where('estado_caso',$estado);
+            }
+            if($responsavel_id !=null){
+                $casos=$casos->where('responsavel_id',$responsavel_id);
+            }
+            if($user_id !=null){
+                $casos=$casos->where('user_id',$user_id);
+            }
+            $casos=$casos->get();
 
-            if(isset($request->inicio) and isset($request->fim)){
-                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->with('user','responsavel','motivo')->get();
-
-            }
-            if(isset($request->estado)){
-                $casos=Caso::where('estado_caso',$request->estado)
-                    ->with('user','responsavel','motivo')->get();
-//                foreach ($casos as $caso) {
-////                    echo $caso->user->nome;
-//                    dd($caso->user->nome);
-//                }
-
-
-            }
-            if(isset($request->responsavel_id)){
-                $casos=Caso::where('responsavel_id',$request->responsavel_id)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->user_id)){
-                $casos=Caso::where('user_id',$request->user_id)->get();
-
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) ){
-                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('estado_caso',$request->estado)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->responsavel_id) ){
-                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('responsavel_id',$request->responsavel_id)
-                    ->with('user','responsavel','motivo')->get();
-
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->user_id) ){
-                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->estado) and isset($request->responsavel_id) ){
-                $casos=Caso::where('responsavel_id',$request->responsavel_id)
-                    ->where('estado_caso',$request->estado)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->estado)  and isset($request->user_id) ){
-                $casos=Caso::where('estado_caso',$request->estado)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->responsavel_id) and isset($request->user_id) ){
-                $casos=Caso::where('responsavel_id',$request->responsavel_id)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->responsavel_id) ){
-                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('estado_caso',$request->estado)
-                    ->where('responsavel_id',$request->responsavel_id)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->user_id) ){
-                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('estado_caso',$request->estado)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->responsavel_id) and isset($request->user_id) ){
-                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('responsavel_id',$request->responsavel_id)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->estado) and isset($request->responsavel_id) and isset($request->user_id) ){
-                $casos=Caso::where('responsavel_id',$request->responsavel_id)
-                    ->where('estado_caso',$request->estado)
-                    ->where('user_id',$request->user_id)
-                    ->with('user','responsavel','motivo')->get();
-            }
-            if(isset($request->inicio) and isset($request->fim) and isset($request->estado) and isset($request->responsavel_id) and isset($request->user_id) ){
-                $casos=Caso::whereBetween('created_at',[$request->inicio,$request->fim])
-                    ->where('estado_caso',$request->estado)
-                    ->where('user_id',$request->user_id)
-                    ->where('responsavel_id',$request->responsavel_id)
-                    ->with('user','responsavel','motivo')->get();
-            }
-//            dd($casos);
-//            return Response($casos);
                  if ($casos){
                 foreach ($casos as $caso){
 //                    dd($caso->user->nome);
@@ -249,18 +194,26 @@ class ChartCasoController extends Controller
 
     }
     public  function addcaso(Request $request){
+//        return $request->all();
+        if (isset($request->novoid)){
+            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso','instituicao_id'=>$request->novoid]);
+        }else{
+            $inst=Instituicao::create($request->all());
+            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso','instituicao_id'=>$inst->id]);
+        }
         if (isset($request->contacto_id) and isset($request->mensagem)){
-            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso']);
             $caso= Caso::create(request()->all());
             $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
             Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
         }
         if (isset($request->contacto_id)){
-            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso']);
             $caso= Caso::create(request()->all());
             Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
         }
-        Mail::send(new SendCaso());
+        if ($request->email){
+            Mail::send(new SendCaso());
+        }
+
     }
     public function chart()
     {

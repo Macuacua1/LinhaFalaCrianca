@@ -11,4 +11,7 @@ class Responsavel extends Model
     public function caso(){
         return $this->hasMany(Caso::class);
     }
+    public function instituicao(){
+        return $this->hasMany(Instituicao::class);
+    }
 }

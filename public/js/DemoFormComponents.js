@@ -17,7 +17,7 @@
 	// =========================================================================
 
 	p.initialize = function () {
-		this._initTypeahead();
+		// this._initTypeahead();
 		this._initAutocomplete();
 		this._initSelect2();
 		this._initMultiSelect();

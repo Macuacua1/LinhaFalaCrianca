@@ -26,6 +26,10 @@ class CreateCasosTable extends Migration
             $table->foreign('responsavel_id')->references('id')->on('responsavels')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->integer('instituicao_id')->unsigned()->nullable();
+            $table->foreign('instituicao_id')->references('id')->on('instituicaos')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')
