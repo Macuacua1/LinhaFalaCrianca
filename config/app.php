@@ -51,7 +51,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+//    'url' => env('APP_URL', 'http://localhost'),
+//    'url' => env('APP_URL', 'http://localhost:8080/'),
+    'url' => env('APP_URL', 'http://linhafalacrianca.herokuapp.com/'),
 
     /*
     |--------------------------------------------------------------------------
