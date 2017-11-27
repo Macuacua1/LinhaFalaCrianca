@@ -41,7 +41,7 @@
                                     <option value="Assistido">Assistido</option>
                                     <option value="Impossivel Proceder">Impossivel Proceder</option>
                                     <option value="Fechado">Fechado</option>
-                                    <option value="">Sem Estado</option>
+                                    <option value="">Seleccionar todos</option>
                                 </select>
                             </div>
                             </div>
@@ -52,6 +52,7 @@
                                     @foreach($resps as $resp)
                                         <option value="{{$resp->id}}">{{$resp->respnome}}</option>
                                     @endforeach
+                                    <option value="">Seleccionar todos</option>
                                 </select>
                             </div>
                             </div>
@@ -62,6 +63,7 @@
                                     @foreach($users as $user)
                                         <option value="{{$user->id}}">{{$user->nome}}</option>
                                     @endforeach
+                                    <option value="">Seleccionar todos</option>
                                 </select>
                             </div>
                         </div>
@@ -100,16 +102,16 @@
                                 <td>{{$caso->responsavel->respnome}}</td>
                                 <td>
                                     @if($caso->estado_caso =='Fechado')
-                                    <span style="color: #4caf50">{{$caso->estado_caso}}</span>
+                                    <span style="color: #3c763d">{{$caso->estado_caso}}</span>
                                         @endif
                                         @if($caso->estado_caso =='Impossivel Proceder')
                                             <span style="color: red">{{$caso->estado_caso}}</span>
                                         @endif
                                         @if($caso->estado_caso =='Assistido')
-                                            <span style="color: #0aa89e">{{$caso->estado_caso}}</span>
+                                            <span style="color: #31708f">{{$caso->estado_caso}}</span>
                                         @endif
                                         @if($caso->estado_caso =='Assistido Temporariamente')
-                                            <span style="color: #0c84e4">{{$caso->estado_caso}}</span>
+                                            <span style="color: #8a6d3b">{{$caso->estado_caso}}</span>
                                         @endif
                                         @if($caso->estado_caso =='Em Progresso')
                                             <span style="color: #0aa298">{{$caso->estado_caso}}</span>
@@ -123,6 +125,9 @@
                                 <td>
                                     <a href="{{route('caso.show',$caso->id)}}"><button class="btn btn-info btn-sm" data-id="{{$caso->id}}" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do caso">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button></a>
+                                    <a href="{{route('contacto.edit',$caso->id)}}"><button class="btn btn-primary btn-sm" data-id="{{$caso->id}}" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Registar Contacto">
+                                            <i class="fa fa-phone" aria-hidden="true"></i>
                                         </button></a>
                                     @if($caso->motivo_id)
                                         <button class="edit-caso btn btn-success btn-sm" data-id="{{$caso->id}}" data-title="{{$caso->responsavel->respnome}}" data-description="{{$caso->responsavel_id}}" disabled>

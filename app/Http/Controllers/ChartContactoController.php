@@ -229,49 +229,49 @@ class ChartContactoController extends Controller
 
             $contactos=Contacto::with(['user','utente','motivo','caso']);
             if($inicio !=null and $fim !=null){
-                $contactos=$contactos ->whereBetween('created_at',[$inicio,$fim]);
+                $contactos=$contactos ->whereBetween('created_at',[$inicio,$fim])->orderBy('created_at','desc');
             }
             if($inicio !=null and $fim !=null){
-                $contactos=$contactos ->whereBetween('created_at',[$inicio,$fim]);
+                $contactos=$contactos ->whereBetween('created_at',[$inicio,$fim])->orderBy('created_at','desc');
             }
             if($estado_caso !=null){
                 $contactos=$contactos ->whereHas('caso', function ($q) use ($estado_caso) {
                     $q->where('estado_caso',$estado_caso);
-                });
+                })->orderBy('created_at','desc');
             }
             if($responsavel_id !=null){
                 $contactos=$contactos ->whereHas('caso',function ($query) use ($responsavel_id){
                     $query->where('responsavel_id',$responsavel_id);
-                });
+                })->orderBy('created_at','desc');
 
             }
             if($user_id !=null){
-                $contactos=$contactos ->where('user_id',$user_id);
+                $contactos=$contactos ->where('user_id',$user_id)->orderBy('created_at','desc');
             }
             if($provincia_id !=null){
                 $contactos=$contactos ->whereHas('utente', function ($q) use($provincia_id) {
                     $q->where('provincia_id',$provincia_id)
                     ->where('tipo_utente','<>','Vitima')
                     ->where('tipo_utente','<>','Perpetrador');
-                });
+                })->orderBy('created_at','desc');
             }
             if($distrito_id !=null){
                 $contactos=$contactos ->whereHas('utente', function ($q) use($distrito_id) {
                     $q->where('provincia_id',$distrito_id)
                         ->where('tipo_utente','<>','Vitima')
                         ->where('tipo_utente','<>','Perpetrador');
-                });
+                })->orderBy('created_at','desc');
             }
             if($localidade_id !=null){
                 $contactos=$contactos ->whereHas('utente', function ($q) use($localidade_id) {
                     $q->where('provincia_id',$localidade_id)
                         ->where('tipo_utente','<>','Vitima')
                         ->where('tipo_utente','<>','Perpetrador');
-                });
+                })->orderBy('created_at','desc');
             }
 
             if($motivo_id !=null){
-                $contactos=$contactos ->where('motivo_id',$motivo_id);
+                $contactos=$contactos ->where('motivo_id',$motivo_id)->orderBy('created_at','desc');
             }
 
             $contactos=$contactos->get();

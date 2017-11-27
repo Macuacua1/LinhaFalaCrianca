@@ -117,6 +117,7 @@ class HomeController extends Controller
 //dd($datas);
         $contacto= Charts::database($datas,'line', 'highcharts')
             ->title('Contactos por Motivo')
+            ->labels(['Contactos por Motivo'])
             ->responsive(true)
             ->groupBy('motivo');
 

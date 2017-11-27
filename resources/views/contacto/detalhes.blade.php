@@ -482,7 +482,6 @@
                 </div>
                 <form class="form-horizontal form-validate" role="form" method="post" id="form_add_caso" novalidate="novalidate">
                     {{csrf_field()}}
-                    <input type="hidden" name="contacto" id="contacto" class="form-control">
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="col-sm-3">
@@ -513,20 +512,15 @@
                                 <input type="email" class="form-control" id="email" name="email">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-3">
-                                <label for="celular" class="control-label">Celular</label>
-                            </div>
-                            <div class="col-sm-9">
-                                <input type="number" class="form-control" id="celular" name="celular">
-                            </div>
-                        </div>
+                        <input type="hidden" class="form-control" id="contacto_id" name="contacto_id">
+                        <input type="hidden" class="form-control" id="novoid" name="novoid">
+
                         <div class="form-group">
                             <div class="col-sm-3">
                                 <label for="password1" class="control-label">Mensagem</label>
                             </div>
                             <div class="col-sm-9">
-                                <textarea name="mensagem" id="mensagem" class="form-control" rows="3"></textarea>
+                                <textarea name="mensagem" id="textarea1" class="form-control" rows="3"></textarea>
                             </div>
                         </div>
 
@@ -650,12 +644,43 @@
 //                            $('#form_add_caso')[0].reset();
                             $('.fwd-caso').addClass('disabled');
                             toastr.success("Encaminhado Com Sucesso!");
-                            {{--document.location.href="{{url('contacto')}}";--}}
+                            document.location.href="{{url('contacto')}}";
                         },
                         error:function(){
                             toastr.error("Registo nao efectuado!");
                         }
                     });
                 });
+    </script>
+    <script type="text/javascript">
+        $("#nome").typeahead({
+            source: function (query, process) {
+                var countries = [];
+                map = {};
+                var instituicao=$('#responsavel').val();
+
+                // This is going to make an HTTP post request to the controller
+                return $.get('/autocomplete', { query: query ,instituicao:instituicao}, function (data) {
+
+                    // Loop through and push to the array
+                    $.each(data, function (i, country) {
+                        map[country.nome] = country;
+                        countries.push(country.nome);
+                    });
+
+                    // Process the details
+                    process(countries);
+                });
+            },
+            updater: function (item) {
+                var selectedShortCode = map[item].id;
+                var selectedEmail = map[item].email;
+                $('#novoid').val(selectedShortCode);
+                $('#email').val(selectedEmail);
+                // Set the text to our selected id
+//                $("#details").text("Selected : " + selectedShortCode);
+                return item;
+            }
+        });
     </script>
     @endsection

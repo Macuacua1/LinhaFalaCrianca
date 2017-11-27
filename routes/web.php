@@ -54,6 +54,7 @@ Route::post('/editcaso','CasoController@editcaso');
 //Route::post('/editcaso','ChartCasoController@editcaso');
 Route::post('/registarcontacto','ContactoController@addcontacto');
 Route::post('/addUtente','ContactoController@addUtente');
+Route::post('/addReg-cobranca','ContactoController@addRegCobranca');
 Route::post('/pesquisarcaso','CasoController@pesquisarcaso');
 Route::post('/pesquisacaso','ChartCasoController@pesquisacaso');
 Route::post('/pesquisapro','ChartContactoController@pesquisapro');

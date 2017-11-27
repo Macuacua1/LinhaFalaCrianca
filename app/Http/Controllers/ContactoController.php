@@ -98,7 +98,11 @@ class ContactoController extends Controller
      */
     public function edit($id)
     {
-        //
+//        dd($id);
+        $caso_id=$id;
+        $prov=Provincia::all();//get data from table
+        $roles=Role::all();
+       return view('contacto.reg_cobranca',compact('prov','roles','caso_id'));
     }
 
     /**
@@ -212,6 +216,22 @@ class ContactoController extends Controller
             return back()->with($noterro);
         }
 
+    }
+    public function addRegCobranca(Request $request){
+        $notification = array(
+            'message' => 'Registado com Sucesso!',
+            'alert-type' => 'success'
+        );
+        $noterro = array(
+            'message' => 'Adicione pelo menos um  utente!',
+            'alert-type' => 'error'
+        );
+        $request->request->add(['user_id'=>Auth::user()->id,'tipo_utente'=>'Contactante','motivo_id'=>69]);
+        $contacto=Contacto::create($request->all());
+        $utente=Utente::create($request->all());
+        $contacto->utente()->attach($utente->id);
+        return back()->with($notification);
+//        dd($request->all());
     }
 
 

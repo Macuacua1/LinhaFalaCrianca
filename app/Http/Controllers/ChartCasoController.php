@@ -130,18 +130,19 @@ class ChartCasoController extends Controller
             $output = "";
             $casos=Caso::with(['user','responsavel','motivo']);
             if($inicio !=null and $fim !=null){
-                $casos=$casos->whereBetween('created_at',[$inicio,$fim]);
+                $casos=$casos->whereBetween('created_at',[$inicio,$fim])->orderBy('created_at','desc');
             }
             if($estado !=null){
-                $casos=$casos->where('estado_caso',$estado);
+                $casos=$casos->where('estado_caso',$estado)->orderBy('created_at','desc');
             }
             if($responsavel_id !=null){
-                $casos=$casos->where('responsavel_id',$responsavel_id);
+                $casos=$casos->where('responsavel_id',$responsavel_id)->orderBy('created_at','desc');
             }
             if($user_id !=null){
-                $casos=$casos->where('user_id',$user_id);
+                $casos=$casos->where('user_id',$user_id)->orderBy('created_at','desc');
             }
             $casos=$casos->get();
+//            $casos=$casos->orderBy('created_ad','desc');
 
                  if ($casos){
                 foreach ($casos as $caso){
@@ -165,6 +166,8 @@ class ChartCasoController extends Controller
                         $output.='<td>'.
                             '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info btn-sm" data-id="'.$caso->id.'" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do caso">'.
                             '<i class="fa fa-eye" aria-hidden="true"></i></button></a>'.
+                            '<a href="'.route('contacto.edit',$caso->id).'"><button class="btn btn-primary btn-sm" data-id="'.$caso->id.'" style="margin-left:3px!important" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Registar Contacto">
+                                            <i class="fa fa-phone" aria-hidden="true"></i></button></a>'.
                             '<button class="edit-caso btn btn-success btn-sm" data-id="'.$caso->id.'" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important" disabled>'.
                             '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>'.
                              '<button class="encerrar-caso btn btn-success btn-sm" data-id="'.$caso->id.'" data-title="" style="margin-left:3px!important" data-description="" disabled>'.
@@ -176,6 +179,8 @@ class ChartCasoController extends Controller
                         $output.='<td>'.
                             '<a href="'.route('caso.show',$caso->id).'"><button class="btn btn-info btn-sm" data-id="'.$caso->id.'" style="margin-left:3px!important" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver detalhes do caso">'.
                             '<i class="fa fa-eye" aria-hidden="true"></i></button></a>'.
+                            '<a href="'.route('contacto.edit',$caso->id).'"><button class="btn btn-primary btn-sm" data-id="'.$caso->id.'" style="margin-left:3px!important" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Registar Contacto">
+                                            <i class="fa fa-phone" aria-hidden="true"></i></button></a>'.
                             '<button class="edit-caso btn btn-success btn-sm" data-id="'.$caso->id.'" style="margin-left:3px!important" data-title="'.$caso->responsavel->respnome.'" data-description="'.$caso->responsavel_id.'" style="margin-left:3px!important" data-toggle="modal" data-target="#formModal">'.
                             '<i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>'.
                             '<button class="encerrar-caso btn btn-success btn-sm" data-id="'.$caso->id.'" data-toggle="modal" data-target="#formModall" style="margin-left:3px!important">'.
@@ -235,39 +240,5 @@ class ChartCasoController extends Controller
 
         return view('test', ['chart' => $chart]);
     }
-//    public function editcaso(Request $request){
-//        return $request->all();
-//        if (isset($request->estado_caso)) {
-//            Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso]);
-//        }
-//        if (isset($request->motivo_id)){
-//            Caso::where('id', $request->caso_id)->update(['motivo_id' => $request->motivo_id,'estado_caso'=>'Fechado']);
-//        }
-//        if ($request->responsavel_id) {
-//            Caso::where('id', $request->caso_id)->update(['responsavel_id' => $request->responsavel_id]);
-//        }
-//
-//        if (isset($request->estado_caso)and isset($request->responsavel_id) ) {
-//            Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso, 'responsavel_id' => $request->responsavel_id]);
-//        }
-//        if (isset($request->estado_caso)and isset($request->mensagem) ) {
-//            Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso]);
-//            $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
-//        }
-//
-//        if (isset($request->responsavel_id) and isset($request->mensagem) ) {
-//            Caso::where('id', $request->caso_id)->update(['responsavel_id' => $request->responsavel_id]);
-//            $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
-//        }
-//
-//        if (isset($request->estado_caso) and isset($request->responsavel_id) and isset($request->mensagem) ) {
-//            Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso,'responsavel_id' => $request->responsavel_id]);
-//            $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
-//        }
-//
-//        if (isset($request->mensagem)){
-//            $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
-//        }
-//
-//    }
+
 }

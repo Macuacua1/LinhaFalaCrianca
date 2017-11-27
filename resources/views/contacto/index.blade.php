@@ -40,7 +40,7 @@
                                     <option value="Assistido Temporariamente">Assistido Temporariamente</option>
                                     <option value="Impossivel Proceder">Impossivel Proceder</option>
                                     <option value="Fechado">Fechado</option>
-                                    <option value="">Sem Estado</option>
+                                    <option value="">Seleccionar todos</option>
                                 </select>
                             </div>
                         </div>
@@ -51,6 +51,7 @@
                                     @foreach($resps as $resp)
                                         <option value="{{$resp->id}}">{{$resp->respnome}}</option>
                                     @endforeach
+                                    <option value="">Seleccionar todos</option>
                                 </select>
                             </div>
                         </div>
@@ -61,6 +62,7 @@
                                     @foreach($users as $user)
                                         <option value="{{$user->id}}">{{$user->nome}}</option>
                                     @endforeach
+                                    <option value="">Seleccionar todos</option>
                                 </select>
                             </div>
                         </div>
@@ -73,6 +75,7 @@
                                     @foreach($provs as $pro)
                                         <option value="{{$pro->id}}">{{$pro->provincianome}}</option>
                                     @endforeach
+                                    <option value="">Seleccionar todas</option>
                                 </select>
                             </div>
                         </div>
@@ -138,23 +141,23 @@
                                 <td>{{$contacto->user->nome}}</td>
                                 <td>{{$contacto->created_at->diffForHumans()}}</td>
                                 <td>{{$contacto->motivo->motivonome}}</td>
-                                @if($contacto->caso_id>0)
+                                @if($contacto->caso_id>0) {{--and $contacto->motivo_id !=69 --}}
                                     <td>
                                     @if($contacto->caso->estado_caso =='Fechado')
-                                        <span style="color: #4caf50">{{$contacto->caso->estado_caso}}</span>
-                                    @endif
-                                    @if($contacto->caso->estado_caso =='Impossivel Proceder')
-                                        <span style="color: red">{{$contacto->caso->estado_caso}}</span>
-                                    @endif
-                                    @if($contacto->caso->estado_caso =='Assistido')
-                                        <span style="color: #0aa89e">{{$contacto->caso->estado_caso}}</span>
-                                    @endif
-                                    @if($contacto->caso->estado_caso =='Assistido Temporariamente')
-                                        <span style="color: #0c84e4">{{$contacto->caso->estado_caso}}</span>
-                                    @endif
-                                    @if($contacto->caso->estado_caso =='Em Progresso')
-                                        <span style="color: #0aa298">{{$contacto->caso->estado_caso}}</span>
-                                    @endif
+                                            <span style="color: #3c763d">{{$contacto->caso->estado_caso}}</span>
+                                        @endif
+                                        @if($contacto->caso->estado_caso =='Impossivel Proceder')
+                                            <span style="color: red">{{$contacto->caso->estado_caso}}</span>
+                                        @endif
+                                        @if($contacto->caso->estado_caso =='Assistido')
+                                            <span style="color: #31708f">{{$contacto->caso->estado_caso}}</span>
+                                        @endif
+                                        @if($contacto->caso->estado_caso =='Assistido Temporariamente')
+                                            <span style="color: #8a6d3b">{{$contacto->caso->estado_caso}}</span>
+                                        @endif
+                                        @if($contacto->caso->estado_caso =='Em Progresso')
+                                            <span style="color: #0aa298">{{$contacto->caso->estado_caso}}</span>
+                                        @endif
                                     </td>
                                     {{--<td>{{$contacto->caso->estado_caso}}</td>--}}
                                 @else
@@ -234,14 +237,6 @@
                                 <input type="email" class="form-control" id="email" name="email">
                             </div>
                         </div>
-                        {{--<div class="form-group">--}}
-                            {{--<div class="col-sm-3">--}}
-                                {{--<label for="celular" class="control-label">Celular</label>--}}
-                            {{--</div>--}}
-                            {{--<div class="col-sm-9">--}}
-                                {{--<input type="number" class="form-control" id="celular" name="celular">--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
                         <input type="hidden" class="form-control" id="contacto_id" name="contacto_id">
                         <input type="hidden" class="form-control" id="novoid" name="novoid">
 
@@ -552,7 +547,7 @@
                         $('#form_add_caso')[0].reset();
                         $('.fwd-caso').addClass('disabled');
                         toastr.success("Encaminhado Com Sucesso!");
-                        {{--document.location.href="{{url('contacto')}}";--}}
+                        document.location.href="{{url('contacto')}}";
                     },
                     error:function(){
                         toastr.error("Registo nao efectuado!");
