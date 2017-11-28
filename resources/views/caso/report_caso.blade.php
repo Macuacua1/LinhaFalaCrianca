@@ -49,11 +49,7 @@
                     </div><!--end .card-head -->
                     <div class="card-body tab-content" id="conteudo">
                         <div class="tab-pane active" id="estado">
-                            {{--<center>--}}
-                                {{--{!! $chart_estado->render() !!}--}}
 
-                            {{--</center>--}}
-                            {{--<div id='chart_div'></div>--}}
                             <div class="row">
                                 <div class="col-sm-5 col-sm-5">
                                     <fieldset class="scheduler-border">
@@ -82,9 +78,15 @@
 
                                 </div>
                                 <div class="col-md-7 col-sm-7">
-                                    <center>
-                                        <div id="estadochart" class="chart"></div>
-                                    </center>
+                                    <table class="columns">
+                                        <tr>
+                                            <td><div id="estadochart" style="border: 1px solid #ccc;margin:60px 10px 0 0;height: 310px"></div></td>
+                                            <td style="margin-right: 20px"><div id="estadotab" style="border: 1px solid #ccc;margin: -15px 0 50px 0;width: 100%!important;"></div></td>
+                                        </tr>
+                                    </table>
+                                    {{--<center>--}}
+                                        {{--<div id="estadochart" class="chart"></div>--}}
+                                    {{--</center>--}}
 
                                 </div>
                             </div>
@@ -125,9 +127,15 @@
 
                                     </div>
                                     <div class="col-md-7 col-sm-7">
-                                        <center>
-                                            <div id="instituicaochart" class="chart"></div>
-                                        </center>
+                                        <table class="columns">
+                                            <tr>
+                                                <td><div id="instituicaochart" style="border: 1px solid #ccc;margin:60px 10px 0 0;height: 310px"></div></td>
+                                                <td style="margin-right: 20px"><div id="instituicaotab" style="border: 1px solid #ccc;margin: -15px 0 50px 0;width: 100%!important;"></div></td>
+                                            </tr>
+                                        </table>
+                                        {{--<center>--}}
+                                            {{--<div id="instituicaochart" class="chart"></div>--}}
+                                        {{--</center>--}}
 
                                     </div>
                                 </div>
@@ -168,10 +176,15 @@
 
                                     </div>
                                     <div class="col-md-7 col-sm-7">
-                                        {{--<td><div id="motivochartcaso" style="border: 1px solid #ccc"class="chart"></div></td>--}}
-                                        <center>
-                                            <div id="motivochartcaso" class="chart"></div>
-                                        </center>
+                                        <table class="columns">
+                                            <tr>
+                                                <td><div id="motivochartcaso" style="border: 1px solid #ccc;margin:60px 10px 0 0;height: 310px"></div></td>
+                                                <td style="margin-right: 20px"><div id="motivotab" style="border: 1px solid #ccc;margin: -15px 0 50px 0;width: 100%!important;"></div></td>
+                                            </tr>
+                                        </table>
+                                       {{--<center>--}}
+                                            {{--<div id="motivochartcaso" class="chart"></div>--}}
+                                        {{--</center>--}}
 
                                     </div>
                                 </div>
@@ -231,6 +244,7 @@
         $(document).ready( function () {
 
             google.charts.load('current', {'packages': ['corechart']});
+            google.charts.load('current', {'packages':['table']});
             google.charts.setOnLoadCallback(drawChartee);
             google.charts.setOnLoadCallback(drawChart);
             google.charts.setOnLoadCallback(drawCharte);
@@ -240,7 +254,7 @@
             function drawChartee() {
 
                 var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
+                    ['Estado', 'Total'],
                     @foreach($estados as $estado)
                     ['{{$estado->estado}}', {{$estado->total}}],
                     @endforeach
@@ -251,18 +265,20 @@
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('estadochart'));
+                var table = new google.visualization.Table(document.getElementById('estadotab'));
                 google.visualization.events.addListener(chart,'ready',function () {
                     var exportdata=chart.getImageURI() ;
                     $('#exportestado').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Estado'}).show();
                 });
 
                 chart.draw(data, options);
+                table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
             }
 
             function drawChart() {
 
                 var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
+                    ['Instituicao', 'Total'],
                         @foreach($instituicaos as $instituicao)
                     ['{{$instituicao->responsavel}}', {{$instituicao->total}}],
                     @endforeach
@@ -274,18 +290,20 @@
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('instituicaochart'));
+                var table = new google.visualization.Table(document.getElementById('instituicaotab'))
                 google.visualization.events.addListener(chart,'ready',function () {
                     var exportdata=chart.getImageURI() ;
                     $('#exportinst').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Instituição'}).show();
                 });
 
                 chart.draw(data, options);
+                table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
             }
 
             function drawCharte() {
 
                 var data = google.visualization.arrayToDataTable([
-                    ['Task', 'Hours per Day'],
+                    ['Motivo', 'Total'],
                         @foreach($motivos as $motivo)
                     ['{{$motivo->motivo}}', {{$motivo->total}}],
                     @endforeach
@@ -298,7 +316,7 @@
                     legend: 'none'
                 };
 
-//                var chart = new google.visualization.PieChart(document.getElementById('motivochartcaso'));
+                var table = new google.visualization.Table(document.getElementById('motivotab'))
                 var chart = new google.visualization.BarChart(document.getElementById('motivochartcaso'));
                 google.visualization.events.addListener(chart,'ready',function () {
                     var exportdata=chart.getImageURI() ;
@@ -306,6 +324,7 @@
                 });
 
                 chart.draw(data, options);
+                table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
             }
             $("#startmotivo").on('change',function(){
                 var minDate = $('#startmotivo').datepicker('getDate');
@@ -325,7 +344,7 @@
 
             function pesquisarMotivo(criteria1,criteria2) {
                 var chardatm=[];
-                var titulo=['motivo','total'];
+                var titulo=['Motivo','Total'];
                 chardatm.push(titulo);
                 $.ajax({
                     type: 'post',
@@ -350,7 +369,7 @@
                 var data = google.visualization.arrayToDataTable(dados);   //chardat
 
                 var options = {
-                    width: 600,
+                    width: 400,
                     legend: { position: 'none' },
                     chart: {
                         title: 'Estatísticas por Motivo do Contacto',
@@ -362,15 +381,15 @@
                     },
                     bar: { groupWidth: "70%" }
                 };
+                var table = new google.visualization.Table(document.getElementById('motivotab'))
                 var chart = new google.visualization.BarChart(document.getElementById('motivochartcaso'));
-
-//                var chart = new google.charts.Bar(document.getElementById('top_x_div'));
                 google.visualization.events.addListener(chart,'ready',function () {
-                    var exportdata=chart.getImageURI();
-                    $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Contacto'}).show();
+                    var exportdata=chart.getImageURI() ;
+                    $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Caso'}).show();
                 });
-                // Convert the Classic options to Material options.
+
                 chart.draw(data, options);
+                table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
             }
 
             $("#startestado").on('change',function(){
@@ -391,7 +410,7 @@
 
             function pesquisarEstado(criteria1,criteria2) {
                 var chardate=[];
-                var titulo=['estado','total'];
+                var titulo=['Estado','Total'];
                 chardate.push(titulo);
                 $.ajax({
                     type: 'post',
@@ -420,12 +439,14 @@
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('estadochart'));
+                var table = new google.visualization.Table(document.getElementById('estadotab'));
                 google.visualization.events.addListener(chart,'ready',function () {
                     var exportdata=chart.getImageURI() ;
                     $('#exportestado').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Estado'}).show();
                 });
 
                 chart.draw(data, options);
+                table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
             }
 
             $("#startinst").on('change',function(){
@@ -446,7 +467,7 @@
 
             function pesquisarInst(criteria1,criteria2) {
                 var chardati=[];
-                var titulo=['instituicao','total'];
+                var titulo=['Instituicao','Total'];
                 chardati.push(titulo);
                 $.ajax({
                     type: 'post',
@@ -476,12 +497,14 @@
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('instituicaochart'));
+                var table = new google.visualization.Table(document.getElementById('instituicaotab'))
                 google.visualization.events.addListener(chart,'ready',function () {
                     var exportdata=chart.getImageURI() ;
                     $('#exportinst').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Instituição'}).show();
                 });
 
                 chart.draw(data, options);
+                table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
             }
         });
     </script>

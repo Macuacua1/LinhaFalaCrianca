@@ -75,14 +75,13 @@
                                     <div class="row">
                                         <div class="col-md-2 clo-sm-2"></div>
                                         <div class="col-md-2 clo-sm-4" style="margin-top: -5px;">
-                                            <a href=""><button class="btn btn-success" type="button" style="margin-left: 20px">
-                                                    <span class="glyphicon glyphicon-refresh"></span>
-                                                </button></a>
+                                            {{--<a href=""><button class="btn btn-success" type="button" style="margin-left: 20px">--}}
+                                                    {{--<span class="glyphicon glyphicon-refresh"></span>--}}
+                                                {{--</button></a>--}}
                                         </div>
                                         <div class="col-md-2 clo-sm-6" style="margin-top: -5px;">
                                             <a id="exportprov" href="#" style="display: none;margin-left: 110px" download="FileName"><button class="btn btn-success" type="button">
                                                     <span class="glyphicon glyphicon-download"></span>
-                                                    {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
                                                     Exportar Imagem
                                                 </button></a></div>
                                     </div>
@@ -91,9 +90,15 @@
 
                                 </div>
                                 <div class="col-md-7 col-sm-7">
-                                    <center>
-                                        <div id="provinciachart" class="chart"></div>
-                                    </center>
+                                    <table class="columns">
+                                        <tr>
+                                            <td><div id="provinciachart" style="border: 1px solid #ccc;margin:60px 10px 0 0;height: 310px"></div></td>
+                                            <td style="margin-right: 20px"><div id="provinciatab" style="border: 1px solid #ccc;margin: -15px 0 50px 0;width: 100%!important;"></div></td>
+                                        </tr>
+                                    </table>
+                                    {{--<center>--}}
+                                        {{--<div id="provinciachart" class="chart"></div>--}}
+                                    {{--</center>--}}
 
                                 </div>
                             </div>
@@ -114,11 +119,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        {{--<div class="form-group floating-label">--}}
-                                            {{--<select id="distrito"  class="form-control distritonome" name="distrito_id">--}}
-                                                {{--<option value="0" disabled="true" selected="true">--Distrito--</option>--}}
-                                            {{--</select>--}}
-                                        {{--</div>--}}
+
                                     </div>
                                     <div class="form-group">
                                         <div  class="input-daterange input-group demo-date-range" id="demo-date-range">
@@ -144,17 +145,20 @@
 
                             </div>
                             <div class="col-md-7 col-sm-7">
-                            <center>
-                                <div id="distritochart" class="chart"></div>
-                            </center>
+                                <table class="columns">
+                                    <tr>
+                                        <td><div id="distritochart" style="border: 1px solid #ccc;margin:60px 10px 0 0;height: 310px"></div></td>
+                                        <td style="margin-right: 20px"><div id="distritotab" style="border: 1px solid #ccc;margin: -15px 0 50px 0;width: 100%!important;"></div></td>
+                                    </tr>
+                                </table>
+                            {{--<center>--}}
+                                {{--<div id="distritochart" class="chart"></div>--}}
+                            {{--</center>--}}
                             </div>
 
                         </div>
                             </div>
                         <div class="tab-pane active" id="tipo_contacto">
-                            {{--<center>--}}
-                                {{--<div id="tipochart" class="chart" style="width: 900px; height: 500px;"></div>--}}
-                            {{--</center>--}}
                             <div class="row">
                                 <div class="col-sm-5 col-sm-5">
                                     <fieldset class="scheduler-border">
@@ -177,24 +181,27 @@
                                     </fieldset>
                                     <a id="exporttipo" href="#" style="display: none;margin-left: 300px" download="FileName"><button class="btn btn-success" type="button">
                                             <span class="glyphicon glyphicon-download"></span>
-                                            {{--<span class='glyphicon glyphicon-download-alt'></span>--}}
                                             Exportar Imagem
                                         </button></a>
 
                                 </div>
                                 <div class="col-md-7 col-sm-7">
-                                    <center>
-                                        <div id="tipochart" class="chart"></div>
-                                    </center>
+                                    <table class="columns">
+                                        <tr>
+                                            <td><div id="tipochart" style="border: 1px solid #ccc;margin:60px 10px 0 0;height: 310px"></div></td>
+                                            <td style="margin-right: 20px"><div id="tipotab" style="border: 1px solid #ccc;margin: -15px 0 50px 0;width: 100%!important;"></div></td>
+                                        </tr>
+                                    </table>
+                                    {{--<center>--}}
+                                        {{--<div id="tipochart" class="chart"></div>--}}
+                                    {{--</center>--}}
 
                                 </div>
                             </div>
 
                         </div>
                         <div class="tab-pane active" id="motivo">
-                                                       {{--<center>--}}
-                            {{--<div id="top_x_div" class="chart" style="width: 600px; height: 500px;"></div>--}}
-                            {{--</center>--}}
+
                             <div class="row">
                                 <div class="col-sm-5 col-sm-5">
                                     <fieldset class="scheduler-border">
@@ -223,9 +230,15 @@
 
                                 </div>
                                 <div class="col-md-7 col-sm-7">
-                                    <center>
-                                        <div id="top_x_div" class="chart"></div>
-                                    </center>
+                                    <table class="columns">
+                                        <tr>
+                                            <td><div id="motivochart" style="border: 1px solid #ccc;margin:60px 10px 0 0;height: 310px"></div></td>
+                                            <td style="margin-right: 20px"><div id="motivotab" style="border: 1px solid #ccc;margin: -15px 0 50px 0;width: 100%!important;"></div></td>
+                                        </tr>
+                                    </table>
+                                    {{--<center>--}}
+                                        {{--<div id="top_x_div" class="chart"></div>--}}
+                                    {{--</center>--}}
 
                                 </div>
                             </div>
@@ -266,13 +279,9 @@
                                     <table class="columns">
                                         <tr>
                                             <td><div id="idadechart" style="border: 1px solid #ccc;margin-right: 10px"></div></td>
-                                            <td><div id="idadetab" style="border: 1px solid #ccc"></div></td>
+                                            <td><div id="idadetab" style="border: 1px solid #ccc;margin: -150px 10px 50px 0;width: 100%!important;"></div></td>
                                         </tr>
                                     </table>
-                                    {{--<center>--}}
-                                        {{--<div id="idadechart" class="chart"></div>--}}
-                                    {{--</center>--}}
-
                                 </div>
                             </div>
 
@@ -308,9 +317,15 @@
 
                                 </div>
                                 <div class="col-md-7 col-sm-7">
-                                    <center>
-                                        <div id="generochart" class="chart"></div>
-                                    </center>
+                                    <table class="columns">
+                                        <tr>
+                                            <td><div id="generochart" style="border: 1px solid #ccc;margin:60px 10px 0 0;height: 310px"></div></td>
+                                            <td style="margin-right: 20px"><div id="generotab" style="border: 1px solid #ccc;margin: -15px 0 50px 0;width: 100%!important;"></div></td>
+                                        </tr>
+                                    </table>
+                                    {{--<center>--}}
+                                        {{--<div id="generochart" class="chart"></div>--}}
+                                    {{--</center>--}}
 
                                 </div>
                             </div>
@@ -380,7 +395,7 @@
 
             function drawStuff() {
                 var data = new google.visualization.arrayToDataTable([
-                    ['Motivo', 'total'],
+                    ['Motivo', 'Total'],
                         @foreach($motivos as $motivo)
                     ['{{$motivo->motivo}}', {{$motivo->total}}],
                     @endforeach
@@ -388,7 +403,7 @@
                 ]);
 
                 var options = {
-                    width: 600,
+                    width: 400,
                     legend: { position: 'none' },
                     chart: {
                         title: 'Estatísticas por Motivo do Contacto',
@@ -400,23 +415,24 @@
                     },
                     bar: { groupWidth: "70%" }
                 };
-                var chart = new google.visualization.BarChart(document.getElementById('top_x_div'));
+                var chart = new google.visualization.BarChart(document.getElementById('motivochart'));
+                var table = new google.visualization.Table(document.getElementById('motivotab'));
 
 //                var chart = new google.charts.Bar(document.getElementById('top_x_div'));
                 google.visualization.events.addListener(chart,'ready',function () {
                     var exportdata=chart.getImageURI();
                     $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Contacto'}).show();
                 });
-                // Convert the Classic options to Material options.
                 chart.draw(data, options);
-//                chart.draw(data, google.charts.Bar.convertOptions(options));
+                table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
+
             }
 
             function drawCharti() {
 
                 var data = google.visualization.arrayToDataTable(
                         [
-                    ['Provincia', 'total'],
+                    ['Provincia', 'Total'],
                     @foreach($provincias as $provincia)
                     ['{{$provincia->provincia}}', {{$provincia->total}}],
                     @endforeach
@@ -426,7 +442,7 @@
                 var options = {
                     title: 'Número de Vítimas Por Província'
                 };
-
+                var table = new google.visualization.Table(document.getElementById('provinciatab'));
                 var chart = new google.visualization.PieChart(document.getElementById('provinciachart'));
                 google.visualization.events.addListener(chart,'ready',function () {
                    var exportdata=chart.getImageURI() ;
@@ -434,13 +450,14 @@
                 });
 
                 chart.draw(data, options);
+                table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
             }
 
 
                 function drawChart() {
 
                     var data = google.visualization.arrayToDataTable([
-                        ['Tipo', 'total'],
+                        ['Tipo', 'Total'],
                             @foreach($tipos as $tipo)
                         ['{{$tipo->tipo_contacto}}', {{$tipo->total}}],
                         @endforeach
@@ -451,6 +468,7 @@
                         is3D: true
                     };
 
+                    var table = new google.visualization.Table(document.getElementById('tipotab'));
                     var chart = new google.visualization.PieChart(document.getElementById('tipochart'));
                     google.visualization.events.addListener(chart,'ready',function () {
                         var exportdata=chart.getImageURI() ;
@@ -458,6 +476,7 @@
                     });
 
                     chart.draw(data, options);
+                    table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
                 }
 
                 function drawCharte() {
@@ -484,12 +503,12 @@
                         $('#exportidade').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Idade das Vítimas'}).show();
                     });
                     chart.draw(data, options);
-                    table.draw(data, {showRowNumber: false, width: '300px', height: '300px'});
+                    table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
                 }
             function drawStu() {
 
                 var data = google.visualization.arrayToDataTable([
-                    ['Genero', 'total'],
+                    ['Genero', 'Total'],
                         @foreach($generos as $genero)
                     ['{{$genero->genero}}', {{$genero->total}}],
                     @endforeach
@@ -498,7 +517,7 @@
                 var options = {
                     title: 'Número de Vítimas Por Genero'
                 };
-
+                var table = new google.visualization.Table(document.getElementById('generotab'));
                 var chart = new google.visualization.PieChart(document.getElementById('generochart'));
                 google.visualization.events.addListener(chart,'ready',function () {
                     var exportdata=chart.getImageURI() ;
@@ -506,6 +525,7 @@
                 });
 
                 chart.draw(data, options);
+                table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
             }
             });
 
@@ -536,7 +556,7 @@
 
         function pesquisaDist(prov_id,criteria1,criteria2) {
             var chardatd=[];
-            var titulo=['distrito','total'];
+            var titulo=['Distrito','Total'];
             chardatd.push(titulo);
 
             $.ajax({
@@ -564,12 +584,14 @@
             var options = {
                 title: 'Número de Vítimas Por Distrito'
             };
+            var table = new google.visualization.Table(document.getElementById('distritotab'));
             var chart = new google.visualization.PieChart(document.getElementById('distritochart'));
             google.visualization.events.addListener(chart,'ready',function () {
                 var exportdata=chart.getImageURI() ;
                 $('#exportdist').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Distrito'}).show();
             });
             chart.draw(data, options);
+            table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
 
         }
         $("#startgenero").on('change',function(){
@@ -589,7 +611,7 @@
         });
         function pesquisarGenero(criteria1,criteria2) {
             var chardatg=[];
-            var titulo=['genero','total'];
+            var titulo=['Genero','Total'];
             chardatg.push(titulo);
             $.ajax({
                 type: 'post',
@@ -617,6 +639,7 @@
                 title: 'Número de Vítimas Por Genero'
             };
 
+            var table = new google.visualization.Table(document.getElementById('generotab'));
             var chart = new google.visualization.PieChart(document.getElementById('generochart'));
             google.visualization.events.addListener(chart,'ready',function () {
                 var exportdata=chart.getImageURI() ;
@@ -624,6 +647,7 @@
             });
 
             chart.draw(data, options);
+            table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
         }
         $("#startidade").on('change',function(){
             var minDate = $('#startidade').datepicker('getDate');
@@ -643,7 +667,7 @@
 
         function pesquisarIdade(criteria1,criteria2) {
             var chardati=[];
-            var titulo=['idade','total'];
+            var titulo=['Idade','Total'];
             chardati.push(titulo);
             $.ajax({
                 type: 'post',
@@ -681,7 +705,7 @@
                 $('#exportidade').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Idade das Vítimas'}).show();
             });
             chart.draw(data, options);
-            table.draw(data, {showRowNumber: false, width: '300px', height: '300px'});
+            table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
         }
 
 
@@ -702,7 +726,7 @@
         });
         function pesquisarTipo(criteria1,criteria2) {
             var chardatt=[];
-            var titulo=['tipo','total'];
+            var titulo=['Tipo','Total'];
             chardatt.push(titulo);
             $.ajax({
                 type: 'post',
@@ -730,7 +754,7 @@
                 title: 'Estatísticas pelo Tipo de Contacto',
                 is3D: true
             };
-
+            var table = new google.visualization.Table(document.getElementById('tipotab'));
             var chart = new google.visualization.PieChart(document.getElementById('tipochart'));
             google.visualization.events.addListener(chart,'ready',function () {
                 var exportdata=chart.getImageURI() ;
@@ -738,6 +762,7 @@
             });
 
             chart.draw(data, options);
+            table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
         }
         $("#startpro").on('change',function(){
             var minDate = $('#startpro').datepicker('getDate');
@@ -757,7 +782,7 @@
 
         function pesquisarPro(criteria1,criteria2) {
             var chardatp=[];
-            var titulo=['provincia','total'];
+            var titulo=['Provincia','Total'];
             chardatp.push(titulo);
             $.ajax({
                 type: 'post',
@@ -785,6 +810,7 @@
                 title: 'Número de Vítimas Por Província'
             };
 
+            var table = new google.visualization.Table(document.getElementById('provinciatab'));
             var chart = new google.visualization.PieChart(document.getElementById('provinciachart'));
             google.visualization.events.addListener(chart,'ready',function () {
                 var exportdata=chart.getImageURI() ;
@@ -792,6 +818,7 @@
             });
 
             chart.draw(data, options);
+            table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
         }
         $("#startmotivo").on('change',function(){
             var minDate = $('#startmotivo').datepicker('getDate');
@@ -811,7 +838,7 @@
 
         function pesquisarMotivo(criteria1,criteria2) {
             var chardatm=[];
-            var titulo=['motivo','total'];
+            var titulo=['Motivo','Total'];
             chardatm.push(titulo);
             $.ajax({
                 type: 'post',
@@ -836,7 +863,7 @@
             var data = google.visualization.arrayToDataTable(dados);   //chardat
 
             var options = {
-                width: 600,
+                width: 400,
                 legend: { position: 'none' },
                 chart: {
                     title: 'Estatísticas por Motivo do Contacto',
@@ -848,247 +875,20 @@
                 },
                 bar: { groupWidth: "70%" }
             };
-            var chart = new google.visualization.BarChart(document.getElementById('top_x_div'));
+            var chart = new google.visualization.BarChart(document.getElementById('motivochart'));
+            var table = new google.visualization.Table(document.getElementById('motivotab'));
 
 //                var chart = new google.charts.Bar(document.getElementById('top_x_div'));
             google.visualization.events.addListener(chart,'ready',function () {
                 var exportdata=chart.getImageURI();
                 $('#exportmotivo').attr({'href':exportdata,'download':'Relatorio por Motivo do Contacto'}).show();
             });
-            // Convert the Classic options to Material options.
             chart.draw(data, options);
+            table.draw(data, {showRowNumber: false, width: '300px', height: '100%'});
+
         }
 
 
-
     </script>
-  {{--<script type="text/javascript">--}}
-      {{--$("#startpro").on('change',function(){--}}
-          {{--var minDate = $('#startpro').datepicker('getDate');--}}
-          {{--$("#endpro").datepicker("change", { minDate: minDate });--}}
-          {{--var inicio=$('#startpro').val();--}}
-          {{--var fim= $('#endpro').val();--}}
-          {{--pesquisarPro(inicio,fim);--}}
-      {{--});--}}
 
-      {{--$("#endpro").on('change',function () {--}}
-          {{--var maxDate = $('#endpro').datepicker('getDate');--}}
-          {{--var inicio=$('#startpro').val();--}}
-          {{--var fim= $('#endpro').val();--}}
-{{--//          alert(fim);--}}
-          {{--pesquisarPro(inicio,fim);--}}
-      {{--});--}}
-
-      {{--function pesquisarPro(criteria1,criteria2) {--}}
-          {{--var chardat=[];--}}
-          {{--var titulo=['provincia','total'];--}}
-          {{--chardat.push(titulo);--}}
-          {{--$.ajax({--}}
-              {{--type: 'post',--}}
-              {{--url: '/pesquisapro',--}}
-              {{--data: {inicio:criteria1,fim:criteria2},--}}
-              {{--dataType: 'json',--}}
-              {{--success: function(data) {--}}
-                  {{--data.forEach(function (dados) {--}}
-                      {{--chardat.push([dados.provincia,parseInt(dados.total)]);--}}
-                  {{--});--}}
-
-                  {{--drawProvincia(chardat);--}}
-{{--//                  console.log(data);--}}
-              {{--},error:function () {--}}
-                  {{--alert('Erro, plese try again')--}}
-              {{--}--}}
-          {{--});--}}
-
-      {{--}--}}
-      {{--function drawProvincia(dados) {--}}
-
-          {{--var data = google.visualization.arrayToDataTable(dados);   //chardat--}}
-
-          {{--var options = {--}}
-              {{--title: 'Número de Vítimas Por Província'--}}
-          {{--};--}}
-
-          {{--var chart = new google.visualization.PieChart(document.getElementById('provinciachart'));--}}
-          {{--google.visualization.events.addListener(chart,'ready',function () {--}}
-              {{--var exportdata=chart.getImageURI() ;--}}
-              {{--$('#exportprov').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Província'}).show();--}}
-          {{--});--}}
-
-          {{--chart.draw(data, options);--}}
-      {{--}--}}
-  {{--</script>--}}
-    {{--<script type="text/javascript">--}}
-        {{--$("#starttipo").on('change',function(){--}}
-            {{--var minDate = $('#starttipo').datepicker('getDate');--}}
-            {{--$("#endtipo").datepicker("change", { minDate: minDate });--}}
-            {{--var inicio=$('#starttipo').val();--}}
-            {{--var fim= $('#endtipo').val();--}}
-          {{--pesquisarTipo(inicio,fim);--}}
-        {{--});--}}
-
-        {{--$("#endtipo").on('change',function () {--}}
-            {{--var maxDate = $('#endtipo').datepicker('getDate');--}}
-            {{--var inicio=$('#starttipo').val();--}}
-            {{--var fim= $('#endtipo').val();--}}
-{{--//          alert(fim);--}}
-          {{--pesquisarTipo(inicio,fim);--}}
-        {{--});--}}
-        {{--function pesquisarTipo(criteria1,criteria2) {--}}
-            {{--var chardat=[];--}}
-            {{--var titulo=['tipo','total'];--}}
-            {{--chardat.push(titulo);--}}
-            {{--$.ajax({--}}
-                {{--type: 'post',--}}
-                {{--url: '/pesquisatipo',--}}
-                {{--data: {inicio:criteria1,fim:criteria2},--}}
-                {{--dataType: 'json',--}}
-                {{--success: function(data) {--}}
-                    {{--data.forEach(function (dados) {--}}
-                        {{--chardat.push([dados.tipo_contacto,parseInt(dados.total)]);--}}
-                    {{--});--}}
-
-                    {{--drawTipo(chardat);--}}
-{{--//                  console.log(data);--}}
-                {{--},error:function () {--}}
-                    {{--alert('Erro, plese try again')--}}
-                {{--}--}}
-            {{--});--}}
-
-        {{--}--}}
-        {{--function drawTipo(dados) {--}}
-
-            {{--var data = google.visualization.arrayToDataTable(dados);   //chardat--}}
-
-            {{--var options = {--}}
-                {{--title: 'Estatísticas pelo Tipo de Contacto',--}}
-                {{--is3D: true--}}
-            {{--};--}}
-
-            {{--var chart = new google.visualization.PieChart(document.getElementById('tipochart'));--}}
-            {{--google.visualization.events.addListener(chart,'ready',function () {--}}
-                {{--var exportdata=chart.getImageURI() ;--}}
-                {{--$('#exporttipo').attr({'href':exportdata,'download':'Relatorio de Estatísticas pelo Tipo de Contacto'}).show();--}}
-            {{--});--}}
-
-            {{--chart.draw(data, options);--}}
-        {{--}--}}
-    {{--</script>--}}
-
-    {{--<script type="text/javascript">--}}
-        {{--$("#startidade").on('change',function(){--}}
-            {{--var minDate = $('#startidade').datepicker('getDate');--}}
-            {{--$("#endidade").datepicker("change", { minDate: minDate });--}}
-            {{--var inicio=$('#startidade').val();--}}
-            {{--var fim= $('#endidade').val();--}}
-            {{--pesquisarIdade(inicio,fim);--}}
-        {{--});--}}
-
-        {{--$("#endidade").on('change',function () {--}}
-            {{--var maxDate = $('#endidade').datepicker('getDate');--}}
-            {{--var inicio=$('#startidade').val();--}}
-            {{--var fim= $('#endidade').val();--}}
-{{--//          alert(fim);--}}
-            {{--pesquisarIdade(inicio,fim);--}}
-        {{--});--}}
-
-        {{--function pesquisarIdade(criteria1,criteria2) {--}}
-            {{--var chardat=[];--}}
-            {{--var titulo=['idade','total'];--}}
-            {{--chardat.push(titulo);--}}
-            {{--$.ajax({--}}
-                {{--type: 'post',--}}
-                {{--url: '/pesquisaidade',--}}
-                {{--data: {inicio:criteria1,fim:criteria2},--}}
-                {{--dataType: 'json',--}}
-                {{--success: function(data) {--}}
-                    {{--data.forEach(function (dados) {--}}
-                        {{--chardat.push([dados.idade,parseInt(dados.total)]);--}}
-                    {{--});--}}
-
-                    {{--drawIdade(chardat);--}}
-{{--//                  console.log(data);--}}
-                {{--},error:function () {--}}
-                    {{--alert('Erro, plese try again')--}}
-                {{--}--}}
-            {{--});--}}
-
-        {{--}--}}
-        {{--function drawIdade(dados) {--}}
-
-            {{--var data = google.visualization.arrayToDataTable(dados);   //chardat--}}
-
-            {{--var options = {--}}
-                {{--title: 'Estatísticas por Idade das Vítimas ',--}}
-                {{--width:400,--}}
-                {{--height:300,--}}
-                {{--legend: 'none'--}}
-            {{--};--}}
-            {{--var table = new google.visualization.Table(document.getElementById('idadetab'));--}}
-
-            {{--var chart = new google.visualization.BarChart(document.getElementById('idadechart'));--}}
-            {{--google.visualization.events.addListener(chart,'ready',function () {--}}
-                {{--var exportdata=chart.getImageURI() ;--}}
-                {{--$('#exportidade').attr({'href':exportdata,'download':'Relatorio de Estatísticas por Idade das Vítimas'}).show();--}}
-            {{--});--}}
-            {{--chart.draw(data, options);--}}
-            {{--table.draw(data, {showRowNumber: false, width: '300px', height: '300px'});--}}
-        {{--}--}}
-    {{--</script>--}}
-
-    {{--<script type="text/javascript">--}}
-        {{--$("#startgenero").on('change',function(){--}}
-            {{--var minDate = $('#startgenero').datepicker('getDate');--}}
-            {{--$("#endgenero").datepicker("change", { minDate: minDate });--}}
-            {{--var inicio=$('#startgenero').val();--}}
-            {{--var fim= $('#endgenero').val();--}}
-            {{--pesquisarGenero(inicio,fim);--}}
-        {{--});--}}
-
-        {{--$("#endgenero").on('change',function () {--}}
-            {{--var maxDate = $('#endgenero').datepicker('getDate');--}}
-            {{--var inicio=$('#startgenero').val();--}}
-            {{--var fim= $('#endgenero').val();--}}
-{{--//          alert(fim);--}}
-            {{--pesquisarGenero(inicio,fim);--}}
-        {{--});--}}
-        {{--function pesquisarGenero(criteria1,criteria2) {--}}
-            {{--var chardat=[];--}}
-            {{--var titulo=['genero','total'];--}}
-            {{--chardat.push(titulo);--}}
-            {{--$.ajax({--}}
-                {{--type: 'post',--}}
-                {{--url: '/pesquisagenero',--}}
-                {{--data: {inicio:criteria1,fim:criteria2},--}}
-                {{--dataType: 'json',--}}
-                {{--success: function(data) {--}}
-                    {{--data.forEach(function (dados) {--}}
-                        {{--chardat.push([dados.genero,parseInt(dados.total)]);--}}
-                    {{--});--}}
-
-                    {{--drawGenero(chardat);--}}
-{{--//                  console.log(data);--}}
-                {{--},error:function () {--}}
-                    {{--alert('Erro, plese try again')--}}
-                {{--}--}}
-            {{--});--}}
-
-        {{--}--}}
-        {{--function drawGenero(dados) {--}}
-
-            {{--var data = google.visualization.arrayToDataTable(dados);   //chardat--}}
-
-            {{--var options = {--}}
-                {{--title: 'Número de Vítimas Por Genero'--}}
-            {{--};--}}
-
-            {{--var chart = new google.visualization.PieChart(document.getElementById('generochart'));--}}
-            {{--google.visualization.events.addListener(chart,'ready',function () {--}}
-                {{--var exportdata=chart.getImageURI() ;--}}
-                {{--$('#exportgenero').attr({'href':exportdata,'download':'Relatorio do Número de Vítimas Por Genero'}).show();--}}
-            {{--});--}}
-
-            {{--chart.draw(data, options);--}}
-        {{--}--}}
-    {{--</script>--}}
 @stop

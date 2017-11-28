@@ -42,15 +42,16 @@ class SendCaso extends Mailable
             $inst=Instituicao::create($request->all());
             $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso','responsavel_id'=>$request->responsavel_id,'instituicao_id'=>$inst->id]);
         }
-        if (isset($request->contacto_id) and isset($request->mensagem)){
+        if (isset($request->contacto_id)){
             $caso= Caso::create(request()->all());
+            Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
+        }
+        if (isset($request->mensagem)){
+//            $caso= Caso::create(request()->all());
             $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
            Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
         }
-        if (isset($request->contacto_id)){
-            $caso= Caso::create(request()->all());
-             Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
-        }
+
         if ($request->email and $request->nome){
             $destino=$request->email;
             $contacto= Contacto::find($request->contacto_id);

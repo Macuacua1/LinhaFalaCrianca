@@ -241,7 +241,7 @@ class ChartCasoController extends Controller
         return view('test', ['chart' => $chart]);
     }
     public function testar(Request $request){
-        $contacto=Contacto::with(['utente','motivo','caso'])->find(5);
+        $contacto=Contacto::with(['utente','motivo','caso'])->find(3);
         return view('report',compact('contacto'));
 //        dd($contacto);
     }

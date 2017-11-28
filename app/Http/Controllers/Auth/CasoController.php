@@ -146,7 +146,7 @@ return view('caso.reg_caso',compact('resps'));
         if (isset($request->estado_caso)and isset($request->responsavel_id) ) {
             Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso, 'responsavel_id' => $request->responsavel_id]);
         }
-        if (isset($request->estado_caso)and isset($request->mensagem) ) {
+        if (isset($request->estado_caso) and isset($request->mensagem) ) {
             Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso]);
             $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
         }
@@ -160,7 +160,7 @@ return view('caso.reg_caso',compact('resps'));
             Caso::where('id', $request->caso_id)->update(['estado_caso' => $request->estado_caso,'responsavel_id' => $request->responsavel_id]);
             $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
         }
-          $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
+//          $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
             if (isset($request->mensagem)){
             $mensagem=Mensagem::create(['caso_id'=>$request->caso_id,'mensagem'=>$request->mensagem]);
         }
