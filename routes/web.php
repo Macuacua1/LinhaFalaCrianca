@@ -84,6 +84,10 @@ Route::post('/pesquisainstituicao','ChartCasoController@pesquisainstituicao');
 Route::get('/reportacaso','ChartCasoController@reportcaso');
 Route::get('/autocomplete','ChartCasoController@autocomplete');
 
+
+
+Route::get('/testar','ChartCasoController@testar');
+
 Route::get('/sendSMS', function () {
 //    Nexmo::message()->send([
 //        'to'   => '14845551244',

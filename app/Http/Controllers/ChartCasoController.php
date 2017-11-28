@@ -200,21 +200,21 @@ class ChartCasoController extends Controller
     }
     public  function addcaso(Request $request){
 //        return $request->all();
-        if (isset($request->novoid)){
-            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso','instituicao_id'=>$request->novoid]);
-        }else{
-            $inst=Instituicao::create($request->all());
-            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso','instituicao_id'=>$inst->id]);
-        }
-        if (isset($request->contacto_id) and isset($request->mensagem)){
-            $caso= Caso::create(request()->all());
-            $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
-            Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
-        }
-        if (isset($request->contacto_id)){
-            $caso= Caso::create(request()->all());
-            Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
-        }
+//        if (isset($request->novoid)){
+//            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso','instituicao_id'=>$request->novoid]);
+//        }else{
+//            $inst=Instituicao::create($request->all());
+//            $request->request->add(['user_id'=>Auth::user()->id,'estado_caso'=>'Em Progresso','instituicao_id'=>$inst->id]);
+//        }
+//        if (isset($request->contacto_id) and isset($request->mensagem)){
+//            $caso= Caso::create(request()->all());
+//            $mensagem=Mensagem::create(['caso_id'=>$caso->id,'mensagem'=>$request->mensagem]);
+//            Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
+//        }
+//        if (isset($request->contacto_id)){
+//            $caso= Caso::create(request()->all());
+//            Contacto::where('id',$request->contacto_id)->update(['caso_id'=>$caso->id]);
+//        }
         if ($request->email){
             Mail::send(new SendCaso());
         }
@@ -239,6 +239,11 @@ class ChartCasoController extends Controller
             ->labels(['One', 'Two', 'Three']);
 
         return view('test', ['chart' => $chart]);
+    }
+    public function testar(Request $request){
+        $contacto=Contacto::with(['utente','motivo','caso'])->find(5);
+        return view('report',compact('contacto'));
+//        dd($contacto);
     }
 
 }
