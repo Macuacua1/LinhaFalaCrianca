@@ -323,16 +323,16 @@
 
                     <!-- BEGIN UI -->
                     <li class="gui-folder">
-                        <a>
+                        <a href="{{url('contacto')}}">
                             <div class="gui-icon"><i class="fa fa-phone"></i></div>
                             <span class="title">Contacto</span>
                         </a>
                         <!--start submenu -->
-                        <ul>
-                            <li><a href="{{route('contacto.create')}}" ><span class="title">Registar</span></a></li>
+                        {{--<ul>--}}
+                            {{--<li><a href="{{route('contacto.create')}}" ><span class="title">Registar</span></a></li>--}}
 
-                            <li><a  href="{{url('contacto')}}"  ><span class="title">Listar</span></a></li>
-                        </ul><!--end /submenu -->
+                            {{--<li><a  href="{{url('contacto')}}"  ><span class="title">Listar</span></a></li>--}}
+                        {{--</ul><!--end /submenu -->--}}
                     </li><!--end /menu-li -->
                     <!-- END UI -->
                     <li class="gui-folder">

@@ -4,6 +4,7 @@ namespace App\Mail;
 
 use App\Caso;
 use App\Contacto;
+use App\Instituicao;
 use App\Mensagem;
 use App\User;
 use Illuminate\Support\Facades\Auth;
