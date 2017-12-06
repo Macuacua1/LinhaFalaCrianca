@@ -178,11 +178,11 @@
                     </a>
                     <ul class="dropdown-menu animation-dock">
                         <li class="dropdown-header">Config</li>
-                        <li><a href="{{url('/getPerfil')}}">Meu Perfil</a></li>
+                        <li><a href="{{url('/getPerfil')}}"><i class="fa fa-fw fa-user text-primary"></i> Meu Perfil</a></li>
                         {{--<li><a href=""><span class="badge style-danger pull-right">16</span>My blog</a></li>--}}
                         {{--<li><a href="">My appointments</a></li>--}}
                         <li class="divider"></li>
-                        <li><a href=""><i class="fa fa-fw fa-lock"></i> Lock</a></li>
+                        {{--<li><a href=""><i class="fa fa-fw fa-lock"></i> Lock</a></li>--}}
                         <li><a href="{{route('logout')}}"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
                     </ul><!--end .dropdown-menu -->
                 </li><!--end .dropdown -->
@@ -265,12 +265,12 @@
                     </a>
                 </li><!--end /menu-li -->
                 <!-- END EMAIL -->
-                    <li class="gui-folder">
-                        <a href="{{url('instituicao')}}">
-                            <div class="gui-icon"><i class="fa fa-university"></i></div>{{--<i class="md md-email"></i>--}}
-                            <span class="title">Instituicao</span>
-                        </a>
-                    </li><!--end /menu-li -
+                    {{--<li class="gui-folder">--}}
+                        {{--<a href="{{url('instituicao')}}">--}}
+                            {{--<div class="gui-icon"><i class="fa fa-university"></i></div>--}}{{--<i class="md md-email"></i>--}}
+                            {{--<span class="title">Instituicao</span>--}}
+                        {{--</a>--}}
+                    {{--</li><!--end /menu-li ---}}
 
                 <!-- BEGIN UI -->
                 <li class="gui-folder">

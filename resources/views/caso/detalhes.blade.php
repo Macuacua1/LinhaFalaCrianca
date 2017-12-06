@@ -55,7 +55,7 @@
                                                 <a href="details.html">
                                                     <i class="fa fa-phone" aria-hidden="true"></i> Contacto<br/>
                                                     <span class="opacity-50">
-											<i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;567-890-1234
+											<i class="fa fa-calendar" aria-hidden="true"></i> &nbsp;25-11-2017
 										</span>
                                                 </a>
                                             </li>
