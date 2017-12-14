@@ -92,16 +92,16 @@ class HomeController extends Controller
             ->groupBy('provincia');
 //        dd($provincias);
 
-//        $chart = Charts::multi('bar', 'highcharts')->labels(['Contactos por Motivo']);
-//        foreach(Contacto::with('motivos')->distinct()->pluck('motivo_id') as $motivo) {
-//            foreach (Motivo::where('id', $motivo)->pluck('motivonome') as $motivonome) {
-////            dd($motivonome);
-//                $data1 = Contacto::where('motivo_id', $motivo)->groupBy('motivo_id')->selectRaw('count(motivo_id) as Total')->first()->toArray();
-//                $data2 = array_values($data1);
-//                $data3 = array_map(create_function('$value', 'return (int)$value;'), $data2);
-//                $chart->dataset($motivonome, $data3);
-//            }
-//        }
+        $chart = Charts::multi('bar', 'highcharts')->labels(['Contactos por Motivo']);
+        foreach(Contacto::with('motivos')->distinct()->pluck('motivo_id') as $motivo) {
+            foreach (Motivo::where('id', $motivo)->pluck('motivonome') as $motivonome) {
+//            dd($motivonome);
+                $data1 = Contacto::where('motivo_id', $motivo)->groupBy('motivo_id')->selectRaw('count(motivo_id) as Total')->first()->toArray();
+                $data2 = array_values($data1);
+                $data3 = array_map(create_function('$value', 'return (int)$value;'), $data2);
+                $chart->dataset($motivonome, $data3);
+            }
+        }
 
         $caso= Charts::database(Caso::all(),'donut', 'highcharts')
             ->title('Casos por Estado')

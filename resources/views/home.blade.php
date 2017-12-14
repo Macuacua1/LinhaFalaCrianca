@@ -102,7 +102,7 @@
 
                                 <center>
                                     {{--@if($contacts>0)--}}
-                                    {{--{!! $chart->render() !!}--}}
+                                    {!! $chart->render() !!}
                                      {{--@endif--}}
                                 </center>
 
