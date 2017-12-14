@@ -20,7 +20,7 @@ class HomeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
     public function index(){
 
@@ -43,9 +43,6 @@ class HomeController extends Controller
         }
        $caso= Charts::database(Caso::all(),'donut', 'highcharts')
             ->title('Casos por Estado')
-//            ->labels(['First', 'Second', 'Third'])
-//            ->values([5,10,20])
-//            ->dimensions(1000,500)
             ->responsive(false)
            ->groupBy('estado_caso');
         $datas=DB::table('contactos')
@@ -114,7 +111,7 @@ class HomeController extends Controller
             ->join('motivos', 'contactos.motivo_id', '=', 'motivos.id')
             ->select('contactos.*','motivos.motivonome as motivo')
             ->get();
-//dd($datas);
+
         $contacto= Charts::database($datas,'line', 'highcharts')
             ->title('Contactos por Motivo')
             ->labels(['Contactos por Motivo'])
