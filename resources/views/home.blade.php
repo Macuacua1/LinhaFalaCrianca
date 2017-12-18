@@ -9,7 +9,7 @@
                             <div class="card">
                                 <div class="card-body no-padding">
                                     <div class="alert alert-callout alert-info no-margin">
-                                        <strong class="pull-right text-success text-lg">0,38% <i class="md md-trending-up"></i></strong>
+                                        {{--<strong class="pull-right text-success text-lg"> <i class="md md-trending-up"></i></strong>--}}
                                         <strong class="text-xl">{{$total_contactos}}</strong><br/>
                                         <span class="opacity-50 text-success">Contactos Registados</span>
                                         <div class="stick-bottom-left-right">
@@ -28,7 +28,7 @@
                             <div class="card">
                                 <div class="card-body no-padding">
                                     <div class="alert alert-callout alert-danger no-margin">
-                                        <strong class="pull-right text-danger text-lg">0,18% <i class="md md-trending-down"></i></strong>
+                                        {{--<strong class="pull-right text-danger text-lg"><i class="md md-trending-down"></i></strong>--}}
                                         <strong class="text-xl">{{$total_vitimas}}</strong><br/>
                                         <span class="opacity-50 text-danger"  >Total de Vitimas</span>
                                         <div class="stick-bottom-left-right">
@@ -46,7 +46,7 @@
                             <div class="card">
                                 <div class="card-body no-padding">
                                     <div class="alert alert-callout alert-warning no-margin">
-                                        <strong class="pull-right text-warning text-lg">0,01% <i class="md md-swap-vert"></i></strong>
+                                        {{--<strong class="pull-right text-warning text-lg">0,01% <i class="md md-swap-vert"></i></strong>--}}
                                         <strong class="text-xl">{{$total_casos}}</strong><br/>
                                         <span class="opacity-50 text-warning">Casos Registados</span>
                                         <div class="stick-bottom-right">

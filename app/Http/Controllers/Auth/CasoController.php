@@ -59,10 +59,15 @@ return view('caso.reg_caso',compact('resps'));
      */
     public function show($id)
     {
-//        $casos=Caso::find($id);
+        $contacto_princ=Contacto::where('caso_id',$id)->first();
+        $caso=Caso::find($id);
         $msgs=Mensagem::where('caso_id',$id)->get();
-//        dd($msgs);
-        return view('caso.detalhes',compact('msgs'));
+        $contactos_cobranca=Contacto::where('caso_id',$id)
+            ->where('id','<>',$contacto_princ->id)->get();
+        $tipomotivos=Tipo_Motivo::all();
+        $resps=Responsavel::all();
+//        dd($contacto);
+        return view('caso.detalhes',compact('msgs','contacto_princ','contactos_cobranca','caso','tipomotivos','resps'));
     }
 
     /**

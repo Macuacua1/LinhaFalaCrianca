@@ -99,7 +99,7 @@
                                 <td>{{date('d-M-Y',strtotime($caso->created_at))}}</td>
                                 <td>{{date('d-M-Y',strtotime($caso->updated_at))}}</td>
                                 <td>{{$caso->created_at->diffForHumans()}}</td>
-                                <td>{{$caso->responsavel->respnome}}</td>
+                                <td>{{$caso->instituicao->nome}}</td>
                                 <td>
                                     @if($caso->estado_caso =='Fechado')
                                     <span style="color: #3c763d">{{$caso->estado_caso}}</span>

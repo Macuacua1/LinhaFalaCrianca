@@ -158,9 +158,22 @@
                                         <div class="col-md-4 col-sm-4">
                                         </div>
                                         <div class="col-md-4 col-sm-4">
-                                            <button class="btn btn-success" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin:0 0 10px 100px">
-                                                <span class="glyphicon glyphicon-refresh"></span> Actualizar
+                                            <button class="btn btn-success" type="submit" id="edit_contacto" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados" style="margin-left: 10px">
+                                                <span class="glyphicon glyphicon-refresh"></span>
                                             </button>
+                                            @if($contactos->caso_id>0 or $contactos->motivo_id>60)
+                                                <button class=" btn btn-success" data-id="{{$contactos->id}}" data-title="" data-description="" disabled id="fwd-caso" style="margin-left: 10px">
+                                                    <span class="glyphicon glyphicon-forward"></span>
+                                                </button>
+                                            @else
+                                                <button class="btn btn-success" data-id="{{$contactos->id}}" data-toggle="modal" data-target="#formModal" id="fwd-caso" style="margin-left: 10px">
+                                                    <span class="glyphicon glyphicon-forward"></span>
+                                                </button>
+                                            @endif
+                                            @if($contactos->caso_id>0)
+                                            <a class="btn btn-primary" href="{{route('caso.show',$contactos->caso_id )}}" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver Caso" style="margin-left: 10px">
+                                                <i class="fa fa-legal"></i></a>
+                                                @endif
                                         </div>
                                     </div>
 
@@ -182,14 +195,14 @@
                                                         </div>
                                                     </div>
                                                     @if($contactos->caso_id>0)
-                                                    <div class="col-md-12 col-sm-12">
-                                                        <div class="form-group floating-label">
+                                                    {{--<div class="col-md-12 col-sm-12">--}}
+                                                        {{--<div class="form-group floating-label">--}}
                                                             {{--<label for="apelido">Numero do caso :</label>--}}
-                                                            <a href="{{route('caso.show',$contactos->caso_id )}}" style="font-size: 16px!important;color: green">Numero do caso :</a>
-                                                            <a href="{{route('caso.show',$contactos->caso_id )}}"><span style="font-size: 16px!important;color: green">{{$contactos->caso_id }}</span></a>
+                                                            {{--<a href="{{route('caso.show',$contactos->caso_id )}}" style="font-size: 16px!important;color: green">Numero do caso :</a>--}}
+                                                            {{--<a href="{{route('caso.show',$contactos->caso_id )}}"><span style="font-size: 16px!important;color: green">{{$contactos->caso_id }}</span></a>--}}
                                                             {{--<input type="text" name="caso_id"  id="caso_id" value="{{$contactos->caso_id ? $contactos->caso_id:''}}" class="form-control " disabled>--}}
-                                                        </div>
-                                                    </div>
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
                                                     <div class="col-md-12 col-sm-12">
                                                         <label for="apelido">Estado do Caso :</label>
                                                         <input type="text" name="apelido" value="{{$contactos->caso->estado_caso}}" class="form-control " disabled>
@@ -200,23 +213,25 @@
 
                                         </div>
                                     </div>
-                                       <div class="row" style="margin:182px 0 0 -50px">
-                                           <div class="col-md-4 col-sm-4">
-                                               @if($contactos->caso_id>0 or $contactos->motivo_id>60)
-                                                   <button class=" btn btn-success pull-left" data-id="{{$contactos->id}}" data-title="" data-description="" disabled id="fwd-caso" style="margin-left: 10px">
-                                                       <span class="glyphicon glyphicon-forward"></span> Encaminhar
-                                                   </button>
-                                               @else
-                                                   <button class="btn btn-success pull-left" data-id="{{$contactos->id}}" data-toggle="modal" data-target="#formModal" id="fwd-caso" style="margin-left: 10px">
-                                                       <span class="glyphicon glyphicon-forward"></span> Encaminhar
-                                                   </button>
-                                               @endif
-                                           </div>
-                                           <div class="col-md-4 col-sm-4">
-                                           </div>
-                                           <div class="col-md-4 col-sm-4">
-                                           </div>
-                                       </div>
+                                       {{--<div class="row" style="margin:182px 0 0 -50px">--}}
+                                           {{--<div class="col-md-4 col-sm-4">--}}
+                                               {{--@if($contactos->caso_id>0 or $contactos->motivo_id>60)--}}
+                                                   {{--<button class=" btn btn-success pull-left" data-id="{{$contactos->id}}" data-title="" data-description="" disabled id="fwd-caso" style="margin-left: 10px">--}}
+                                                       {{--<span class="glyphicon glyphicon-forward"></span>--}}
+                                                   {{--</button>--}}
+                                               {{--@else--}}
+                                                   {{--<button class="btn btn-success pull-left" data-id="{{$contactos->id}}" data-toggle="modal" data-target="#formModal" id="fwd-caso" style="margin-left: 10px">--}}
+                                                       {{--<span class="glyphicon glyphicon-forward"></span>--}}
+                                                   {{--</button>--}}
+                                               {{--@endif--}}
+                                           {{--</div>--}}
+                                           {{--<div class="col-md-4 col-sm-4">--}}
+                                               {{--<a class="btn btn-primary btn-sm" href="{{route('caso.show',$contactos->caso_id )}}" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Ver Caso">--}}
+                                                   {{--<i class="fa fa-legal"></i></a>--}}
+                                           {{--</div>--}}
+                                           {{--<div class="col-md-4 col-sm-4">--}}
+                                           {{--</div>--}}
+                                       {{--</div>--}}
 
                             </div>
                             </div>
@@ -460,7 +475,7 @@
                                 <div class="col-md-10 col-sm-10"></div>
                                 <div class="col-md-2 col-sm-2">
                                     <button class="btn btn-success edit-utente" type="submit" id="edit_utente" data-toggle="tooltip" data-placement="top" data-trigger="hover" data-original-title="Actualizar dados do utente">
-                                        <span class="glyphicon glyphicon-refresh"></span> Actualizar
+                                        <span class="glyphicon glyphicon-refresh"></span>
                                     </button>
                                   </div>
                             </div>

@@ -153,7 +153,7 @@ class ChartCasoController extends Controller
                         '<td>'.date('d-M-Y',strtotime($caso->created_at)).'</td>'.
                         '<td>'.date('d-M-Y',strtotime($caso->updated_at)).'</td>'.
                         '<td>'.$caso->created_at->diffForHumans().'</td>'.
-                        '<td>'.$caso->responsavel->respnome.'</td>'.
+                        '<td>'.$caso->instituicao->nome.'</td>'.
                         '<td>'.$caso->estado_caso.'</td>';
 
 //                        '<td>'.$caso->motivo_id ? $caso->motivo->motivonome.'</td>'.
@@ -229,9 +229,6 @@ class ChartCasoController extends Controller
             ->dimensions(0, 400) // Width x Height
             // This defines a preset of colors already done:)
             ->template("material")
-            // You could always set them manually
-            // ->colors(['#2196F3', '#F44336', '#FFC107'])
-            // Setup the diferent datasets (this is a multi chart)
             ->dataset('Element 1', [5,20,100])
             ->dataset('Element 2', [15,30,80])
             ->dataset('Element 3', [25,10,40])
